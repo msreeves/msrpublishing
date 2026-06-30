@@ -1,0 +1,106 @@
+{
+    "key": "group_msr_commentary_author",
+    "title": "Commentary author (MSR)",
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "post"
+            }
+        ]
+    ],
+    "fields": [
+        {
+            "key": "field_msr_post_guest_name",
+            "label": "Guest author name",
+            "name": "guest_author_name",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_msr_post_guest_title",
+            "label": "Guest author title",
+            "name": "guest_author_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_msr_post_guest_image",
+            "label": "Guest author image",
+            "name": "guest_author_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "preview_size": "medium",
+            "library": "all",
+            "min_width": 0,
+            "min_height": 0,
+            "min_size": 0,
+            "max_width": 0,
+            "max_height": 0,
+            "max_size": 0,
+            "mime_types": ""
+        },
+        {
+            "key": "field_msr_post_key_takeaways",
+            "label": "Key takeaways",
+            "name": "key_takeaways",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "row",
+            "button_label": "Add takeaway",
+            "sub_fields": [
+                {
+                    "key": "field_msr_post_key_takeaway_text",
+                    "label": "Takeaway",
+                    "name": "text",
+                    "type": "text"
+                }
+            ]
+        }
+    ],
+    "modified": 1782658290
+}

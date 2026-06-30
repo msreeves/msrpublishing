@@ -1,0 +1,85 @@
+// Animated underline links (publishing) — ::after avoids clashes with background-color / Bootstrap pills
+@mixin msr-link-underline($color: $accent, $thickness: 2px, $offset: 0.12em) {
+	position: relative;
+	text-decoration: none;
+
+	&::after {
+		content: '';
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: $offset;
+		height: $thickness;
+		background-color: $color;
+		transform: scaleX(0);
+		transform-origin: left center;
+		transition: transform 0.28s ease;
+		pointer-events: none;
+	}
+
+	&:hover,
+	&:focus-visible {
+		&::after {
+			transform: scaleX(1);
+		}
+	}
+}
+
+@mixin msr-filter-nav-link($color: $accent) {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	background-color: transparent !important;
+	background-image: none !important;
+	border: 1px solid $border-mid !important;
+	border-radius: 2rem;
+	color: $text-secondary !important;
+	font-weight: 600;
+	padding: 0.35rem 0.9rem;
+	font-size: 0.9rem;
+	text-decoration: none;
+	box-shadow: none !important;
+
+	&::after {
+		content: '';
+		position: absolute;
+		left: 0.75rem;
+		right: 0.75rem;
+		bottom: 0.35rem;
+		height: 2px;
+		background-color: $color;
+		transform: scaleX(0);
+		transform-origin: left center;
+		transition: transform 0.28s ease;
+		pointer-events: none;
+	}
+
+	&:hover,
+	&:focus-visible {
+		color: $ink !important;
+		border-color: $border-mid !important;
+		background-color: transparent !important;
+
+		&::after {
+			transform: scaleX(1);
+		}
+	}
+
+	&.active,
+	&[aria-current='page'] {
+		color: $ink !important;
+		border-color: $ink !important;
+		font-weight: 700;
+		background-color: transparent !important;
+
+		&::after {
+			transform: scaleX(1);
+		}
+	}
+}
+
+// Back-compat alias
+@mixin msr-pill-underline($color: $accent) {
+	@include msr-filter-nav-link($color);
+}

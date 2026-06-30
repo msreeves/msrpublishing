@@ -1,0 +1,493 @@
+{
+    "key": "group_msr_publishing_site_copy",
+    "title": "Site copy & layout",
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "msr-publishing-settings"
+            }
+        ]
+    ],
+    "fields": [
+        {
+            "key": "field_msr_opt_home_featured_resource",
+            "label": "Home featured resource",
+            "name": "home_featured_resource",
+            "aria-label": "",
+            "type": "post_object",
+            "instructions": "Curated hero pick on the home page (overrides automatic featured meta query).",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "resource"
+            ],
+            "return_format": "id",
+            "ui": 1,
+            "allow_null": 1,
+            "taxonomy": [],
+            "multiple": 0,
+            "bidirectional_target": []
+        },
+        {
+            "key": "field_msr_opt_resources_intro",
+            "label": "Resources archive intro",
+            "name": "resources_archive_intro",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Shown under the Resources heading on \/resources\/ and format\/topic archives.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 3,
+            "default_value": "",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_msr_opt_topics_intro",
+            "label": "Topics hub intro",
+            "name": "topics_hub_intro",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Shown on the \/topics\/ hub page.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2,
+            "default_value": "",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_msr_opt_ecosystem_after",
+            "label": "Ecosystem band after resource grid",
+            "name": "ecosystem_band_after_grid",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "When enabled, the MSR programme network band appears after listings on resource archives.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "ui": 1,
+            "default_value": 1,
+            "message": "",
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_msr_opt_footer_demo",
+            "label": "Show footer demo disclaimer",
+            "name": "show_footer_demo_note",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "ui": 1,
+            "default_value": 1,
+            "message": "",
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_msr_opt_footer_demo_text",
+            "label": "Footer demo disclaimer text",
+            "name": "footer_demo_note",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Shown when the footer demo disclaimer toggle is enabled.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_msr_opt_insights_intro",
+            "label": "Insights hub intro",
+            "name": "insights_hub_intro",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Shown on the \/insights\/ hub page.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2,
+            "default_value": "",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_msr_opt_about_lead",
+            "label": "About page lead",
+            "name": "about_page_lead",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Shown under the About heading. Page excerpt overrides when set.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2,
+            "default_value": "",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_msr_opt_about_methodology",
+            "label": "About methodology intro",
+            "name": "about_methodology_intro",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 4,
+            "default_value": "",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_msr_opt_about_bullets",
+            "label": "About methodology bullets",
+            "name": "about_methodology_bullets",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "One bullet per line.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 4,
+            "default_value": "",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_msr_opt_about_format_1_title",
+            "label": "About format card 1 title",
+            "name": "about_format_1_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_msr_opt_about_format_1_text",
+            "label": "About format card 1 text",
+            "name": "about_format_1_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2,
+            "default_value": "",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_msr_opt_about_format_2_title",
+            "label": "About format card 2 title",
+            "name": "about_format_2_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_msr_opt_about_format_2_text",
+            "label": "About format card 2 text",
+            "name": "about_format_2_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2,
+            "default_value": "",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_msr_opt_about_disclaimer",
+            "label": "About demonstration disclaimer",
+            "name": "about_disclaimer",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 3,
+            "default_value": "",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_msr_opt_about_demo",
+            "label": "Show About demo disclaimer",
+            "name": "show_about_demo_notice",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "ui": 1,
+            "default_value": 1,
+            "message": "",
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_msr_opt_subscribe_lead",
+            "label": "Subscribe page lead",
+            "name": "subscribe_page_lead",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Fallback when the Subscribe page has no excerpt.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2,
+            "default_value": "",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_msr_opt_home_about_teaser",
+            "label": "Home About teaser lead",
+            "name": "home_about_teaser_lead",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "One-liner on the home About teaser band.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2,
+            "default_value": "",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_msr_opt_home_social_proof_enabled",
+            "label": "Show home social proof band",
+            "name": "home_social_proof_enabled",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Stats + programme logos below the home hero.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "ui": 1,
+            "default_value": 1,
+            "message": "",
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_msr_opt_home_social_proof_eyebrow",
+            "label": "Home social proof eyebrow",
+            "name": "home_social_proof_eyebrow",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_msr_opt_home_social_proof_stats",
+            "label": "Home social proof stats",
+            "name": "home_social_proof_stats",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "table",
+            "button_label": "Add stat",
+            "min": 0,
+            "max": 4,
+            "sub_fields": [
+                {
+                    "key": "field_msr_opt_home_social_proof_stat_value",
+                    "label": "Value",
+                    "name": "stat_value",
+                    "type": "text"
+                },
+                {
+                    "key": "field_msr_opt_home_social_proof_stat_label",
+                    "label": "Label",
+                    "name": "stat_label",
+                    "type": "text"
+                }
+            ]
+        },
+        {
+            "key": "field_msr_opt_home_social_proof_logos",
+            "label": "Home social proof logos",
+            "name": "home_social_proof_logos",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "button_label": "Add logo",
+            "min": 0,
+            "max": 6,
+            "sub_fields": [
+                {
+                    "key": "field_msr_opt_home_social_proof_org_name",
+                    "label": "Organisation name",
+                    "name": "org_name",
+                    "type": "text"
+                },
+                {
+                    "key": "field_msr_opt_home_social_proof_logo",
+                    "label": "Logo image",
+                    "name": "logo",
+                    "type": "image",
+                    "return_format": "id"
+                },
+                {
+                    "key": "field_msr_opt_home_social_proof_link_url",
+                    "label": "Link URL",
+                    "name": "link_url",
+                    "type": "url"
+                }
+            ]
+        }
+    ],
+    "modified": 1782658290
+}

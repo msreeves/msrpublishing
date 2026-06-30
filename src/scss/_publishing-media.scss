@@ -1,0 +1,244 @@
+// Card + single image system (consistent aspect ratios)
+.msr-card-media {
+	position: relative;
+	display: block;
+	overflow: hidden;
+	width: 100%;
+	flex-shrink: 0;
+	background: $surface-mid;
+	aspect-ratio: 16 / 10;
+
+	&__img {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		max-width: none;
+		max-height: none;
+		object-fit: cover;
+		object-position: center;
+		display: block;
+		margin: 0;
+	}
+
+	&--placeholder {
+		background: linear-gradient(145deg, $surface-mid 0%, darken($surface-mid, 4%) 100%);
+	}
+
+	&__placeholder {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: rgba($ink, 0.28);
+		font-size: clamp(2rem, 8vw, 3rem);
+	}
+}
+
+// Registry owner: resource-card + post-card shells
+.msr-card.resource-card,
+.resource-card {
+	background-color: $surface;
+	border: 1px solid $border-mid;
+	border-top: 3px solid $accent;
+	border-radius: var(--msr-radius, 2px);
+	box-shadow: 0 2px 12px rgba($ink, 0.06);
+	transition: box-shadow 0.3s ease, transform 0.3s ease;
+
+	&:hover {
+		box-shadow: 0 8px 28px rgba($ink, 0.1);
+		transform: translateY(-2px);
+	}
+
+	.card-title {
+		font-family: $display-text;
+		font-weight: 600;
+
+		a {
+			color: $text-primary;
+			@include msr-link-underline($accent);
+
+			&:hover,
+			&:focus-visible {
+				color: $text-primary;
+			}
+		}
+	}
+
+	.card-text,
+	.text-muted {
+		color: $text-secondary !important;
+	}
+}
+
+.msr-card.resource-card,
+.msr-card.post-card,
+.resource-card,
+.post-card {
+	display: flex;
+	flex-direction: column;
+	min-height: 0;
+
+	.msr-card-media {
+		border-radius: var(--msr-radius, 2px) var(--msr-radius, 2px) 0 0;
+	}
+
+	.card-body {
+		flex: 1 1 auto;
+		min-height: 0;
+	}
+
+	// Legacy img without wrapper
+	> a:not(.msr-card-media) .card-img-top,
+	.card-img-top:not(.msr-card-media__img) {
+		aspect-ratio: 16 / 10;
+		object-fit: cover;
+		width: 100%;
+	}
+}
+
+.msr-card.post-card,
+.post-card {
+	border-color: $border-mid;
+	background: $surface;
+
+	&__image-link {
+		display: block;
+		overflow: hidden;
+	}
+
+	.card-img-top {
+		transition: transform 0.2s ease;
+	}
+
+	&:hover .card-img-top {
+		transform: scale(1.02);
+	}
+
+	&__topics .badge + .badge {
+		margin-left: 0.25rem;
+	}
+
+	.card-title a {
+		color: $ink;
+		@include msr-link-underline($accent);
+
+		&:hover,
+		&:focus-visible {
+			color: $ink;
+		}
+	}
+}
+
+.resource-card__programme {
+	letter-spacing: 0.02em;
+}
+
+.resource-card--featured {
+	&:hover {
+		transform: none;
+	}
+}
+
+.publishing-featured-hero .resource-card {
+	border: 1px solid $border-mid;
+	box-shadow: 0 10px 30px rgba($ink, 0.06);
+}
+
+.resource-single__related {
+	.resource-card {
+		height: 100%;
+	}
+}
+
+.msr-single-media {
+	margin-bottom: 1.5rem;
+
+	&__frame {
+		overflow: hidden;
+		border-radius: var(--msr-radius, 2px);
+		background: $surface-mid;
+		max-height: min(28rem, 52vw);
+		aspect-ratio: 16 / 9;
+	}
+
+	&__img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center;
+		display: block;
+		margin: 0;
+	}
+}
+
+.msr-video-embed {
+	&__frame {
+		position: relative;
+		overflow: hidden;
+		border-radius: var(--msr-radius, 2px);
+		background: $ink;
+		aspect-ratio: 16 / 9;
+		max-width: 100%;
+
+		iframe,
+		embed,
+		object,
+		video {
+			position: absolute;
+			inset: 0;
+			width: 100%;
+			height: 100%;
+			border: 0;
+		}
+	}
+}
+
+.msr-podcast-player {
+	&__frame {
+		border-radius: var(--msr-radius, 2px);
+		background: $surface-mid;
+		border: 1px solid $border-mid;
+		padding: 1rem 1.25rem;
+		max-width: 100%;
+	}
+
+	&__audio {
+		display: block;
+		width: 100%;
+		max-width: 100%;
+	}
+}
+
+.msr-podcast-rss-link {
+	@include msr-link-underline($accent);
+	color: $text-primary;
+	font-weight: 600;
+
+	&:hover,
+	&:focus-visible {
+		color: $accent-dark;
+	}
+}
+
+.webinar-speakers {
+	&__name {
+		font-family: $display-text;
+	}
+}
+
+body.msr-publishing {
+	.featured-media-inner img {
+		max-height: min(24rem, 50vw);
+		height: auto;
+		width: 100%;
+		object-fit: cover;
+		aspect-ratio: 16 / 9;
+	}
+}
+
+.publishing-featured-hero .msr-card-media,
+.publishing-hub-featured__card .msr-card-media {
+	aspect-ratio: 16 / 10;
+}

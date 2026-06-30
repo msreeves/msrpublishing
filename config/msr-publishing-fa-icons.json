@@ -1,0 +1,34 @@
+{
+  "_comment": "Canonical Font Awesome subset for Atlas Briefing (P44). Update when adding icons.",
+  "solid": [
+    "magnifying-glass",
+    "chevron-down",
+    "file-pdf",
+    "video",
+    "briefcase",
+    "list-check",
+    "chart-line",
+    "building",
+    "circle-play",
+    "podcast",
+    "file-lines",
+    "arrow-up-right-from-square",
+    "link",
+    "calendar-days",
+    "clock",
+    "trophy",
+    "chalkboard-user",
+    "rss",
+    "calendar",
+    "location-dot"
+  ],
+  "brands": [
+    "linkedin",
+    "x-twitter",
+    "twitter",
+    "youtube",
+    "facebook",
+    "instagram",
+    "github"
+  ]
+}

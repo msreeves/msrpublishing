@@ -1,0 +1,18 @@
+@import 'components/cta';
+@import 'components/forms';
+@import 'components/posts';
+@import 'elements/typography';
+@import 'elements/buttons';
+@import 'elements/media';
+@import 'elements/motion';
+
+body.msr-publishing {
+	.publishing-subscribe-value-prop__explore a {
+		color: $text-primary;
+
+		&:hover,
+		&:focus-visible {
+			color: $accent-dark;
+		}
+	}
+}

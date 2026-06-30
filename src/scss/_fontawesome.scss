@@ -1,0 +1,86 @@
+// Font Awesome — publishing subset (P44). Regenerate fonts: npm run fa:subset
+$fa-font-path: '../webfonts';
+$fa-font-display: swap;
+
+@import '@fortawesome/fontawesome-free/scss/functions';
+@import '@fortawesome/fontawesome-free/scss/variables';
+
+$msr-publishing-fa-solid-icons: (
+	'magnifying-glass': $fa-var-magnifying-glass,
+	'chevron-down': $fa-var-chevron-down,
+	'file-pdf': $fa-var-file-pdf,
+	'video': $fa-var-video,
+	'briefcase': $fa-var-briefcase,
+	'list-check': $fa-var-list-check,
+	'circle-play': $fa-var-circle-play,
+	'podcast': $fa-var-podcast,
+	'file-lines': $fa-var-file-lines,
+	'arrow-up-right-from-square': $fa-var-arrow-up-right-from-square,
+	'link': $fa-var-link,
+	'calendar-days': $fa-var-calendar-days,
+	'clock': $fa-var-clock,
+	'trophy': $fa-var-trophy,
+	'chalkboard-user': $fa-var-chalkboard-user,
+	'rss': $fa-var-rss,
+	'calendar': $fa-var-calendar,
+	'location-dot': $fa-var-location-dot,
+	'map-marker': $fa-var-location-dot,
+);
+
+$msr-publishing-fa-brand-icons: (
+	'linkedin': $fa-var-linkedin,
+	'x-twitter': $fa-var-x-twitter,
+	'twitter': $fa-var-twitter,
+	'youtube': $fa-var-youtube,
+	'facebook': $fa-var-facebook,
+	'instagram': $fa-var-instagram,
+	'github': $fa-var-github,
+);
+
+@import '@fortawesome/fontawesome-free/scss/mixins';
+@import '@fortawesome/fontawesome-free/scss/core';
+@import '@fortawesome/fontawesome-free/scss/sizing';
+@import '@fortawesome/fontawesome-free/scss/fixed-width';
+@import '@fortawesome/fontawesome-free/scss/list';
+@import '@fortawesome/fontawesome-free/scss/bordered-pulled';
+@import '@fortawesome/fontawesome-free/scss/animated';
+
+@font-face {
+	font-family: 'Font Awesome 6 Free';
+	font-style: normal;
+	font-weight: 900;
+	font-display: $fa-font-display;
+	src: url('#{$fa-font-path}/fa-solid-subset.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Font Awesome 6 Brands';
+	font-style: normal;
+	font-weight: 400;
+	font-display: $fa-font-display;
+	src: url('#{$fa-font-path}/fa-brands-subset.woff2') format('woff2');
+}
+
+.fas,
+.#{$fa-css-prefix}-solid {
+	font-family: 'Font Awesome 6 Free';
+	font-weight: 900;
+}
+
+.fab,
+.#{$fa-css-prefix}-brands {
+	font-family: 'Font Awesome 6 Brands';
+	font-weight: 400;
+}
+
+@each $name, $icon in $msr-publishing-fa-solid-icons {
+	.#{$fa-css-prefix}-#{$name} {
+		#{$fa-icon-property}: unquote('"#{ $icon }"');
+	}
+}
+
+@each $name, $icon in $msr-publishing-fa-brand-icons {
+	.#{$fa-css-prefix}-#{$name} {
+		#{$fa-icon-property}: unquote('"#{ $icon }"');
+	}
+}

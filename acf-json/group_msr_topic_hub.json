@@ -1,0 +1,60 @@
+{
+    "key": "group_msr_topic_hub",
+    "title": "Topic hub (Atlas Briefing)",
+    "location": [
+        [
+            {
+                "param": "taxonomy",
+                "operator": "==",
+                "value": "topic"
+            }
+        ]
+    ],
+    "fields": [
+        {
+            "key": "field_msr_topic_hub_intro",
+            "label": "Hub intro",
+            "name": "hub_intro",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Curated editor copy on the topic archive. Falls back to the term description when empty.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 4,
+            "default_value": "",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_msr_topic_hub_featured",
+            "label": "Featured pick",
+            "name": "hub_featured_resource",
+            "aria-label": "",
+            "type": "post_object",
+            "instructions": "Curated resource for the hub featured pick row.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "resource"
+            ],
+            "return_format": "id",
+            "allow_null": 1,
+            "taxonomy": [],
+            "multiple": 0,
+            "ui": 1,
+            "bidirectional_target": []
+        }
+    ],
+    "modified": 1782658290
+}

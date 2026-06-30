@@ -1,0 +1,289 @@
+body {
+	background-color: $paper;
+	margin: 0;
+	color: $text-primary;
+	font-size: 1rem;
+	line-height: 1.5;
+
+	section {
+		padding: var(--msr-section-y, 5rem) 0;
+
+		&#advert {
+			padding: 2rem 0;
+			background: $surface;
+			border-top: 1px solid $border-mid;
+			border-bottom: 1px solid $border-mid;
+		}
+	}
+}
+
+p {
+	font-family: $body-text;
+	margin-bottom: 1.5em;
+	color: $text-primary;
+}
+
+span {
+	font-family: $body-text;
+
+	&.sponsored {
+		text-transform: uppercase;
+		margin-bottom: 1.2rem;
+		font-size: 1rem;
+		color: $accent;
+	}
+}
+
+button {
+	font-family: $body-text;
+	font-size: 1rem;
+	line-height: 1.5;
+	color: $text-primary;
+}
+
+input {
+	font-family: $body-text;
+	font-size: 1rem;
+	line-height: 1.5;
+	color: $text-primary;
+}
+
+.form-control::placeholder {
+	color: $text-muted;
+	opacity: 1;
+}
+
+#searchform input[type=text]:focus {
+	color: $text-primary;
+}
+
+select {
+	color: $text-primary;
+	font-family: $body-text;
+	font-size: 1rem;
+	line-height: 1.5;
+}
+
+optgroup {
+	color: $text-primary;
+	font-family: $body-text;
+	font-size: 1rem;
+	line-height: 1.5;
+}
+
+textarea {
+	color: $text-primary;
+	font-family: $body-text;
+	font-size: 1rem;
+	line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: $header-text;
+	letter-spacing: 0.02em;
+	font-weight: 600;
+	line-height: 1.15;
+	margin-bottom: 1rem;
+	color: $text-primary;
+}
+
+h1 {
+	font-family: $display-text;
+	font-size: clamp(2.4rem, 5vw, 3.75rem);
+	text-align: center;
+	font-weight: 700;
+	letter-spacing: 0.01em;
+
+	@include media(">tablet", "<=desktop") {
+		font-size: 2.6rem;
+	}
+
+	@include media(">phone", "<=tablet") {
+		font-size: 2.2rem;
+	}
+}
+
+h2 {
+	font-family: $display-text;
+	font-size: 2.2rem;
+	font-weight: 600;
+
+	@include media(">phone") {
+		font-size: 1.75rem;
+	}
+}
+
+h3 {
+	font-size: 1.5rem;
+
+	@include media(">phone") {
+		font-size: 1.25rem;
+	}
+}
+
+.advert {
+	p {
+		font-size: 1.1rem;
+		text-decoration-line: underline;
+		text-decoration-style: double;
+		font-weight: 700;
+		color: $accent;
+		cursor: pointer;
+		text-align: center;
+	}
+}
+
+.search-highlight {
+	background: rgba($accent, 0.25);
+	color: $text-primary;
+}
+
+dfn { font-style: italic; }
+cite { font-style: italic; }
+em   { font-style: italic; }
+i    { font-style: italic; }
+
+blockquote {
+	margin: 0 1.5em;
+	border-left: 3px solid $accent;
+	padding-left: 1rem;
+	color: $text-secondary;
+}
+
+address {
+	margin: 0 0 1.5em;
+}
+
+pre {
+	background: $surface;
+	border: 1px solid $border-mid;
+	font-family: "Courier 10 Pitch", courier, monospace;
+	line-height: 1.6;
+	margin-bottom: 1.6em;
+	max-width: 100%;
+	overflow: auto;
+	padding: 1.6em;
+	color: $text-primary;
+}
+
+code, kbd, tt, var {
+	font-family: monaco, consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
+}
+
+abbr, acronym {
+	border-bottom: 1px dotted $border-strong;
+	cursor: help;
+}
+
+mark, ins {
+	background: rgba($accent, 0.15);
+	color: $text-primary;
+	text-decoration: none;
+}
+
+big {
+	font-size: 125%;
+}
+
+hr {
+	background-color: $border-mid;
+	border: 0;
+	height: 1px;
+	margin-bottom: 1.5em;
+}
+
+ul {
+	margin: 0 0 1.5em 3em;
+	list-style: disc;
+}
+
+dt {
+	font-weight: 700;
+	color: $text-primary;
+}
+
+dd {
+	margin: 0 1.5em 1.5em;
+}
+
+embed { max-width: 100%; }
+iframe { width: 100%; }
+object { max-width: 100%; }
+figure { margin: 1em 0; }
+
+table {
+	margin: 0 0 1.5em;
+	width: 100%;
+	color: $text-primary;
+}
+
+.entry-content a:not(.btn):not(.badge),
+.wp-block-post-content a:not(.btn):not(.badge),
+.card-text a:not(.btn):not(.badge),
+.publishing-page__body a:not(.btn):not(.badge) {
+	color: $accent-dark;
+	transition: color 0.2s ease;
+
+	&:hover {
+		color: $accent;
+		outline: 0;
+	}
+
+	&:focus {
+		color: $accent;
+		outline: 2px solid $accent;
+		outline-offset: 2px;
+	}
+
+	&:active {
+		color: $accent-dark;
+		outline: 0;
+	}
+}
+
+.wp-caption {
+	margin-bottom: 1.5em;
+	max-width: 100%;
+
+	img[class*="wp-image-"] {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.wp-caption-text {
+		text-align: center;
+		color: $text-secondary;
+		font-size: 0.9rem;
+	}
+}
+
+.wp-caption-text {
+	margin: 0.8075em 0;
+}
+
+ol {
+	--icon-space: 1.3em;
+	list-style: none;
+	padding: 0;
+
+	&.commentlist {
+		li {
+			padding-left: var(--icon-space);
+
+			&:before {
+				content: "\f0f3";
+				font-family: FontAwesome;
+				display: inline-block;
+				font-size: 2rem;
+				color: $accent;
+			}
+		}
+	}
+}
+
+.partner {
+	span {
+		width: fit-content;
+	}
+}

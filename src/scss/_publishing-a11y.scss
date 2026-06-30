@@ -1,0 +1,184 @@
+// Accessibility — skip link, focus rings, touch targets (audit P0).
+body.msr-publishing {
+	--publishing-focus-ring: #{$accent};
+	--publishing-focus-offset: 3px;
+}
+
+.publishing-skip-link {
+	position: absolute;
+	top: 0.5rem;
+	left: 0.5rem;
+	z-index: 2000;
+	padding: 0.65rem 1rem;
+	background: $ink;
+	color: $paper;
+	font-weight: 600;
+	text-decoration: none;
+	border-radius: var(--msr-radius, 2px);
+	transform: translateY(-140%);
+	transition: transform 0.2s ease;
+
+	&:focus,
+	&:focus-visible {
+		transform: translateY(0);
+		outline: 2px solid var(--publishing-focus-ring, #{$accent});
+		outline-offset: var(--publishing-focus-offset, 3px);
+	}
+}
+
+body.msr-publishing {
+	a:focus:not(:focus-visible),
+	button:focus:not(:focus-visible),
+	.btn:focus:not(:focus-visible),
+	input:focus:not(:focus-visible) {
+		outline: none;
+		box-shadow: none;
+	}
+
+	a:focus-visible,
+	button:focus-visible,
+	.btn:focus-visible,
+	input:focus-visible,
+	.form-control:focus-visible,
+	.publishing-filter-bar__link:focus-visible,
+	.publishing-filter-bar__tab:focus-visible,
+	.publishing-menu-toggle:focus-visible,
+	.publishing-fullscreen-nav__link:focus-visible,
+	.publishing-fullscreen-nav__sublink:focus-visible,
+	.publishing-fullscreen-nav__view-all:focus-visible,
+	.publishing-fullscreen-nav__cta:focus-visible,
+	.resource-card__type:focus-visible,
+	.msr-card-media:focus-visible {
+		outline: 2px solid var(--publishing-focus-ring, #{$accent});
+		outline-offset: var(--publishing-focus-offset, 3px);
+	}
+}
+
+body.msr-publishing {
+	.btn,
+	.btn-primary,
+	.btn-outline-primary,
+	.btn-outline-secondary {
+		min-height: 2.75rem;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding-block: 0.65rem;
+	}
+
+	.btn-sm {
+		min-height: 2.75rem;
+		padding-block: 0.5rem;
+		padding-inline: 0.85rem;
+	}
+
+	.publishing-filter-bar__link,
+	.publishing-filter-bar__tab,
+	.resource-card__type,
+	.resource-card__format,
+	.publishing-site-footer__links a,
+	.publishing-site-footer__cta,
+	.publishing-site-footer__subscribe,
+	.publishing-site-footer__about a,
+	.publishing-site-footer__social-link,
+	.publishing-subscribe-value-prop__explore a,
+	.resource-card .card-title a,
+	.post-card .card-title a,
+	#cssmenu > ul > li > a,
+	.nav-pills .nav-link,
+	.publishing-menu-toggle,
+	header .site-header__search .btn,
+	header .navbar-brand,
+	.publishing-fullscreen-nav__link,
+	.publishing-fullscreen-nav__sublink,
+	.publishing-fullscreen-nav__view-all,
+	.publishing-megamenu__link,
+	.publishing-megamenu__view-all,
+	.publishing-expert-card__link,
+	.publishing-byline__link,
+	.publishing-single-toc__link,
+	.resource-single__series-link,
+	.publishing-topics-hub__card .card-title a {
+		min-height: 2.75rem;
+		display: inline-flex;
+		align-items: center;
+	}
+
+	header .site-header__search .btn {
+		min-width: 2.75rem;
+		justify-content: center;
+	}
+
+	.publishing-menu-toggle {
+		min-width: 2.75rem;
+	}
+
+	.publishing-site-footer__links a,
+	.publishing-site-footer__about a,
+	.publishing-subscribe-value-prop__explore a {
+		padding-block: 0.35rem;
+		min-width: 2.75rem;
+	}
+
+	.msr-breadcrumbs__item a {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 2.75rem;
+		min-width: 2.75rem;
+		padding-inline: 0.35rem;
+	}
+
+	.publishing-fullscreen-nav__link,
+	.publishing-fullscreen-nav__sublink,
+	.publishing-fullscreen-nav__view-all {
+		display: flex;
+		align-items: center;
+		padding-block: 0.5rem;
+	}
+
+	.resource-card .card-title a,
+	.post-card .card-title a {
+		padding-block: 0.35rem;
+		line-height: 1.35;
+	}
+
+	.publishing-subscribe-value-prop__explore a,
+	.publishing-privacy-page__demo a {
+		min-height: 2.75rem;
+		display: inline-flex;
+		align-items: center;
+		padding-block: 0.35rem;
+	}
+
+	#cssmenu > ul > li > a {
+		padding-block: 0.65rem;
+	}
+}
+
+// Registry owner: resource-card topic/format badges
+.resource-card__type,
+.resource-single__types .badge {
+	background: rgba($accent, 0.12);
+	color: $accent-dark;
+	font-weight: 600;
+	letter-spacing: 0.03em;
+	text-transform: uppercase;
+	font-size: 0.7rem;
+}
+
+.resource-card__format {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.25rem;
+}
+
+.resource-card--whitepaper .resource-card__format {
+	background: rgba($ink, 0.08);
+	color: $ink;
+}
+
+.resource-card--webinar .resource-card__format {
+	background: rgba($accent, 0.18);
+	color: $accent-dark;
+}

@@ -1,0 +1,18 @@
+.cta {
+	background-color: $surface-mid;
+	background-size: cover;
+	background-repeat: no-repeat;
+	border-top: 1px solid $border-mid;
+	border-bottom: 1px solid $border-mid;
+
+	> .container {
+		position: relative;
+		z-index: 2;
+	}
+
+	.panel {
+		background-color: $surface;
+		border-top: 2px solid $accent;
+		box-shadow: 0 4px 20px rgba($ink, 0.06);
+	}
+}

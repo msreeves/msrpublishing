@@ -1,0 +1,185 @@
+.sponsor {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: center;
+	margin-left: auto;
+	margin-right: auto;
+	gap: 1.5rem;
+
+	a {
+		background: $surface;
+		border: 1px solid $border-mid;
+		border-radius: 4px;
+		padding: 12px 16px;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		transition: box-shadow 0.25s ease;
+
+		&:hover {
+			box-shadow: 0 4px 16px rgba($accent, 0.18);
+		}
+	}
+
+	img {
+		max-width: 180px;
+		max-height: 80px;
+		width: auto;
+		height: auto;
+		object-fit: contain;
+		filter: none;
+		opacity: 1;
+	}
+}
+
+.lb-caption {
+	display: none !important;
+}
+
+img {
+	height: 100%;
+	max-width: 100%;
+}
+
+.background-image {
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	width: 100%;
+}
+
+.people {
+	.panel {
+		.listing-image {
+			img {
+				height: 70vh;
+
+				@include media(">tablet", "<=desktop") {
+					object-fit: contain;
+					height: 40vh;
+				}
+
+				@include media(">phone", "<=tablet") {
+					height: 60vh;
+				}
+			}
+		}
+	}
+}
+
+.post {
+	.listing-image {
+		overflow: hidden;
+
+		img {
+			transition: transform 0.5s ease;
+
+			@include media(">tablet", "<=desktop") {
+				height: 40vh;
+				width: 320px;
+			}
+
+			@include media(">phone", "<=tablet") {
+				height: 40vh;
+			}
+		}
+
+		&:hover {
+			img {
+				transform: scale(1.05);
+			}
+		}
+	}
+}
+
+.icon {
+	text-align: center;
+	margin-bottom: 1rem;
+
+	i {
+		font-size: 2.5rem;
+		color: $accent;
+		line-height: 1;
+	}
+
+	img {
+		margin: 0 auto;
+		overflow: hidden;
+		width: auto;
+		max-width: 64px;
+		object-fit: contain;
+		height: auto;
+	}
+}
+
+.listing-image {
+	img {
+		margin: 0;
+		object-fit: cover;
+		object-position: center;
+		overflow: hidden;
+		height: 60vh;
+		width: 100%;
+	}
+}
+
+.listing-video {
+	iframe {
+		object-fit: contain;
+		object-position: center;
+		overflow: hidden;
+		height: 60vh;
+		width: 100%;
+	}
+}
+
+.featured-media-inner {
+	img {
+		margin: 0;
+		object-fit: cover;
+		object-position: center;
+		overflow: hidden;
+		height: 60vh;
+		width: 100%;
+	}
+}
+
+.partner-listing-image {
+	background: $surface;
+	border: 1px solid $border-mid;
+	border-radius: 4px;
+	padding: 12px 16px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 80px;
+	transition: box-shadow 0.25s ease;
+
+	&:hover {
+		box-shadow: 0 4px 16px rgba($accent, 0.15);
+	}
+
+	img {
+		object-fit: contain;
+		object-position: center;
+		overflow: hidden;
+		height: auto;
+		max-height: 80px;
+		max-width: 200px;
+		width: auto;
+		filter: none;
+		opacity: 1;
+	}
+}
+
+.fa-brands {
+	font-size: 3.2rem;
+	color: $accent;
+	transition: color 0.2s ease;
+
+	&:hover {
+		color: $accent-light;
+	}
+}

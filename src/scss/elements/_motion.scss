@@ -1,0 +1,71 @@
+// Scroll-reveal — content stays visible until JS enhances (audit P0 a11y).
+html.js-reveal .msr-reveal:not(.is-visible) {
+	opacity: 0;
+	transform: translate3d(-1.5rem, 0, 0);
+	transition:
+		opacity 0.75s ease,
+		transform 0.75s ease;
+}
+
+html.js-reveal .msr-reveal.is-visible {
+	opacity: 1;
+	transform: translate3d(0, 0, 0);
+}
+
+html.js-reveal .msr-reveal--up:not(.is-visible) {
+	transform: translate3d(0, 1.75rem, 0);
+}
+
+html.js-reveal .msr-reveal--up.is-visible {
+	transform: translate3d(0, 0, 0);
+}
+
+html.js-reveal .msr-reveal-stagger > .is-visible {
+	transition-duration: 0.65s;
+}
+
+html.js-reveal [data-msr-reveal-stagger='hero'] > .msr-reveal.is-visible {
+	transition-duration: 0.72s;
+}
+
+html.js-reveal [data-msr-reveal-stagger='bento'] > .msr-reveal.is-visible {
+	transition-duration: 0.68s;
+}
+
+html.js-reveal .publishing-home-hero__visual.msr-reveal {
+	transition-delay: 0.45s;
+}
+
+.msr-reveal {
+	opacity: 1;
+	transform: none;
+}
+
+.publishing-commentary__panes .tab-pane.fade {
+	transition: opacity 0.35s ease;
+}
+
+.publishing-commentary__panes .tab-pane.fade:not(.show) {
+	opacity: 0;
+}
+
+.publishing-commentary__panes .tab-pane.fade.show {
+	opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html.js-reveal .msr-reveal:not(.is-visible),
+	.msr-reveal {
+		opacity: 1;
+		transform: none;
+		transition: none;
+	}
+
+	html.js-reveal .publishing-home-hero__visual.msr-reveal {
+		transition-delay: 0s;
+	}
+
+	.publishing-commentary__panes .tab-pane.fade {
+		transition: none;
+	}
+}

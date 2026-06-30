@@ -1,0 +1,67 @@
+{
+    "key": "group_msr_publishing_options",
+    "title": "MSR programme URLs",
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "msr-publishing-settings"
+            }
+        ]
+    ],
+    "fields": [
+        {
+            "key": "field_msr_opt_hub_url",
+            "label": "MSR Events hub URL",
+            "name": "msr_programme_hub_url",
+            "aria-label": "",
+            "type": "url",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_msr_opt_awards_url",
+            "label": "MSR Awards URL",
+            "name": "msr_programme_awards_url",
+            "aria-label": "",
+            "type": "url",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_msr_opt_seminars_url",
+            "label": "MSR Seminars URL",
+            "name": "msr_programme_seminars_url",
+            "aria-label": "",
+            "type": "url",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        }
+    ],
+    "modified": 1782658290
+}

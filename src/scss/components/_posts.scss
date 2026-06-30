@@ -1,0 +1,241 @@
+article {
+	background-color: $surface;
+	padding: 10px;
+	color: $text-primary;
+}
+
+article {
+	&.post {
+		.entry-content {
+			section {
+				&:first-letter {
+					font-size: 8.5rem;
+					font-weight: bold;
+					color: $accent;
+				}
+			}
+
+			ol {
+				list-style: decimal;
+			}
+		}
+	}
+}
+
+.entry-header {
+	max-width: 72rem;
+	width: calc(100% - 4rem);
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+.entry-content {
+	max-width: 58rem;
+	width: calc(100% - 4rem);
+	margin-left: auto;
+	margin-right: auto;
+
+	@include media(">phone", "<=tablet") {
+		margin: 0;
+		width: 100%;
+	}
+
+	p {
+		font-size: 1.25rem;
+		line-height: 1.6;
+		color: $text-primary;
+	}
+}
+
+.post {
+	&.panel {
+		box-shadow: 0 4px 20px rgba($ink, 0.08);
+		border-top: 2px solid $accent;
+
+		@include media(">tablet", "<=desktop") {
+			flex-direction: row;
+			margin-bottom: 0;
+		}
+
+		@include media(">phone", "<=tablet") {
+			flex-direction: column;
+		}
+
+		.listing-text {
+			padding: 20px;
+
+			@include media(">tablet", "<=desktop") {
+				padding: 0 10px;
+				width: 100%;
+				margin-top: auto;
+				margin-bottom: auto;
+			}
+		}
+	}
+}
+
+.panel {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	background-color: $surface;
+	color: $text-primary;
+	padding: 20px;
+	margin-bottom: 20px;
+	border-radius: 0.2rem;
+	border-top: 2px solid $accent;
+	box-shadow: 0 4px 16px rgba($ink, 0.06);
+	transition: box-shadow 0.3s ease, transform 0.3s ease;
+
+	&:hover {
+		box-shadow: 0 8px 28px rgba($accent, 0.12);
+		transform: translateY(-2px);
+	}
+
+	button {
+		width: 100%;
+	}
+
+	span {
+		background-color: $accent;
+		color: $paper;
+		margin: 0 5px 10px 0;
+		padding: 0 8px;
+		font-size: 0.85rem;
+		font-weight: 700;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		display: inline-block;
+	}
+
+	h2, h3 {
+		color: $text-primary;
+	}
+
+	p {
+		color: $text-secondary;
+	}
+}
+
+.latest.post-tabs {
+	.nav-tabs {
+		border-bottom: 1px solid $border-mid;
+
+		button {
+			background: transparent;
+			color: $text-secondary;
+			border: 1px solid transparent;
+			font-size: 0.9rem;
+			padding: 0.5rem 1rem;
+
+			&:hover {
+				color: $accent;
+				border-color: $border-mid;
+			}
+		}
+
+		.active button,
+		li.active button {
+			color: $accent;
+			border-color: $accent;
+			background: $surface;
+		}
+	}
+}
+
+.msr-filter-tabs__empty {
+	text-align: center;
+	color: $text-secondary;
+	padding: 2rem 1rem;
+	margin: 0;
+}
+
+.msr-filter-tabs {
+	margin-top: 1.5rem;
+
+	.nav-tabs {
+		display: flex;
+		justify-content: center;
+		border-bottom: 1px solid $border-mid;
+		margin: 0;
+
+		li,
+		.nav-item {
+			margin: 10px;
+			font-family: $header-text;
+		}
+
+		.nav-link {
+			color: $text-secondary;
+			background: transparent;
+			border: none;
+			border-bottom: 2px solid transparent;
+			padding: 0.5rem 1rem;
+			transition: color 0.2s, border-color 0.2s;
+
+			&:hover {
+				color: $accent;
+				border-bottom-color: $accent;
+			}
+
+			&.active {
+				color: $accent;
+				border-bottom: 2px solid $accent;
+				background: transparent;
+			}
+		}
+	}
+}
+
+.pagination .nav-links {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+}
+
+.pagination a.page-numbers,
+span.page-numbers {
+	background: $surface;
+	border: 1px solid $border-mid;
+	text-transform: uppercase;
+	border-radius: 2px;
+	color: $text-primary;
+	display: inline-block;
+	letter-spacing: 0.06em;
+	line-height: 1.25;
+	padding: 0.75rem 1rem;
+	text-align: center;
+	font-family: $header-text;
+	margin: 0 4px;
+	text-decoration: none;
+	transition: background 0.2s, color 0.2s, border-color 0.2s;
+
+	&:hover,
+	&.current {
+		background: $accent;
+		color: $paper;
+		border-color: $accent;
+	}
+}
+
+.comments-wrapper {
+	max-width: 58rem;
+	width: calc(100% - 4rem);
+	margin-left: auto;
+	margin-right: auto;
+	padding: 3rem 0;
+
+	.comment-meta {
+		background-color: $surface-mid;
+		color: $text-primary;
+
+		.comment-author {
+			display: none;
+		}
+	}
+}
+
+.publication {
+	background-color: $paper;
+}

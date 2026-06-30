@@ -1,0 +1,76 @@
+{
+    "key": "group_msr_publishing_block_patterns",
+    "title": "Block pattern copy",
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "msr-publishing-settings"
+            }
+        ]
+    ],
+    "fields": [
+        {
+            "key": "field_msr_opt_bp_subscribe",
+            "label": "Subscribe band pattern text",
+            "name": "block_pattern_subscribe_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2,
+            "default_value": "",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_msr_opt_bp_resource",
+            "label": "Resource CTA pattern text",
+            "name": "block_pattern_resource_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2,
+            "default_value": "",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_msr_opt_bp_hub",
+            "label": "Hub hero pattern text",
+            "name": "block_pattern_hub_hero_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2,
+            "default_value": "",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
+        }
+    ],
+    "modified": 1782658290
+}

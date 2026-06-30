@@ -1,0 +1,579 @@
+{
+    "key": "group_msr_resource_free",
+    "title": "Resource details (MSR)",
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "resource"
+            }
+        ]
+    ],
+    "fields": [
+        {
+            "key": "field_msr_res_hero",
+            "label": "Hero image",
+            "name": "hero_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "preview_size": "medium",
+            "library": "all",
+            "min_width": 0,
+            "min_height": 0,
+            "min_size": 0,
+            "max_width": 0,
+            "max_height": 0,
+            "max_size": 0,
+            "mime_types": ""
+        },
+        {
+            "key": "field_msr_res_external",
+            "label": "External URL",
+            "name": "external_url",
+            "aria-label": "",
+            "type": "url",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_msr_res_is_external",
+            "label": "External link",
+            "name": "is_external",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "ui": 1,
+            "default_value": 0,
+            "message": "",
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_msr_res_read_time",
+            "label": "Read time (minutes)",
+            "name": "read_time_minutes",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "min": 0,
+            "step": 1,
+            "default_value": "",
+            "max": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_msr_res_series_order",
+            "label": "Series reading order",
+            "name": "series_reading_order",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "Position in a resource series hub (1 = start here).",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "min": 1,
+            "step": 1,
+            "default_value": "",
+            "max": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_msr_res_featured",
+            "label": "Featured resource",
+            "name": "featured",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "ui": 1,
+            "default_value": 0,
+            "message": "",
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_msr_res_guest_name",
+            "label": "Guest author name",
+            "name": "guest_author_name",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_msr_res_guest_title",
+            "label": "Guest author title",
+            "name": "guest_author_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_msr_res_guest_image",
+            "label": "Guest author image",
+            "name": "guest_author_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "preview_size": "medium",
+            "library": "all",
+            "min_width": 0,
+            "min_height": 0,
+            "min_size": 0,
+            "max_width": 0,
+            "max_height": 0,
+            "max_size": 0,
+            "mime_types": ""
+        },
+        {
+            "key": "field_msr_res_pdf_file",
+            "label": "PDF file (whitepaper)",
+            "name": "pdf_file",
+            "aria-label": "",
+            "type": "file",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "mime_types": "pdf",
+            "library": "all",
+            "min_size": 0,
+            "max_size": 0
+        },
+        {
+            "key": "field_msr_res_gate_download",
+            "label": "Gate download",
+            "name": "gate_download",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "ui": 1,
+            "default_value": 0,
+            "message": "",
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_msr_res_webinar_date",
+            "label": "Webinar date",
+            "name": "webinar_date",
+            "aria-label": "",
+            "type": "date_picker",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "display_format": "j M Y",
+            "return_format": "Y-m-d",
+            "first_day": 1,
+            "default_to_current_date": 0
+        },
+        {
+            "key": "field_msr_res_register_url",
+            "label": "Registration URL",
+            "name": "register_url",
+            "aria-label": "",
+            "type": "url",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_msr_res_replay_url",
+            "label": "Replay URL",
+            "name": "replay_url",
+            "aria-label": "",
+            "type": "url",
+            "instructions": "YouTube or Vimeo URL embeds on the single; other URLs show as an external replay button.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_msr_res_webinar_speakers",
+            "label": "Webinar speakers",
+            "name": "webinar_speakers",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "button_label": "Add speaker",
+            "sub_fields": [
+                {
+                    "key": "field_msr_res_webinar_speaker_name",
+                    "label": "Name",
+                    "name": "name",
+                    "type": "text"
+                },
+                {
+                    "key": "field_msr_res_webinar_speaker_title",
+                    "label": "Title \/ role",
+                    "name": "title",
+                    "type": "text"
+                }
+            ]
+        },
+        {
+            "key": "field_msr_res_duration_minutes",
+            "label": "Duration (minutes)",
+            "name": "duration_minutes",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "min": 0,
+            "step": 1,
+            "default_value": "",
+            "max": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_msr_res_video_url",
+            "label": "Video URL (oEmbed)",
+            "name": "video_url",
+            "aria-label": "",
+            "type": "url",
+            "instructions": "YouTube or Vimeo URL for embedded player on video singles.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_msr_res_podcast_audio_url",
+            "label": "Podcast audio URL",
+            "name": "podcast_audio_url",
+            "aria-label": "",
+            "type": "url",
+            "instructions": "Direct MP3 URL for HTML5 player and RSS enclosure.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_msr_res_podcast_episode",
+            "label": "Episode number",
+            "name": "podcast_episode",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "min": 1,
+            "step": 1,
+            "default_value": "",
+            "max": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_msr_res_programme",
+            "label": "MSR programme link",
+            "name": "msr_programme",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "": "— None —",
+                "hub": "MSR Events hub",
+                "awards": "MSR Awards",
+                "seminars": "MSR Seminars"
+            },
+            "default_value": "",
+            "allow_null": 1,
+            "ui": 1,
+            "multiple": 0,
+            "ajax": 0,
+            "placeholder": "",
+            "return_format": "value",
+            "create_options": 0,
+            "save_options": 0
+        },
+        {
+            "key": "field_msr_res_key_takeaways",
+            "label": "Key takeaways",
+            "name": "key_takeaways",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Shown on the resource single above the body (P39).",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "row",
+            "button_label": "Add takeaway",
+            "sub_fields": [
+                {
+                    "key": "field_msr_res_key_takeaway_text",
+                    "label": "Takeaway",
+                    "name": "text",
+                    "type": "text"
+                }
+            ]
+        },
+        {
+            "key": "field_msr_res_case_client_industry",
+            "label": "Client industry",
+            "name": "case_study_client_industry",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Industry or sector label shown on case study singles (P57).",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "e.g. Professional services"
+        },
+        {
+            "key": "field_msr_res_case_challenge",
+            "label": "Challenge",
+            "name": "case_study_challenge",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Problem statement for the case study layout.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 4,
+            "default_value": "",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_msr_res_case_approach",
+            "label": "Approach",
+            "name": "case_study_approach",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "How the client or programme addressed the challenge.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 4,
+            "default_value": "",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_msr_res_case_results",
+            "label": "Results",
+            "name": "case_study_results",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Outcomes narrative for the case study layout.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 4,
+            "default_value": "",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_msr_res_case_outcome_metrics",
+            "label": "Outcome metrics",
+            "name": "case_study_outcome_metrics",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Stat cards on case study singles (value + label).",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "table",
+            "button_label": "Add metric",
+            "sub_fields": [
+                {
+                    "key": "field_msr_res_case_metric_value",
+                    "label": "Value",
+                    "name": "metric_value",
+                    "type": "text",
+                    "wrapper": {
+                        "width": "33"
+                    }
+                },
+                {
+                    "key": "field_msr_res_case_metric_label",
+                    "label": "Label",
+                    "name": "metric_label",
+                    "type": "text",
+                    "wrapper": {
+                        "width": "67"
+                    }
+                }
+            ]
+        }
+    ],
+    "modified": 1782660000
+}

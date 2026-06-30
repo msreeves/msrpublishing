@@ -1,0 +1,114 @@
+select {
+	border: 1px solid $border-mid;
+	background: $surface;
+	color: $text-primary;
+}
+
+textarea {
+	width: 100%;
+	background: $surface;
+	color: $text-primary;
+	border: 1px solid $border-mid;
+	border-radius: 3px;
+	padding: 0.5rem;
+
+	&:focus {
+		border-color: $accent;
+		outline: none;
+		box-shadow: 0 0 0 0.2rem rgba($accent, 0.2);
+	}
+}
+
+.input-group > :not(:first-child):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
+	margin-left: -1px;
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+.input-group:not(.has-validation) > :not(:last-child):not(.dropdown-menu) {
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.input-group > .form-control,
+.input-group > .form-select {
+	position: relative;
+	flex: 1 1 auto;
+	width: 1%;
+	min-width: 0;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="password"],
+input[type="search"],
+input[type="number"],
+input[type="tel"],
+input[type="range"],
+input[type="date"],
+input[type="month"],
+input[type="week"],
+input[type="time"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="color"],
+textarea {
+	color: $text-primary;
+	background: $surface;
+	border: 1px solid $border-mid;
+	border-radius: 3px;
+	padding: 3px 8px;
+
+	&:focus {
+		border-color: $accent;
+		box-shadow: 0 0 0 0.2rem rgba($accent, 0.2);
+		outline: none;
+	}
+}
+
+.form-control {
+	background-color: $surface;
+	color: $text-primary;
+	border-color: $border-mid;
+
+	&:focus {
+		background-color: $surface;
+		color: $text-primary;
+		border-color: $accent;
+		box-shadow: 0 0 0 0.2rem rgba($accent, 0.2);
+		outline: 0;
+	}
+
+	&::placeholder {
+		color: $text-muted;
+	}
+}
+
+.msr-site-search {
+	max-width: var(--msr-content-max, 72rem);
+	margin-inline: auto;
+
+	.input-group {
+		gap: 0.5rem;
+	}
+
+	.form-control,
+	.btn {
+		min-height: 2.75rem;
+	}
+
+	.btn[type="submit"] {
+		background-color: $accent;
+		border-color: $accent;
+		color: $paper;
+		font-weight: 700;
+
+		&:hover,
+		&:focus {
+			background-color: $accent-light;
+			border-color: $accent-light;
+			color: $paper;
+		}
+	}
+}
