@@ -1,0 +1,3 @@
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["./app2.css"])))=>i.map(i=>d[i]);
+import{_ as e}from"./app.js";document.addEventListener("DOMContentLoaded",function(){var a=document.querySelectorAll('[data-fancybox="gallery"]');a.length&&Promise.all([e(()=>import("./app-fancybox.esm.js"),[],import.meta.url),e(()=>Promise.resolve({}),__vite__mapDeps([0]),import.meta.url)]).then(function(o){var l=o[0].Fancybox;l.bind('[data-fancybox="gallery"]',{Toolbar:!1,animated:!1,dragToClose:!1,showClass:!1,hideClass:!1,closeButton:"top",Image:{click:"close",wheel:"slide",zoom:!1,fit:"cover"},Thumbs:{minScreenHeight:0}})})});
+//# sourceMappingURL=app-fancybox-init.js.map

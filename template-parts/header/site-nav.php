@@ -8,9 +8,9 @@
 $nav_links     = msr_publishing_get_primary_nav_links();
 $subscribe_url = msr_publishing_subscribe_url();
 ?>
-<header id="masthead" class="site-header site-header--sticky publishing-site-header">
+<header id="masthead" class="site-header site-header--sticky">
 	<nav class="navbar navbar-light p-3 p-lg-4" aria-label="<?php esc_attr_e( 'Site', 'msrsandbox' ); ?>">
-		<div class="container-fluid publishing-site-header__bar">
+		<div class="container-fluid site-header__bar">
 			<?php get_template_part( 'template-parts/header/site-brand' ); ?>
 			<?php msr_publishing_render_desktop_primary_nav(); ?>
 			<?php get_template_part( 'template-parts/header/site-header-actions' ); ?>
@@ -30,25 +30,25 @@ $subscribe_url = msr_publishing_subscribe_url();
 			</div>
 		</div>
 	</nav>
-	<div id="publishingFullscreenNav" class="publishing-fullscreen-nav" aria-hidden="true" inert>
-		<div class="publishing-fullscreen-nav__inner">
+	<div id="site-header-mobile-nav" class="site-header__mobile-nav" aria-hidden="true" inert>
+		<div class="site-header__mobile-nav__inner">
 			<nav aria-label="<?php esc_attr_e( 'Primary', 'msrsandbox' ); ?>">
-				<ul class="publishing-fullscreen-nav__list">
+				<ul class="site-header__mobile-nav__list">
 					<?php foreach ( $nav_links as $link ) : ?>
 						<?php
 						if ( empty( $link['url'] ) ) {
 							continue;
 						}
-						$title           = (string) $link['title'];
-						$url             = (string) $link['url'];
-						$mega            = msr_publishing_get_nav_mega_type( $title, $url );
-						$is_current      = msr_publishing_nav_link_is_current( $url );
-						$section_active  = $mega !== '' && msr_publishing_nav_section_is_active( $mega );
-						$item_class      = 'publishing-fullscreen-nav__item';
-						$link_class      = 'publishing-fullscreen-nav__link';
+						$title          = (string) $link['title'];
+						$url            = (string) $link['url'];
+						$mega           = msr_publishing_get_nav_mega_type( $title, $url );
+						$is_current     = msr_publishing_nav_link_is_current( $url );
+						$section_active = $mega !== '' && msr_publishing_nav_section_is_active( $mega );
+						$item_class     = 'site-header__mobile-nav__item';
+						$link_class     = 'site-header__mobile-nav__link';
 
 						if ( $mega !== '' ) {
-							$item_class .= ' publishing-fullscreen-nav__item--group';
+							$item_class .= ' site-header__mobile-nav__item--group';
 						}
 						if ( $is_current || $section_active ) {
 							$item_class .= ' is-current';
@@ -73,11 +73,11 @@ $subscribe_url = msr_publishing_subscribe_url();
 				</ul>
 			</nav>
 		</div>
-		<div class="publishing-fullscreen-nav__footer container">
+		<div class="site-header__mobile-nav__footer container">
 			<?php if ( $subscribe_url ) : ?>
 				<?php
 				$subscribe_current = msr_publishing_nav_link_is_current( $subscribe_url );
-				$cta_class         = 'publishing-fullscreen-nav__cta';
+				$cta_class         = 'site-header__mobile-nav__cta';
 				if ( $subscribe_current ) {
 					$cta_class .= ' is-current';
 				}

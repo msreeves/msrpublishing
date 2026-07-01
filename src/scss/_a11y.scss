@@ -20,9 +20,9 @@ body.msr-publishing {
 
 	&:focus,
 	&:focus-visible {
-		transform: translateY(0);
-		outline: 2px solid var(--publishing-focus-ring, #{$accent});
-		outline-offset: var(--publishing-focus-offset, 3px);
+ transform: translateY(0);
+ outline: 2px solid var(--publishing-focus-ring, #{$accent});
+ outline-offset: var(--publishing-focus-offset, 3px);
 	}
 }
 
@@ -31,8 +31,8 @@ body.msr-publishing {
 	button:focus:not(:focus-visible),
 	.btn:focus:not(:focus-visible),
 	input:focus:not(:focus-visible) {
-		outline: none;
-		box-shadow: none;
+ outline: none;
+ box-shadow: none;
 	}
 
 	a:focus-visible,
@@ -42,15 +42,15 @@ body.msr-publishing {
 	.form-control:focus-visible,
 	.publishing-filter-bar__link:focus-visible,
 	.publishing-filter-bar__tab:focus-visible,
-	.publishing-menu-toggle:focus-visible,
-	.publishing-fullscreen-nav__link:focus-visible,
-	.publishing-fullscreen-nav__sublink:focus-visible,
-	.publishing-fullscreen-nav__view-all:focus-visible,
-	.publishing-fullscreen-nav__cta:focus-visible,
+	.site-header__menu-toggle:focus-visible,
+	.site-header__mobile-nav__link:focus-visible,
+	.site-header__mobile-nav__sublink:focus-visible,
+	.site-header__mobile-nav__view-all:focus-visible,
+	.site-header__mobile-nav__cta:focus-visible,
 	.resource-card__type:focus-visible,
 	.msr-card-media:focus-visible {
-		outline: 2px solid var(--publishing-focus-ring, #{$accent});
-		outline-offset: var(--publishing-focus-offset, 3px);
+ outline: 2px solid var(--publishing-focus-ring, #{$accent});
+ outline-offset: var(--publishing-focus-offset, 3px);
 	}
 }
 
@@ -59,17 +59,17 @@ body.msr-publishing {
 	.btn-primary,
 	.btn-outline-primary,
 	.btn-outline-secondary {
-		min-height: 2.75rem;
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		padding-block: 0.65rem;
+ min-height: 2.75rem;
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+ padding-block: 0.65rem;
 	}
 
 	.btn-sm {
-		min-height: 2.75rem;
-		padding-block: 0.5rem;
-		padding-inline: 0.85rem;
+ min-height: 2.75rem;
+ padding-block: 0.5rem;
+ padding-inline: 0.85rem;
 	}
 
 	.publishing-filter-bar__link,
@@ -86,73 +86,73 @@ body.msr-publishing {
 	.post-card .card-title a,
 	#cssmenu > ul > li > a,
 	.nav-pills .nav-link,
-	.publishing-menu-toggle,
+	.site-header__menu-toggle,
 	header .site-header__search .btn,
 	header .navbar-brand,
-	.publishing-fullscreen-nav__link,
-	.publishing-fullscreen-nav__sublink,
-	.publishing-fullscreen-nav__view-all,
-	.publishing-megamenu__link,
-	.publishing-megamenu__view-all,
+	.site-header__mobile-nav__link,
+	.site-header__mobile-nav__sublink,
+	.site-header__mobile-nav__view-all,
+	.site-header__megamenu__link,
+	.site-header__megamenu__view-all,
 	.publishing-expert-card__link,
 	.publishing-byline__link,
 	.publishing-single-toc__link,
 	.resource-single__series-link,
 	.publishing-topics-hub__card .card-title a {
-		min-height: 2.75rem;
-		display: inline-flex;
-		align-items: center;
+ min-height: 2.75rem;
+ display: inline-flex;
+ align-items: center;
 	}
 
 	header .site-header__search .btn {
-		min-width: 2.75rem;
-		justify-content: center;
+ min-width: 2.75rem;
+ justify-content: center;
 	}
 
-	.publishing-menu-toggle {
-		min-width: 2.75rem;
+	.site-header__menu-toggle {
+ min-width: 2.75rem;
 	}
 
 	.publishing-site-footer__links a,
 	.publishing-site-footer__about a,
 	.publishing-subscribe-value-prop__explore a {
-		padding-block: 0.35rem;
-		min-width: 2.75rem;
+ padding-block: 0.35rem;
+ min-width: 2.75rem;
 	}
 
 	.msr-breadcrumbs__item a {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		min-height: 2.75rem;
-		min-width: 2.75rem;
-		padding-inline: 0.35rem;
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+ min-height: 2.75rem;
+ min-width: 2.75rem;
+ padding-inline: 0.35rem;
 	}
 
-	.publishing-fullscreen-nav__link,
-	.publishing-fullscreen-nav__sublink,
-	.publishing-fullscreen-nav__view-all {
-		display: flex;
-		align-items: center;
-		padding-block: 0.5rem;
+	.site-header__mobile-nav__link,
+	.site-header__mobile-nav__sublink,
+	.site-header__mobile-nav__view-all {
+ display: flex;
+ align-items: center;
+ padding-block: 0.5rem;
 	}
 
 	.resource-card .card-title a,
 	.post-card .card-title a {
-		padding-block: 0.35rem;
-		line-height: 1.35;
+ padding-block: 0.35rem;
+ line-height: 1.35;
 	}
 
 	.publishing-subscribe-value-prop__explore a,
 	.publishing-privacy-page__demo a {
-		min-height: 2.75rem;
-		display: inline-flex;
-		align-items: center;
-		padding-block: 0.35rem;
+ min-height: 2.75rem;
+ display: inline-flex;
+ align-items: center;
+ padding-block: 0.35rem;
 	}
 
 	#cssmenu > ul > li > a {
-		padding-block: 0.65rem;
+ padding-block: 0.65rem;
 	}
 }
 

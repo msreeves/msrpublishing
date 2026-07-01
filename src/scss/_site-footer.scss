@@ -1,0 +1,203 @@
+// Publishing footer — multi-column IA (not menu-only)
+.publishing-site-footer {
+	background-color: $ink;
+	border-top: 3px solid $accent;
+	color: $text-on-dark;
+	padding-top: 0;
+
+	&__main {
+ padding: 2.5rem 0 2rem;
+	}
+
+	&__name {
+ font-family: $display-text;
+ color: $paper;
+ margin-bottom: 0.5rem;
+	}
+
+	&__tagline {
+ color: rgba($paper, 0.78);
+ max-width: 22rem;
+	}
+
+	&__heading {
+ color: rgba($paper, 0.55);
+ letter-spacing: 0.08em;
+ font-size: 0.75rem;
+ margin-bottom: 0.75rem;
+	}
+
+	&__links {
+ a {
+ color: rgba($paper, 0.9);
+ text-decoration: none;
+ font-size: 0.95rem;
+ line-height: 1.8;
+
+ &:hover {
+ color: $paper;
+ }
+
+ &:focus-visible {
+ outline: 2px solid $paper;
+ outline-offset: 2px;
+ }
+ }
+	}
+
+	&__cta.btn-outline-light {
+ border-color: rgba($paper, 0.45);
+ color: $paper;
+
+ &:hover,
+ &:focus {
+ background: $paper;
+ color: $ink;
+ border-color: $paper;
+ }
+	}
+
+	&__subscribe {
+ background: $paper;
+ border: 1px solid $paper;
+ color: $ink;
+ font-weight: 700;
+
+ &:hover,
+ &:focus {
+ background: $surface-mid;
+ border-color: $surface-mid;
+ color: $ink;
+ }
+	}
+
+	&__text-link {
+ color: $paper;
+ font-weight: 600;
+ text-decoration: underline;
+ text-underline-offset: 0.2em;
+
+ &:hover,
+ &:focus-visible {
+ color: rgba($paper, 0.88);
+ }
+	}
+
+	&__about a {
+ color: rgba($paper, 0.88);
+ text-decoration: none;
+
+ &:hover {
+ color: $paper;
+ }
+	}
+
+	&__social-link {
+ color: rgba($paper, 0.88);
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+ min-width: 2.75rem;
+ min-height: 2.75rem;
+ padding: 0.5rem;
+ text-decoration: none;
+ border-bottom: none;
+
+ &::after {
+ display: none;
+ }
+
+ &:hover,
+ &:focus-visible {
+ color: $paper;
+ text-decoration: none;
+ }
+	}
+
+	&__social {
+ padding: 1rem 0 1.5rem;
+ border-top: 1px solid rgba($paper, 0.12);
+	}
+
+	.site-footer__demo-note {
+ border-top: 1px solid rgba($paper, 0.12);
+ padding-top: 1rem;
+ color: rgba($paper, 0.55);
+	}
+}
+
+.publishing-error-page {
+	min-height: 50vh;
+	display: flex;
+	align-items: center;
+
+	&__code {
+ font-family: $display-text;
+ color: $accent;
+ line-height: 1;
+ font-weight: 700;
+	}
+
+	&__lead {
+ max-width: 28rem;
+ margin-inline: auto;
+	}
+}
+
+.publishing-page__article,
+.publishing-privacy-page .col-lg-8 {
+	max-width: 42rem;
+}
+
+.publishing-page__body,
+.publishing-privacy-page .entry-content {
+	max-width: 42rem;
+	margin-inline: auto;
+}
+
+.publishing-privacy-page__demo a {
+	color: $text-primary;
+	text-decoration: none;
+
+	&:hover,
+	&:focus-visible {
+ color: $accent-dark;
+	}
+}
+
+.publishing-subscribe-sticky {
+	position: fixed;
+	inset-inline: 0;
+	bottom: 0;
+	z-index: 1035;
+	padding: 0.75rem 1rem;
+	padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0px));
+	background: rgba($surface, 0.98);
+	border-top: 1px solid $border-mid;
+	box-shadow: 0 -6px 24px rgba($ink, 0.1);
+	transform: translate3d(0, 110%, 0);
+	transition: transform 0.25s ease;
+	pointer-events: none;
+
+	&.is-visible {
+ transform: translate3d(0, 0, 0);
+ pointer-events: auto;
+	}
+
+	&__cta {
+ width: 100%;
+ min-height: 2.75rem;
+ font-weight: 600;
+	}
+}
+
+body.site-header-nav-open .publishing-subscribe-sticky {
+	transform: translate3d(0, 110%, 0);
+	pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.publishing-subscribe-sticky {
+ transition: none;
+	}
+}

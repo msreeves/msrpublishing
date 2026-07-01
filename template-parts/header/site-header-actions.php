@@ -27,18 +27,18 @@
 	</button>
 	<button
 		type="button"
-		class="publishing-menu-toggle d-lg-none"
-		aria-controls="publishingFullscreenNav"
+		class="site-header__menu-toggle d-lg-none"
+		aria-controls="site-header-mobile-nav"
 		aria-expanded="false"
 		aria-label="<?php esc_attr_e( 'Open menu', 'msrsandbox' ); ?>"
 	>
-		<span class="publishing-menu-toggle__label" data-close-label="<?php esc_attr_e( 'Close', 'msrsandbox' ); ?>">
-			<span class="publishing-menu-toggle__label-text"><?php esc_html_e( 'Menu', 'msrsandbox' ); ?></span>
+		<span class="site-header__menu-toggle__label" data-close-label="<?php esc_attr_e( 'Close', 'msrsandbox' ); ?>">
+			<span class="site-header__menu-toggle__label-text"><?php esc_html_e( 'Menu', 'msrsandbox' ); ?></span>
 		</span>
-		<span class="publishing-menu-toggle__bars" aria-hidden="true">
-			<span class="publishing-menu-toggle__bar publishing-menu-toggle__bar--top"></span>
-			<span class="publishing-menu-toggle__bar publishing-menu-toggle__bar--mid"></span>
-			<span class="publishing-menu-toggle__bar publishing-menu-toggle__bar--bot"></span>
+		<span class="site-header__menu-toggle__bars" aria-hidden="true">
+			<span class="site-header__menu-toggle__bar site-header__menu-toggle__bar--top"></span>
+			<span class="site-header__menu-toggle__bar site-header__menu-toggle__bar--mid"></span>
+			<span class="site-header__menu-toggle__bar site-header__menu-toggle__bar--bot"></span>
 		</span>
 	</button>
 </div>

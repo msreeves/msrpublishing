@@ -13,5 +13,16 @@ import './publishing-filter-tabs.js';
 import './publishing-nav.js';
 import './publishing-home.js';
 import './publishing-single.js';
-import './fancybox-init.js';
 import './gate-download.js';
+
+function msrPublishingLoadDeferredModules() {
+	if (document.querySelector('[data-fancybox="gallery"]')) {
+		import('./fancybox-init.js');
+	}
+}
+
+if ('requestIdleCallback' in window) {
+	requestIdleCallback(msrPublishingLoadDeferredModules, { timeout: 2500 });
+} else {
+	document.addEventListener('DOMContentLoaded', msrPublishingLoadDeferredModules);
+}

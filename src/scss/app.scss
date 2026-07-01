@@ -1,7 +1,7 @@
 /*
 Theme Name: msrsandbox
 Theme URI: https://www.msreeves.co.uk/msrsandbox
-Description: MSRSandbox Theme
+Description: Atlas Briefing publishing theme — resources, commentary, and lead-gen flows. Assets built with Vite 5 + SCSS (npm run production).
 Author: Michael Reeves
 Author URI: https://www.msreeves.co.uk
 Version: 1.0.0
@@ -15,14 +15,14 @@ Requires PHP: 7.4
 @import 'fontawesome';
 @import 'bootstrap-core';
 
-@import 'publishing-links';
-@import 'publishing-filter-bar';
-@import 'publishing-context';
-@import 'publishing-media';
-@import 'publishing-footer';
-@import 'publishing-responsive';
-@import 'publishing-a11y';
-@import 'publishing-nav';
+@import 'elements/links';
+@import 'filter-bar';
+@import 'context';
+@import 'components/card-media';
+@import 'site-footer';
+@import 'responsive';
+@import 'a11y';
+@import 'nav';
 @import 'header';
 @import 'content';
 @import 'footer';
