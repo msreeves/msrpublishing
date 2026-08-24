@@ -2,11 +2,96 @@
 /**
  * MSR Events programme links (hub, awards, seminars) for Atlas Briefing resources.
  *
+ * Defaults are production URLs (safe when the theme ships). Local requests remap to
+ * MAMP; non-local requests scrub any leftover MAMP hosts. See
+ * config/programme-urls.json + docs/plans/programmes/msr-estate-url-lock-playbook.md.
+ *
  * @package msrsandbox
  */
 
 /**
- * Default programme registry (local demo URLs).
+ * Local → prod programme URL pairs (longest local first).
+ *
+ * @return array<int, array{local: string, prod: string}>
+ */
+function msr_publishing_get_programme_url_pairs() {
+	static $pairs = null;
+	if ( null !== $pairs ) {
+		return $pairs;
+	}
+
+	$pairs = array(
+		array(
+			'local' => 'http://127.0.0.1:8888/sites/wp/events/msrseminars',
+			'prod'  => 'https://www.msreeves.co.uk/events/msrseminars',
+		),
+		array(
+			'local' => 'http://127.0.0.1:8888/sites/wp/events/msrawards',
+			'prod'  => 'https://www.msreeves.co.uk/events/msrawards',
+		),
+		array(
+			'local' => 'http://127.0.0.1:8888/sites/wp/events',
+			'prod'  => 'https://www.msreeves.co.uk/events',
+		),
+		array(
+			'local' => 'http://msrevents.local:8888/msrseminars',
+			'prod'  => 'https://www.msreeves.co.uk/events/msrseminars',
+		),
+		array(
+			'local' => 'http://msrevents.local:8888/msrawards',
+			'prod'  => 'https://www.msreeves.co.uk/events/msrawards',
+		),
+		array(
+			'local' => 'http://msrevents.local:8888',
+			'prod'  => 'https://www.msreeves.co.uk/events',
+		),
+	);
+
+	/**
+	 * Filter programme URL local↔prod pairs (longest local first).
+	 *
+	 * @param array<int, array{local: string, prod: string}> $pairs Pairs.
+	 */
+	$pairs = apply_filters( 'msr_publishing_programme_url_pairs', $pairs );
+
+	return $pairs;
+}
+
+/**
+ * Whether the current request looks like local MAMP / .local.
+ *
+ * @return bool
+ */
+function msr_publishing_is_local_request() {
+	if ( getenv( 'MSR_PUBLISHING_FORCE_LOCAL' ) === '1' || getenv( 'MSR_PUBLISHING_FORCE_LOCAL' ) === 'true' ) {
+		return true;
+	}
+	if ( getenv( 'MSR_PUBLISHING_FORCE_PROD' ) === '1' || getenv( 'MSR_PUBLISHING_FORCE_PROD' ) === 'true' ) {
+		return false;
+	}
+
+	$host = isset( $_SERVER['HTTP_HOST'] ) ? (string) $_SERVER['HTTP_HOST'] : '';
+	if ( $host === '' ) {
+		return (bool) apply_filters( 'msr_publishing_is_local_request', false );
+	}
+
+	$local = (
+		strpos( $host, '127.0.0.1' ) !== false
+		|| strpos( $host, 'localhost' ) !== false
+		|| strpos( $host, '.local' ) !== false
+		|| strpos( $host, ':8888' ) !== false
+	);
+
+	/**
+	 * Filter whether programme URLs should use the local MAMP map.
+	 *
+	 * @param bool $local Detected local host.
+	 */
+	return (bool) apply_filters( 'msr_publishing_is_local_request', $local );
+}
+
+/**
+ * Default programme registry (production URLs — ship-safe).
  *
  * @return array<string, array{label: string, url: string, description: string, cta: string}>
  */
@@ -14,7 +99,7 @@ function msr_publishing_get_programme_registry_defaults() {
 	return array(
 		'hub'      => array(
 			'label'       => __( 'MSR Events hub', 'msrsandbox' ),
-			'url'         => 'http://msrevents.local:8888/',
+			'url'         => 'https://www.msreeves.co.uk/events/',
 			'description' => __( 'Programmes, events, and editorial from the central hub.', 'msrsandbox' ),
 			'cta'         => __( 'Visit the events hub', 'msrsandbox' ),
 			'icon'        => 'fa-solid fa-calendar-days',
@@ -22,7 +107,7 @@ function msr_publishing_get_programme_registry_defaults() {
 		),
 		'awards'   => array(
 			'label'       => __( 'MSR Awards', 'msrsandbox' ),
-			'url'         => 'http://msrevents.local:8888/msrawards/',
+			'url'         => 'https://www.msreeves.co.uk/events/msrawards/',
 			'description' => __( 'Awards programme, nominees, and industry recognition.', 'msrsandbox' ),
 			'cta'         => __( 'Explore MSR Awards', 'msrsandbox' ),
 			'icon'        => 'fa-solid fa-trophy',
@@ -30,7 +115,7 @@ function msr_publishing_get_programme_registry_defaults() {
 		),
 		'seminars' => array(
 			'label'       => __( 'MSR Seminars', 'msrsandbox' ),
-			'url'         => 'http://msrevents.local:8888/msrseminars/',
+			'url'         => 'https://www.msreeves.co.uk/events/msrseminars/',
 			'description' => __( 'Delegate seminars, agendas, and speaker content.', 'msrsandbox' ),
 			'cta'         => __( 'View MSR Seminars', 'msrsandbox' ),
 			'icon'        => 'fa-solid fa-chalkboard-user',
@@ -63,27 +148,79 @@ function msr_publishing_use_programme_ip_fallback() {
  */
 function msr_publishing_get_programme_ip_fallback_map() {
 	return array(
-		'http://msrevents.local:8888/'           => 'http://127.0.0.1:8888/sites/wp/events/',
-		'http://msrevents.local:8888/msrawards/' => 'http://127.0.0.1:8888/sites/wp/events/msrawards/',
+		'http://msrevents.local:8888/'             => 'http://127.0.0.1:8888/sites/wp/events/',
+		'http://msrevents.local:8888/msrawards/'   => 'http://127.0.0.1:8888/sites/wp/events/msrawards/',
 		'http://msrevents.local:8888/msrseminars/' => 'http://127.0.0.1:8888/sites/wp/events/msrseminars/',
 	);
 }
 
 /**
+ * Replace URL prefix (slash-tolerant).
+ *
+ * @param string $url  Subject URL.
+ * @param string $from Prefix to replace.
+ * @param string $to   Replacement prefix.
+ * @return string|null New URL or null if no match.
+ */
+function msr_publishing_replace_url_prefix( $url, $from, $to ) {
+	$from = rtrim( (string) $from, '/' );
+	$to   = rtrim( (string) $to, '/' );
+
+	if ( $url === $from || $url === $from . '/' ) {
+		return $to . '/';
+	}
+	if ( strpos( $url, $from . '/' ) === 0 ) {
+		return $to . substr( $url, strlen( $from ) );
+	}
+	if ( strpos( $url, $from . '?' ) === 0 ) {
+		return $to . substr( $url, strlen( $from ) );
+	}
+
+	return null;
+}
+
+/**
  * Resolve programme URL for the current environment.
+ *
+ * - Local: prod defaults → MAMP; msrevents.local → 127 path when needed.
+ * - Live: any MAMP host → prod (never emit 127.0.0.1 / .local / :8888).
  *
  * @param string $url Programme URL.
  * @return string
  */
 function msr_publishing_resolve_programme_url( $url ) {
 	$url = trim( (string) $url );
-	if ( $url === '' || ! msr_publishing_use_programme_ip_fallback() ) {
+	if ( $url === '' ) {
+		return '';
+	}
+
+	$pairs = msr_publishing_get_programme_url_pairs();
+
+	if ( msr_publishing_is_local_request() ) {
+		foreach ( $pairs as $pair ) {
+			$replaced = msr_publishing_replace_url_prefix( $url, $pair['prod'], $pair['local'] );
+			if ( null !== $replaced ) {
+				$url = $replaced;
+				break;
+			}
+		}
+
+		if ( msr_publishing_use_programme_ip_fallback() ) {
+			foreach ( msr_publishing_get_programme_ip_fallback_map() as $from => $to ) {
+				$replaced = msr_publishing_replace_url_prefix( $url, $from, $to );
+				if ( null !== $replaced ) {
+					return $replaced;
+				}
+			}
+		}
+
 		return $url;
 	}
 
-	foreach ( msr_publishing_get_programme_ip_fallback_map() as $from => $to ) {
-		if ( strpos( $url, $from ) === 0 ) {
-			return $to . substr( $url, strlen( $from ) );
+	foreach ( $pairs as $pair ) {
+		$replaced = msr_publishing_replace_url_prefix( $url, $pair['local'], $pair['prod'] );
+		if ( null !== $replaced ) {
+			return $replaced;
 		}
 	}
 
@@ -96,7 +233,7 @@ function msr_publishing_resolve_programme_url( $url ) {
  * @return array<string, array{label: string, url: string, description: string, cta: string}>
  */
 function msr_publishing_get_programme_registry() {
-	$defaults = msr_publishing_get_programme_registry_defaults();
+	$defaults   = msr_publishing_get_programme_registry_defaults();
 	$option_map = array(
 		'hub'      => 'msr_programme_hub_url',
 		'awards'   => 'msr_programme_awards_url',
@@ -114,7 +251,9 @@ function msr_publishing_get_programme_registry() {
 	}
 
 	foreach ( $defaults as $slug => $programme ) {
-		$defaults[ $slug ]['url'] = msr_publishing_resolve_programme_url( $programme['url'] );
+		$resolved = msr_publishing_resolve_programme_url( $programme['url'] );
+		// Empty after resolve → omit URL (no local absolute fallback on live).
+		$defaults[ $slug ]['url'] = $resolved;
 	}
 
 	return $defaults;
@@ -128,6 +267,9 @@ function msr_publishing_get_programme_registry() {
 function msr_publishing_get_ecosystem_programmes() {
 	$list = array();
 	foreach ( msr_publishing_get_programme_registry() as $programme ) {
+		if ( empty( $programme['url'] ) ) {
+			continue;
+		}
 		$item = array(
 			'label'       => $programme['label'],
 			'url'         => $programme['url'],
@@ -170,6 +312,9 @@ function msr_publishing_get_resource_programme( $post_id = 0 ) {
 	}
 	$registry = msr_publishing_get_programme_registry();
 	$data     = $registry[ $slug ];
+	if ( empty( $data['url'] ) ) {
+		return null;
+	}
 	return array_merge( array( 'slug' => $slug ), $data );
 }
 

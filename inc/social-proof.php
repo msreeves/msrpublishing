@@ -106,23 +106,19 @@ function msr_publishing_get_home_social_proof_logos_defaults() {
 		return $logos;
 	}
 
-	return array(
-		array(
-			'name'    => __( 'MSR Events hub', 'msrsandbox' ),
-			'url'     => msr_publishing_resolve_programme_url( 'http://msrevents.local:8888/' ),
+	$fallback = array();
+	foreach ( msr_publishing_get_programme_registry_defaults() as $programme ) {
+		if ( empty( $programme['label'] ) ) {
+			continue;
+		}
+		$fallback[] = array(
+			'name'    => (string) $programme['label'],
+			'url'     => msr_publishing_resolve_programme_url( (string) $programme['url'] ),
 			'logo_id' => 0,
-		),
-		array(
-			'name'    => __( 'MSR Awards', 'msrsandbox' ),
-			'url'     => msr_publishing_resolve_programme_url( 'http://msrevents.local:8888/msrawards/' ),
-			'logo_id' => 0,
-		),
-		array(
-			'name'    => __( 'MSR Seminars', 'msrsandbox' ),
-			'url'     => msr_publishing_resolve_programme_url( 'http://msrevents.local:8888/msrseminars/' ),
-			'logo_id' => 0,
-		),
-	);
+		);
+	}
+
+	return $fallback;
 }
 
 /**
@@ -153,7 +149,7 @@ function msr_publishing_get_home_social_proof_logos() {
 		$logo_id = isset( $row['logo'] ) ? (int) $row['logo'] : 0;
 		$logos[] = array(
 			'name'    => $name,
-			'url'     => $url,
+			'url'     => $url !== '' ? msr_publishing_resolve_programme_url( $url ) : '',
 			'logo_id' => $logo_id,
 		);
 	}
