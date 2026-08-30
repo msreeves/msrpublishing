@@ -61,6 +61,11 @@ function msr_publishing_theme_setup() {
 }
 add_action( 'after_setup_theme', 'msr_publishing_theme_setup' );
 
+/**
+ * Drop "Category:", "Tag:", etc. from archive headings.
+ */
+add_filter( 'get_the_archive_title_prefix', '__return_empty_string' );
+
 /** @deprecated Use msr_publishing_theme_setup */
 function msrsandbox_setup() {
 	msr_publishing_theme_setup();
