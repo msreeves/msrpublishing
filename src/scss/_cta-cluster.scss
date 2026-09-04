@@ -1,0 +1,82 @@
+// Shared CTA row spacing — hero, about, subscribe, section bands
+
+body.msr-publishing {
+	--msr-cta-gap: 0.75rem;
+	--msr-cta-stack-gap: 0.625rem;
+	--msr-cta-cluster-mt: 1.25rem;
+	--msr-cta-btn-min-height: 2.75rem;
+	--msr-cta-btn-padding-y: 0.65rem;
+	--msr-cta-btn-padding-x: 1.5rem;
+	--msr-cta-btn-font-size: 0.9375rem;
+}
+
+body.msr-publishing .ctas,
+body.msr-publishing .publishing-home-hero__cta,
+body.msr-publishing .publishing-about-page__actions,
+body.msr-publishing .publishing-home-discover__actions,
+body.msr-publishing .publishing-single-share__actions,
+body.msr-publishing .publishing-subscribe-cta__actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	gap: var(--msr-cta-gap);
+	margin: 0;
+	padding: 0;
+	list-style: none;
+
+	> .btn,
+	> a.btn {
+		margin: 0;
+		flex: 0 1 auto;
+	}
+}
+
+body.msr-publishing .publishing-home-hero__copy {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: var(--msr-stack-gap);
+
+	@include media('>=desktop') {
+		align-items: flex-start;
+	}
+}
+
+body.msr-publishing .publishing-home-hero__cta,
+body.msr-publishing .publishing-about-page__actions,
+body.msr-publishing .cta .ctas {
+	margin-top: var(--msr-cta-cluster-mt);
+}
+
+body.msr-publishing :is(h1, h2, h3, p, .msr-rich-text, ul) + :is(.publishing-home-hero__cta, .publishing-about-page__actions, .ctas) {
+	margin-top: var(--msr-cta-cluster-mt);
+}
+
+body.msr-publishing .publishing-home-hero__cta .btn,
+body.msr-publishing .publishing-about-page__actions .btn,
+body.msr-publishing .ctas .btn:not(.btn-sm) {
+	min-height: var(--msr-cta-btn-min-height);
+	padding: var(--msr-cta-btn-padding-y) var(--msr-cta-btn-padding-x);
+	font-size: var(--msr-cta-btn-font-size);
+	font-weight: 700;
+	line-height: 1.25;
+}
+
+@include media('<=phone') {
+	body.msr-publishing .publishing-home-hero__cta,
+	body.msr-publishing .publishing-about-page__actions,
+	body.msr-publishing .ctas {
+		flex-direction: column;
+		align-items: stretch;
+		width: 100%;
+		max-width: 18rem;
+		margin-inline: auto;
+
+		> .btn,
+		> a.btn {
+			width: 100%;
+			text-align: center;
+		}
+	}
+}

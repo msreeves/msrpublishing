@@ -188,10 +188,22 @@ article {
 	}
 }
 
-.pagination .nav-links {
+.pagination .nav-links,
+.pagination ul.page-numbers {
 	display: flex;
+	flex-wrap: wrap;
 	justify-content: center;
+	align-items: center;
+	gap: 0.25rem;
+	list-style: none;
+	padding: 0;
+	margin: 0;
 	width: 100%;
+}
+
+.pagination ul.page-numbers > li {
+	margin: 0;
+	padding: 0;
 }
 
 .pagination a.page-numbers,
