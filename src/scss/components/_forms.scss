@@ -86,16 +86,25 @@ textarea {
 }
 
 .msr-site-search {
+	width: 100%;
 	max-width: var(--msr-content-max, 72rem);
 	margin-inline: auto;
+	align-self: stretch;
 
 	.input-group {
+		width: 100%;
 		gap: 0.5rem;
 	}
 
 	.form-control,
 	.btn {
 		min-height: 2.75rem;
+	}
+
+	.form-control {
+		flex: 1 1 auto;
+		min-width: 0;
+		padding: 0.65rem 1rem;
 	}
 
 	.btn[type="submit"] {
