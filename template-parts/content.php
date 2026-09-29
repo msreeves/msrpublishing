@@ -2,7 +2,7 @@
 /**
  * Fallback post template part — delegates to publishing post card.
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 if ( is_singular( 'post' ) ) {

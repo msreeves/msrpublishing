@@ -2,7 +2,7 @@
 /**
  * Publishing site footer — IA columns, topics, brand (not menu-only).
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 /**
@@ -13,7 +13,7 @@
 function msr_publishing_render_footer_explore_nav() {
 	$search = home_url( '/?s=' );
 	?>
-	<h2 class="publishing-site-footer__heading h6 text-uppercase"><?php esc_html_e( 'Explore', 'msrsandbox' ); ?></h2>
+	<h2 class="publishing-site-footer__heading h6 text-uppercase"><?php esc_html_e( 'Explore', 'msrpublishing' ); ?></h2>
 	<ul class="publishing-site-footer__links list-unstyled mb-0">
 		<?php if ( has_nav_menu( 'footer' ) ) : ?>
 			<?php
@@ -36,7 +36,7 @@ function msr_publishing_render_footer_explore_nav() {
 			<?php endforeach; ?>
 		<?php endif; ?>
 		<li>
-			<a href="<?php echo esc_url( $search ); ?>"><?php esc_html_e( 'Search', 'msrsandbox' ); ?></a>
+			<a href="<?php echo esc_url( $search ); ?>"><?php esc_html_e( 'Search', 'msrpublishing' ); ?></a>
 		</li>
 	</ul>
 	<?php
@@ -62,7 +62,7 @@ function msr_publishing_render_footer_formats_nav() {
 		return;
 	}
 	?>
-	<h2 class="publishing-site-footer__heading h6 text-uppercase"><?php esc_html_e( 'Formats', 'msrsandbox' ); ?></h2>
+	<h2 class="publishing-site-footer__heading h6 text-uppercase"><?php esc_html_e( 'Formats', 'msrpublishing' ); ?></h2>
 	<ul class="publishing-site-footer__links list-unstyled mb-0">
 		<?php foreach ( $formats as $format ) : ?>
 			<li>
@@ -109,7 +109,7 @@ function msr_publishing_render_site_footer() {
 					<p class="publishing-site-footer__tagline small mb-3"><?php echo esc_html( $tagline ); ?></p>
 					<?php if ( $resources ) : ?>
 						<a class="btn btn-sm btn-outline-light publishing-site-footer__cta" href="<?php echo esc_url( $resources ); ?>">
-							<?php esc_html_e( 'Browse resources', 'msrsandbox' ); ?>
+							<?php esc_html_e( 'Browse resources', 'msrpublishing' ); ?>
 						</a>
 					<?php endif; ?>
 				</div>
@@ -121,7 +121,7 @@ function msr_publishing_render_site_footer() {
 				</div>
 				<?php if ( $topics ) : ?>
 					<div class="col-6 col-md-3 col-lg-2 publishing-site-footer__col">
-						<h2 class="publishing-site-footer__heading h6 text-uppercase"><?php esc_html_e( 'Topics', 'msrsandbox' ); ?></h2>
+						<h2 class="publishing-site-footer__heading h6 text-uppercase"><?php esc_html_e( 'Topics', 'msrpublishing' ); ?></h2>
 						<ul class="publishing-site-footer__links list-unstyled mb-0">
 							<?php foreach ( $topics as $topic ) : ?>
 								<li>
@@ -133,26 +133,26 @@ function msr_publishing_render_site_footer() {
 				<?php endif; ?>
 				<div class="col-md-12 col-lg-4 publishing-site-footer__col publishing-site-footer__connect">
 					<?php if ( is_front_page() ) : ?>
-						<h2 class="publishing-site-footer__heading h6 text-uppercase"><?php esc_html_e( 'Explore more', 'msrsandbox' ); ?></h2>
-						<p class="small mb-2"><?php esc_html_e( 'Browse the resource library or open the subscribe page for the full briefing signup flow.', 'msrsandbox' ); ?></p>
+						<h2 class="publishing-site-footer__heading h6 text-uppercase"><?php esc_html_e( 'Explore more', 'msrpublishing' ); ?></h2>
+						<p class="small mb-2"><?php esc_html_e( 'Browse the resource library or open the subscribe page for the full briefing signup flow.', 'msrpublishing' ); ?></p>
 						<a class="publishing-site-footer__text-link" href="<?php echo esc_url( msr_publishing_subscribe_url() ); ?>">
-							<?php esc_html_e( 'Subscribe page', 'msrsandbox' ); ?>
+							<?php esc_html_e( 'Subscribe page', 'msrpublishing' ); ?>
 						</a>
 					<?php else : ?>
-						<h2 class="publishing-site-footer__heading h6 text-uppercase"><?php esc_html_e( 'Stay briefed', 'msrsandbox' ); ?></h2>
-						<p class="small mb-2"><?php esc_html_e( 'Portfolio demonstration signup — no ESP connected.', 'msrsandbox' ); ?></p>
+						<h2 class="publishing-site-footer__heading h6 text-uppercase"><?php esc_html_e( 'Stay briefed', 'msrpublishing' ); ?></h2>
+						<p class="small mb-2"><?php esc_html_e( 'Briefings and resources by email — demo signup (no mailing list connected locally).', 'msrpublishing' ); ?></p>
 						<a class="btn btn-sm publishing-site-footer__subscribe" href="<?php echo esc_url( msr_publishing_subscribe_url() ); ?>">
-							<?php esc_html_e( 'Subscribe', 'msrsandbox' ); ?>
+							<?php esc_html_e( 'Subscribe', 'msrpublishing' ); ?>
 						</a>
 					<?php endif; ?>
 					<p class="publishing-site-footer__about small mt-3 mb-0">
-						<a href="<?php echo esc_url( msr_publishing_about_url() ); ?>"><?php esc_html_e( 'About & methodology', 'msrsandbox' ); ?></a>
+						<a href="<?php echo esc_url( msr_publishing_about_url() ); ?>"><?php esc_html_e( 'About & methodology', 'msrpublishing' ); ?></a>
 						<?php
 						$privacy_url = msr_publishing_get_page_url( 'privacy', '/privacy/' );
 						if ( $privacy_url ) :
 							?>
 							<span aria-hidden="true"> · </span>
-							<a href="<?php echo esc_url( $privacy_url ); ?>"><?php esc_html_e( 'Privacy (demo)', 'msrsandbox' ); ?></a>
+							<a href="<?php echo esc_url( $privacy_url ); ?>"><?php esc_html_e( 'Privacy policy', 'msrpublishing' ); ?></a>
 						<?php endif; ?>
 					</p>
 				</div>
@@ -214,7 +214,7 @@ function msr_publishing_render_footer_social() {
 					$icon = sanitize_html_class( $item->title );
 					printf(
 						'<a class="publishing-site-footer__social-link" href="%s" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-%s fa-lg" aria-hidden="true"></i><span class="visually-hidden">%s</span></a>',
-						esc_url( $item->url ),
+						esc_url( msr_publishing_normalize_external_url( $item->url ) ),
 						esc_attr( $icon ),
 						esc_html( $item->title )
 					);

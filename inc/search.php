@@ -2,7 +2,7 @@
 /**
  * Publishing search — query scope, filter pills, faceted topic/format filters.
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 /**
@@ -64,6 +64,13 @@ function msr_publishing_pre_get_posts_search( $query ) {
 		$query->set( 'orderby', 'title' );
 		$query->set( 'order', 'ASC' );
 	}
+
+	if ( function_exists( 'msr_publishing_get_density_filler_post_ids' ) ) {
+		$exclude = msr_publishing_get_density_filler_post_ids();
+		if ( $exclude ) {
+			$query->set( 'post__not_in', array_merge( (array) $query->get( 'post__not_in' ), $exclude ) );
+		}
+	}
 }
 add_action( 'pre_get_posts', 'msr_publishing_pre_get_posts_search', 20 );
 
@@ -118,10 +125,10 @@ function msr_publishing_get_search_sort() {
  */
 function msr_publishing_get_search_sort_options() {
 	return array(
-		'relevance' => __( 'Relevance', 'msrsandbox' ),
-		'newest'    => __( 'Newest', 'msrsandbox' ),
-		'oldest'    => __( 'Oldest', 'msrsandbox' ),
-		'title'     => __( 'Title A–Z', 'msrsandbox' ),
+		'relevance' => __( 'Relevance', 'msrpublishing' ),
+		'newest'    => __( 'Newest', 'msrpublishing' ),
+		'oldest'    => __( 'Oldest', 'msrpublishing' ),
+		'title'     => __( 'Title A–Z', 'msrpublishing' ),
 	);
 }
 
@@ -187,24 +194,215 @@ function msr_publishing_search_filter_url( $filter ) {
 }
 
 /**
+ * Query args to preserve on search pagination links.
+ *
+ * @return array<string, string>
+ */
+function msr_publishing_get_search_pagination_add_args() {
+	if ( ! is_search() ) {
+		return array();
+	}
+
+	$args = array(
+		's' => get_search_query(),
+	);
+
+	$type = msr_publishing_get_search_filter();
+	if ( 'all' !== $type ) {
+		$args['post_type'] = $type;
+	}
+
+	$topic = msr_publishing_get_search_topic_slug();
+	if ( $topic !== '' ) {
+		$args['topic'] = $topic;
+	}
+
+	$format = msr_publishing_get_search_format_slug();
+	if ( $format !== '' ) {
+		$args['resource_type'] = $format;
+	}
+
+	$sort = msr_publishing_get_search_sort();
+	if ( 'relevance' !== $sort ) {
+		$args['msr_sort'] = $sort;
+	}
+
+	return $args;
+}
+
+/**
+ * Whether any search facet (besides the keyword) is active.
+ *
+ * @return bool
+ */
+function msr_publishing_search_has_active_filters() {
+	return 'all' !== msr_publishing_get_search_filter()
+		|| msr_publishing_get_search_topic_slug() !== ''
+		|| msr_publishing_get_search_format_slug() !== ''
+		|| 'relevance' !== msr_publishing_get_search_sort();
+}
+
+/**
+ * URL with keyword only (clears facets).
+ *
+ * @return string
+ */
+function msr_publishing_search_clear_filters_url() {
+	return add_query_arg(
+		array(
+			's' => get_search_query(),
+		),
+		home_url( '/' )
+	);
+}
+
+/**
+ * Prominent search form on the search results page.
+ *
  * @return void
  */
-function msr_publishing_render_search_type_nav() {
+function msr_publishing_render_search_page_form() {
+	if ( ! is_search() ) {
+		return;
+	}
+	?>
+	<div class="publishing-search-page__form msr-reveal">
+		<?php
+		get_template_part(
+			'template-parts/forms/site-search',
+			null,
+			array(
+				'input_id' => 'msr-site-search-page-input',
+				'layout'   => 'page',
+			)
+		);
+		?>
+	</div>
+	<?php
+}
+
+/**
+ * Active facet chips + clear control above results.
+ *
+ * @return void
+ */
+function msr_publishing_render_search_active_filters() {
+	if ( ! is_search() || ! msr_publishing_search_has_active_filters() ) {
+		return;
+	}
+
+	$chips = array();
+
+	$type = msr_publishing_get_search_filter();
+	if ( 'resource' === $type ) {
+		$chips[] = array(
+			'label' => __( 'Resources only', 'msrpublishing' ),
+			'url'   => msr_publishing_search_filter_url( 'all' ),
+		);
+	} elseif ( 'post' === $type ) {
+		$chips[] = array(
+			'label' => __( 'Insights only', 'msrpublishing' ),
+			'url'   => msr_publishing_search_filter_url( 'all' ),
+		);
+	}
+
+	$topic_slug = msr_publishing_get_search_topic_slug();
+	if ( $topic_slug !== '' ) {
+		$term = get_term_by( 'slug', $topic_slug, 'topic' );
+		$chips[] = array(
+			'label' => $term && ! is_wp_error( $term ) ? $term->name : $topic_slug,
+			'url'   => msr_publishing_build_search_url( null, '', null ),
+		);
+	}
+
+	$format_slug = msr_publishing_get_search_format_slug();
+	if ( $format_slug !== '' ) {
+		$term = get_term_by( 'slug', $format_slug, 'resource_type' );
+		if ( ! $term || is_wp_error( $term ) ) {
+			$term = get_term_by( 'slug', msr_publishing_resolve_format_slug( $format_slug ), 'resource_type' );
+		}
+		$chips[] = array(
+			'label' => $term && ! is_wp_error( $term ) ? $term->name : $format_slug,
+			'url'   => msr_publishing_build_search_url( null, null, '' ),
+		);
+	}
+
+	$sort = msr_publishing_get_search_sort();
+	if ( 'relevance' !== $sort ) {
+		$labels = msr_publishing_get_search_sort_options();
+		$chips[] = array(
+			'label' => isset( $labels[ $sort ] ) ? $labels[ $sort ] : $sort,
+			'url'   => msr_publishing_search_sort_url( 'relevance' ),
+		);
+	}
+
+	if ( ! $chips ) {
+		return;
+	}
+	?>
+	<div class="publishing-search-page__active-filters" aria-label="<?php esc_attr_e( 'Active search filters', 'msrpublishing' ); ?>">
+		<ul class="publishing-search-page__active-list">
+			<?php foreach ( $chips as $chip ) : ?>
+				<li>
+					<a class="publishing-search-page__active-chip" href="<?php echo esc_url( $chip['url'] ); ?>">
+						<span><?php echo esc_html( $chip['label'] ); ?></span>
+						<span class="publishing-search-page__active-remove" aria-hidden="true">&times;</span>
+						<span class="screen-reader-text"><?php esc_html_e( 'Remove filter', 'msrpublishing' ); ?></span>
+					</a>
+				</li>
+			<?php endforeach; ?>
+		</ul>
+		<a class="publishing-search-page__clear-filters small" href="<?php echo esc_url( msr_publishing_search_clear_filters_url() ); ?>">
+			<?php esc_html_e( 'Clear all filters', 'msrpublishing' ); ?>
+		</a>
+	</div>
+	<?php
+}
+
+/**
+ * @return void
+ */
+function msr_publishing_render_search_posts_pagination() {
+	the_posts_pagination(
+		array(
+			'mid_size'  => 2,
+			'prev_text' => __( 'Previous', 'msrpublishing' ),
+			'next_text' => __( 'Next', 'msrpublishing' ),
+			'add_args'  => msr_publishing_get_search_pagination_add_args(),
+		)
+	);
+}
+
+/**
+ * @return void
+ */
+function msr_publishing_render_search_type_nav( $layout = 'standalone' ) {
 	$active = msr_publishing_get_search_filter();
 	$items  = array(
-		'all'      => __( 'All results', 'msrsandbox' ),
-		'resource' => __( 'Resources', 'msrsandbox' ),
-		'post'     => __( 'Commentary', 'msrsandbox' ),
+		'all'      => __( 'All results', 'msrpublishing' ),
+		'resource' => __( 'Resources', 'msrpublishing' ),
+		'post'     => __( 'Insights', 'msrpublishing' ),
 	);
-	?>
-	<div class="publishing-search__filters mb-4">
-		<?php
-		msr_publishing_filter_bar_open( __( 'Filter search results', 'msrsandbox' ) );
+	$variant = 'panel' === $layout ? 'chips' : 'underline';
+
+	$render_bar = static function () use ( $items, $active, $variant ) {
+		msr_publishing_filter_bar_open( __( 'Filter search results', 'msrpublishing' ), false, $variant );
 		foreach ( $items as $slug => $label ) {
 			msr_publishing_filter_bar_link( $label, msr_publishing_search_filter_url( $slug ), $active === $slug );
 		}
 		msr_publishing_filter_bar_close();
-		?>
+	};
+
+	if ( 'panel' === $layout ) {
+		msr_publishing_discovery_row_open( __( 'Show', 'msrpublishing' ) );
+		$render_bar();
+		msr_publishing_discovery_row_close();
+		return;
+	}
+
+	?>
+	<div class="publishing-search__filters mb-4">
+		<?php $render_bar(); ?>
 	</div>
 	<?php
 }
@@ -214,7 +412,7 @@ function msr_publishing_render_search_type_nav() {
  *
  * @return void
  */
-function msr_publishing_render_search_facet_nav() {
+function msr_publishing_render_search_facet_nav( $layout = 'standalone' ) {
 	$topics = get_terms(
 		array(
 			'taxonomy'   => 'topic',
@@ -229,55 +427,73 @@ function msr_publishing_render_search_facet_nav() {
 
 	$active_topic  = msr_publishing_get_search_topic_slug();
 	$active_format = msr_publishing_get_search_format_slug();
-	?>
-	<div class="publishing-search__facets mb-4">
-		<?php if ( $topics && ! is_wp_error( $topics ) ) : ?>
-			<div class="publishing-search__facet-group resource-topic-nav">
-				<p class="resource-archive-nav__label small text-uppercase fw-semibold text-muted mb-2"><?php esc_html_e( 'Topic', 'msrsandbox' ); ?></p>
-				<?php
-				msr_publishing_filter_bar_open( __( 'Filter by topic', 'msrsandbox' ) );
-				msr_publishing_filter_bar_link(
-					__( 'All topics', 'msrsandbox' ),
-					msr_publishing_build_search_url( null, '', null ),
-					$active_topic === ''
-				);
-				foreach ( $topics as $topic ) {
-					msr_publishing_filter_bar_link(
-						$topic->name,
-						msr_publishing_build_search_url( null, $topic->slug, null ),
-						$active_topic === $topic->slug
-					);
-				}
-				msr_publishing_filter_bar_close();
-				?>
-			</div>
-		<?php endif; ?>
+	$variant       = 'panel' === $layout ? 'chips' : 'underline';
 
-		<?php if ( ! empty( $formats ) ) : ?>
-			<div class="publishing-search__facet-group resource-type-nav mt-3">
-				<p class="resource-archive-nav__label small text-uppercase fw-semibold text-muted mb-2"><?php esc_html_e( 'Format', 'msrsandbox' ); ?></p>
-				<?php
-				msr_publishing_filter_bar_open( __( 'Filter by format', 'msrsandbox' ) );
+	if ( $topics && ! is_wp_error( $topics ) ) {
+		$row = static function () use ( $topics, $active_topic, $variant ) {
+			msr_publishing_filter_bar_open( __( 'Filter by topic', 'msrpublishing' ), false, $variant );
+			msr_publishing_filter_bar_link(
+				__( 'All topics', 'msrpublishing' ),
+				msr_publishing_build_search_url( null, '', null ),
+				$active_topic === ''
+			);
+			foreach ( $topics as $topic ) {
 				msr_publishing_filter_bar_link(
-					__( 'All formats', 'msrsandbox' ),
-					msr_publishing_build_search_url( null, null, '' ),
-					$active_format === ''
+					$topic->name,
+					msr_publishing_build_search_url( null, $topic->slug, null ),
+					$active_topic === $topic->slug
 				);
-				foreach ( $formats as $format ) {
-					$is_active = $active_format === $format->slug
-						|| ( $active_format !== '' && msr_publishing_resolve_format_slug( $active_format ) === $format->slug );
-					msr_publishing_filter_bar_link(
-						$format->name,
-						msr_publishing_build_search_url( 'resource', null, $format->slug ),
-						$is_active
-					);
-				}
-				msr_publishing_filter_bar_close();
-				?>
+			}
+			msr_publishing_filter_bar_close();
+		};
+		if ( 'panel' === $layout ) {
+			msr_publishing_discovery_row_open( __( 'Topic', 'msrpublishing' ) );
+			$row();
+			msr_publishing_discovery_row_close();
+		} else {
+			?>
+			<div class="publishing-search__facet-group resource-topic-nav mb-4">
+				<p class="resource-archive-nav__label small text-uppercase fw-semibold text-muted mb-2"><?php esc_html_e( 'Topic', 'msrpublishing' ); ?></p>
+				<?php $row(); ?>
 			</div>
-		<?php endif; ?>
-	</div>
-	<?php
+			<?php
+		}
+	}
+
+	$show_formats = ! empty( $formats ) && 'post' !== msr_publishing_get_search_filter();
+
+	if ( $show_formats ) {
+		$row = static function () use ( $formats, $active_format, $variant ) {
+			msr_publishing_filter_bar_open( __( 'Filter by format', 'msrpublishing' ), false, $variant );
+			msr_publishing_filter_bar_link(
+				__( 'All formats', 'msrpublishing' ),
+				msr_publishing_build_search_url( null, null, '' ),
+				$active_format === ''
+			);
+			foreach ( $formats as $format ) {
+				$is_active = $active_format === $format->slug
+					|| ( $active_format !== '' && msr_publishing_resolve_format_slug( $active_format ) === $format->slug );
+				msr_publishing_filter_bar_link(
+					$format->name,
+					msr_publishing_build_search_url( 'resource', null, $format->slug ),
+					$is_active
+				);
+			}
+			msr_publishing_filter_bar_close();
+		};
+		if ( 'panel' === $layout ) {
+			msr_publishing_discovery_row_open( __( 'Format', 'msrpublishing' ) );
+			$row();
+			msr_publishing_discovery_row_close();
+		} else {
+			?>
+			<div class="publishing-search__facet-group resource-type-nav mb-4">
+				<p class="resource-archive-nav__label small text-uppercase fw-semibold text-muted mb-2"><?php esc_html_e( 'Format', 'msrpublishing' ); ?></p>
+				<?php $row(); ?>
+			</div>
+			<?php
+		}
+	}
 }
 
 /**
@@ -285,19 +501,30 @@ function msr_publishing_render_search_facet_nav() {
  *
  * @return void
  */
-function msr_publishing_render_search_sort_nav() {
+function msr_publishing_render_search_sort_nav( $layout = 'standalone' ) {
 	$active  = msr_publishing_get_search_sort();
 	$options = msr_publishing_get_search_sort_options();
-	?>
-	<div class="publishing-search__sort mb-4">
-		<p class="resource-archive-nav__label small text-uppercase fw-semibold text-muted mb-2"><?php esc_html_e( 'Sort', 'msrsandbox' ); ?></p>
-		<?php
-		msr_publishing_filter_bar_open( __( 'Sort search results', 'msrsandbox' ) );
+	$variant = 'panel' === $layout ? 'chips' : 'underline';
+
+	$render_bar = static function () use ( $options, $active, $variant ) {
+		msr_publishing_filter_bar_open( __( 'Sort search results', 'msrpublishing' ), false, $variant );
 		foreach ( $options as $slug => $label ) {
 			msr_publishing_filter_bar_link( $label, msr_publishing_search_sort_url( $slug ), $active === $slug );
 		}
 		msr_publishing_filter_bar_close();
-		?>
+	};
+
+	if ( 'panel' === $layout ) {
+		msr_publishing_discovery_row_open( __( 'Sort', 'msrpublishing' ) );
+		$render_bar();
+		msr_publishing_discovery_row_close();
+		return;
+	}
+
+	?>
+	<div class="publishing-search__sort mb-4">
+		<p class="resource-archive-nav__label small text-uppercase fw-semibold text-muted mb-2"><?php esc_html_e( 'Sort', 'msrpublishing' ); ?></p>
+		<?php $render_bar(); ?>
 	</div>
 	<?php
 }
@@ -313,7 +540,7 @@ function msr_publishing_get_empty_state_default_links() {
 	$resources = get_post_type_archive_link( 'resource' );
 	if ( $resources ) {
 		$links[] = array(
-			'title' => __( 'Browse resources', 'msrsandbox' ),
+			'title' => __( 'Browse resources', 'msrpublishing' ),
 			'url'   => $resources,
 		);
 	}
@@ -321,7 +548,7 @@ function msr_publishing_get_empty_state_default_links() {
 	$insights = msr_publishing_insights_url();
 	if ( $insights ) {
 		$links[] = array(
-			'title' => __( 'Insights hub', 'msrsandbox' ),
+			'title' => __( 'Insights hub', 'msrpublishing' ),
 			'url'   => $insights,
 		);
 	}
@@ -329,7 +556,7 @@ function msr_publishing_get_empty_state_default_links() {
 	$topics = msr_publishing_topics_url();
 	if ( $topics ) {
 		$links[] = array(
-			'title' => __( 'Topics', 'msrsandbox' ),
+			'title' => __( 'Topics', 'msrpublishing' ),
 			'url'   => $topics,
 		);
 	}
@@ -359,27 +586,27 @@ function msr_publishing_render_empty_state( $args = array() ) {
 	if ( '' === $title ) {
 		switch ( $context ) {
 			case 'search':
-				$title = __( 'No results for that search', 'msrsandbox' );
+				$title = __( 'No results for that search', 'msrpublishing' );
 				break;
 			case 'archive':
-				$title = __( 'Nothing published here yet', 'msrsandbox' );
+				$title = __( 'Nothing published here yet', 'msrpublishing' );
 				break;
 			default:
-				$title = __( 'Nothing to show yet', 'msrsandbox' );
+				$title = __( 'Nothing to show yet', 'msrpublishing' );
 		}
 	}
 
 	if ( '' === $message ) {
 		switch ( $context ) {
 			case 'search':
-				$message = __( 'Try different keywords, browse popular searches below, or explore resources and commentary from the hubs.', 'msrsandbox' );
+				$message = __( 'Try different keywords or browse resources, topics, and insights using the links below.', 'msrpublishing' );
 				$search  = true;
 				break;
 			case 'archive':
-				$message = __( 'Check back when new commentary is published, or return to the insights hub.', 'msrsandbox' );
+				$message = __( 'Check back when new commentary is published, or return to the insights hub.', 'msrpublishing' );
 				break;
 			default:
-				$message = __( 'Content will appear here when published in the admin.', 'msrsandbox' );
+				$message = __( 'Content will appear here when published in the admin.', 'msrpublishing' );
 		}
 	}
 
@@ -410,14 +637,62 @@ function msr_publishing_render_search_popular_terms() {
 		return;
 	}
 
-	$terms = array( 'workforce', 'resilience', 'webinar', 'distributed' );
+	$links = array();
+
+	$resources = get_post_type_archive_link( 'resource' );
+	if ( $resources ) {
+		$links[] = array(
+			'label' => __( 'All resources', 'msrpublishing' ),
+			'url'   => $resources,
+		);
+	}
+
+	$topics = function_exists( 'msr_publishing_topics_url' ) ? msr_publishing_topics_url() : '';
+	if ( $topics ) {
+		$links[] = array(
+			'label' => __( 'Topics', 'msrpublishing' ),
+			'url'   => $topics,
+		);
+	}
+
+	$topic_terms = get_terms(
+		array(
+			'taxonomy'   => 'topic',
+			'hide_empty' => false,
+			'number'     => 4,
+		)
+	);
+	if ( $topic_terms && ! is_wp_error( $topic_terms ) ) {
+		foreach ( $topic_terms as $topic ) {
+			$link = get_term_link( $topic );
+			if ( is_wp_error( $link ) ) {
+				continue;
+			}
+			$links[] = array(
+				'label' => $topic->name,
+				'url'   => $link,
+			);
+		}
+	}
+
+	$insights = function_exists( 'msr_publishing_insights_url' ) ? msr_publishing_insights_url() : '';
+	if ( $insights ) {
+		$links[] = array(
+			'label' => __( 'Insights hub', 'msrpublishing' ),
+			'url'   => $insights,
+		);
+	}
+
+	if ( ! $links ) {
+		return;
+	}
 	?>
-	<nav class="publishing-search-popular text-center mt-4" aria-label="<?php esc_attr_e( 'Popular searches', 'msrsandbox' ); ?>">
-		<p class="small text-muted mb-2"><?php esc_html_e( 'Popular searches', 'msrsandbox' ); ?></p>
+	<nav class="publishing-search-popular text-center mt-4" aria-label="<?php esc_attr_e( 'Browse hubs', 'msrpublishing' ); ?>">
+		<p class="small text-muted mb-2"><?php esc_html_e( 'Browse instead', 'msrpublishing' ); ?></p>
 		<div class="d-flex flex-wrap gap-2 justify-content-center">
-			<?php foreach ( $terms as $term ) : ?>
-				<a class="btn btn-outline-primary btn-sm publishing-search-popular__term" href="<?php echo esc_url( add_query_arg( 's', $term, home_url( '/' ) ) ); ?>">
-					<?php echo esc_html( $term ); ?>
+			<?php foreach ( $links as $link ) : ?>
+				<a class="btn btn-outline-primary btn-sm publishing-search-popular__term" href="<?php echo esc_url( $link['url'] ); ?>">
+					<?php echo esc_html( $link['label'] ); ?>
 				</a>
 			<?php endforeach; ?>
 		</div>
@@ -433,4 +708,48 @@ function msr_publishing_render_search_subscribe_band() {
 		return;
 	}
 	msr_publishing_render_subscribe_cta( 'search' );
+}
+
+/**
+ * Mixed search can rank resources above commentary on page 1 — boost up to N posts for the grid.
+ *
+ * @param WP_Query $main_query Main search query.
+ * @return WP_Post[]
+ */
+function msr_publishing_get_search_commentary_boost_posts( WP_Query $main_query ) {
+	if ( ! $main_query->is_search() || msr_publishing_get_search_filter() !== 'all' ) {
+		return array();
+	}
+
+	foreach ( (array) $main_query->posts as $post ) {
+		if ( $post instanceof WP_Post && 'post' === $post->post_type ) {
+			return array();
+		}
+	}
+
+	$search = get_search_query();
+	if ( $search === '' ) {
+		return array();
+	}
+
+	$exclude = wp_list_pluck( (array) $main_query->posts, 'ID' );
+	if ( function_exists( 'msr_publishing_get_density_filler_post_ids' ) ) {
+		$exclude = array_merge( $exclude, msr_publishing_get_density_filler_post_ids() );
+	}
+
+	$boost = new WP_Query(
+		array(
+			'post_type'              => 'post',
+			'post_status'            => 'publish',
+			's'                      => $search,
+			'posts_per_page'         => 2,
+			'post__not_in'           => array_map( 'intval', $exclude ),
+			'ignore_sticky_posts'    => true,
+			'no_found_rows'          => true,
+			'update_post_meta_cache' => false,
+			'update_post_term_cache' => true,
+		)
+	);
+
+	return $boost->posts ? $boost->posts : array();
 }

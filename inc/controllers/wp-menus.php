@@ -2,22 +2,22 @@
 /**
  * Register navigation menus — single registration (WP admin: Appearance → Menus).
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 /**
  * @return void
  */
-function msrsandbox_register_nav_menus() {
+function msrpublishing_register_nav_menus() {
 	register_nav_menus(
 		array(
-			'menu-1' => __( 'Primary', 'msrsandbox' ),
-			'footer' => __( 'Footer', 'msrsandbox' ),
-			'social' => __( 'Social', 'msrsandbox' ),
+			'menu-1' => __( 'Primary', 'msrpublishing' ),
+			'footer' => __( 'Footer', 'msrpublishing' ),
+			'social' => __( 'Social', 'msrpublishing' ),
 		)
 	);
 }
-add_action( 'after_setup_theme', 'msrsandbox_register_nav_menus' );
+add_action( 'after_setup_theme', 'msrpublishing_register_nav_menus' );
 
 /**
  * Custom walker for primary menu markup (#cssmenu / span wrappers).

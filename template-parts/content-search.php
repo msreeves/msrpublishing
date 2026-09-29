@@ -2,7 +2,7 @@
 /**
  * Search result card — resource or commentary (`post-card` / `resource-card`).
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 $post_type = get_post_type();

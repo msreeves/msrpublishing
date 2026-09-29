@@ -2,7 +2,7 @@
 /**
  * Shared shell for legacy demo page templates (redirect handled in legacy-guard).
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 get_header();
@@ -13,8 +13,8 @@ if ( ! $archive ) {
 }
 ?>
 <main id="site-content" class="container py-5">
-	<p><?php esc_html_e( 'This demo page has moved to the resource library.', 'msrsandbox' ); ?></p>
-	<p><a class="btn btn-primary" href="<?php echo esc_url( $archive ); ?>"><?php esc_html_e( 'Browse resources', 'msrsandbox' ); ?></a></p>
+	<p><?php esc_html_e( 'This demo page has moved to the resource library.', 'msrpublishing' ); ?></p>
+	<p><a class="btn btn-primary" href="<?php echo esc_url( $archive ); ?>"><?php esc_html_e( 'Browse resources', 'msrpublishing' ); ?></a></p>
 </main>
 <?php
 get_footer();

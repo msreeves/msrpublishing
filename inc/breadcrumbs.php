@@ -2,7 +2,7 @@
 /**
  * Breadcrumbs for Atlas Briefing routes (single system — header only).
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 /**
@@ -17,7 +17,7 @@ function msr_publishing_get_breadcrumb_trail() {
 
 	$trail = array(
 		array(
-			'label'   => __( 'Home', 'msrsandbox' ),
+			'label'   => __( 'Home', 'msrpublishing' ),
 			'url'     => home_url( '/' ),
 			'current' => false,
 		),
@@ -32,14 +32,14 @@ function msr_publishing_get_breadcrumb_trail() {
 	};
 
 	if ( is_post_type_archive( 'resource' ) ) {
-		$push( __( 'Resources', 'msrsandbox' ), '', true );
+		$push( __( 'Resources', 'msrpublishing' ), '', true );
 		return $trail;
 	}
 
 	if ( is_tax( 'resource_type' ) ) {
 		$archive = get_post_type_archive_link( 'resource' );
 		if ( $archive ) {
-			$push( __( 'Resources', 'msrsandbox' ), $archive );
+			$push( __( 'Resources', 'msrpublishing' ), $archive );
 		}
 		$push( single_term_title( '', false ), '', true );
 		return $trail;
@@ -50,7 +50,7 @@ function msr_publishing_get_breadcrumb_trail() {
 			? msr_publishing_get_topic_hub_url()
 			: '';
 		if ( $topics_hub ) {
-			$push( __( 'Topics', 'msrsandbox' ), $topics_hub );
+			$push( __( 'Topics', 'msrpublishing' ), $topics_hub );
 		}
 		$push( single_term_title( '', false ), '', true );
 		return $trail;
@@ -59,7 +59,7 @@ function msr_publishing_get_breadcrumb_trail() {
 	if ( is_tax( 'resource_series' ) ) {
 		$archive = get_post_type_archive_link( 'resource' );
 		if ( $archive ) {
-			$push( __( 'Resources', 'msrsandbox' ), $archive );
+			$push( __( 'Resources', 'msrpublishing' ), $archive );
 		}
 		$push( single_term_title( '', false ), '', true );
 		return $trail;
@@ -68,7 +68,7 @@ function msr_publishing_get_breadcrumb_trail() {
 	if ( is_singular( 'resource' ) ) {
 		$archive = get_post_type_archive_link( 'resource' );
 		if ( $archive ) {
-			$push( __( 'Resources', 'msrsandbox' ), $archive );
+			$push( __( 'Resources', 'msrpublishing' ), $archive );
 		}
 		$term = msr_publishing_get_primary_resource_type( get_the_ID() );
 		if ( $term ) {
@@ -114,10 +114,10 @@ function msr_publishing_get_breadcrumb_trail() {
 	if ( is_author() ) {
 		$insights = function_exists( 'msr_publishing_insights_url' ) ? msr_publishing_insights_url() : '';
 		if ( $insights ) {
-			$push( __( 'Commentary & insights', 'msrsandbox' ), $insights );
+			$push( __( 'Commentary & insights', 'msrpublishing' ), $insights );
 		}
 		$author = get_queried_object();
-		$label  = $author instanceof WP_User ? $author->display_name : __( 'Author', 'msrsandbox' );
+		$label  = $author instanceof WP_User ? $author->display_name : __( 'Author', 'msrpublishing' );
 		if ( function_exists( 'msr_publishing_get_expert_from_author_object' ) && $author instanceof WP_User ) {
 			$expert = msr_publishing_get_expert_from_author_object( $author );
 			if ( $expert && ! empty( $expert['name'] ) ) {
@@ -133,10 +133,10 @@ function msr_publishing_get_breadcrumb_trail() {
 		$label = $query !== ''
 			? sprintf(
 				/* translators: %s: search query */
-				__( 'Search: %s', 'msrsandbox' ),
+				__( 'Search: %s', 'msrpublishing' ),
 				$query
 			)
-			: __( 'Search', 'msrsandbox' );
+			: __( 'Search', 'msrpublishing' );
 		$push( $label, '', true );
 		return $trail;
 	}
@@ -147,7 +147,7 @@ function msr_publishing_get_breadcrumb_trail() {
 	}
 
 	if ( is_404() ) {
-		$push( __( 'Page not found', 'msrsandbox' ), '', true );
+		$push( __( 'Page not found', 'msrpublishing' ), '', true );
 		return $trail;
 	}
 
@@ -164,7 +164,7 @@ function msr_publishing_the_breadcrumbs() {
 		return;
 	}
 
-	echo '<nav class="msr-breadcrumbs" aria-label="' . esc_attr__( 'Breadcrumb', 'msrsandbox' ) . '">';
+	echo '<nav class="msr-breadcrumbs" aria-label="' . esc_attr__( 'Breadcrumb', 'msrpublishing' ) . '">';
 	echo '<div class="container">';
 	echo '<ol class="msr-breadcrumbs__list">';
 

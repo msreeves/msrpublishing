@@ -2,7 +2,7 @@
 /**
  * Lead generation helpers (subscribe page URL, demo forms).
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 /**
@@ -64,25 +64,25 @@ function msr_publishing_render_subscribe_cta( $context = 'band' ) {
 	$formats = msr_publishing_get_subscribe_formats_summary();
 	/* translators: %s: comma-separated list of resource formats */
 	$text = sprintf(
-		__( 'Atlas Briefing updates — %s, plus commentary matched to your topic hubs.', 'msrsandbox' ),
+		__( 'Atlas Briefing updates — %s, plus commentary matched to your topic hubs.', 'msrpublishing' ),
 		$formats
 	);
 	if ( 'home' === $context ) {
-		$text = __( 'Get workforce and resilience briefings in your inbox — curated resources and commentary from Atlas Briefing.', 'msrsandbox' );
+		$text = __( 'Get workforce and resilience briefings in your inbox — curated resources and commentary from Atlas Briefing.', 'msrpublishing' );
 	} elseif ( 'resource' === $context ) {
-		$text = __( 'Get the next briefing in your inbox — curated resources and commentary matched to Atlas Briefing readers.', 'msrsandbox' );
+		$text = __( 'Get the next briefing in your inbox — curated resources and commentary matched to Atlas Briefing readers.', 'msrpublishing' );
 	} elseif ( 'about' === $context ) {
-		$text = __( 'Follow methodology updates and new formats from Atlas Briefing — briefings, whitepapers, and commentary.', 'msrsandbox' );
+		$text = __( 'Follow methodology updates and new formats from Atlas Briefing — briefings, whitepapers, and commentary.', 'msrpublishing' );
 	} elseif ( 'topics' === $context ) {
-		$text = __( 'Get topic-matched briefings — workforce, resilience, and editorial hubs from Atlas Briefing.', 'msrsandbox' );
+		$text = __( 'Get topic-matched briefings — workforce, resilience, and editorial hubs from Atlas Briefing.', 'msrpublishing' );
 	} elseif ( 'archive' === $context ) {
-		$text = __( 'New resources and commentary in your inbox — curated from the Atlas Briefing library.', 'msrsandbox' );
+		$text = __( 'New resources and commentary in your inbox — curated from the Atlas Briefing library.', 'msrpublishing' );
 	}
 	?>
-	<section<?php echo 'home' === $context ? ' id="publishing-home-subscribe"' : ''; ?> class="publishing-subscribe-cta publishing-subscribe-cta--<?php echo esc_attr( $context ); ?>" aria-label="<?php esc_attr_e( 'Newsletter signup', 'msrsandbox' ); ?>">
+	<section<?php echo 'home' === $context ? ' id="publishing-home-subscribe"' : ''; ?> class="publishing-subscribe-cta publishing-subscribe-cta--<?php echo esc_attr( $context ); ?>" aria-label="<?php esc_attr_e( 'Newsletter signup', 'msrpublishing' ); ?>">
 		<div class="container">
 			<div class="publishing-subscribe-cta__inner text-center">
-				<h2 class="h4 publishing-subscribe-cta__title mb-2"><?php esc_html_e( 'Stay briefed', 'msrsandbox' ); ?></h2>
+				<h2 class="h4 publishing-subscribe-cta__title mb-2"><?php esc_html_e( 'Stay briefed', 'msrpublishing' ); ?></h2>
 				<p class="text-muted mb-3 publishing-subscribe-cta__text">
 					<?php echo esc_html( $text ); ?>
 				</p>
@@ -92,7 +92,7 @@ function msr_publishing_render_subscribe_cta( $context = 'band' ) {
 					</div>
 				<?php else : ?>
 					<a class="btn btn-primary publishing-subscribe-cta__link" href="<?php echo esc_url( $url ); ?>">
-						<?php esc_html_e( 'Subscribe to Atlas Briefing', 'msrsandbox' ); ?>
+						<?php esc_html_e( 'Subscribe to Atlas Briefing', 'msrpublishing' ); ?>
 					</a>
 				<?php endif; ?>
 			</div>

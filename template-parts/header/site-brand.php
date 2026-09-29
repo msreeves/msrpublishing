@@ -2,7 +2,7 @@
 /**
  * Site brand mark (split from site-nav for programme-health anchor/button spacing).
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 ?>
 <a class="navbar-brand" href="<?php echo esc_url( home_url( '/' ) ); ?>">

@@ -121,3 +121,25 @@ textarea {
 		}
 	}
 }
+
+.msr-site-search--header {
+	max-width: none;
+	margin: 0;
+	padding: 0;
+
+	.input-group {
+		flex-wrap: nowrap;
+	}
+
+	.form-control {
+		min-height: 2.75rem;
+		padding: 0.5rem 0.75rem;
+		font-size: 0.9375rem;
+	}
+
+	.btn[type='submit'] {
+		min-width: 2.75rem;
+		padding-inline: 0.85rem;
+		white-space: nowrap;
+	}
+}

@@ -4,7 +4,7 @@
  *
  * WordPress categories use category_base `topics`; publishing topic hubs use `briefing-topic`.
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 /**

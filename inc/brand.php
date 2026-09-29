@@ -2,7 +2,7 @@
 /**
  * Atlas Briefing brand name + tagline (shell copy independent of WP site title).
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 /**
@@ -13,10 +13,10 @@
 function msr_publishing_brand_name() {
 	$name = get_bloginfo( 'name', 'display' );
 	if ( '' === trim( $name ) || false !== stripos( $name, 'sandbox' ) ) {
-		return __( 'Atlas Briefing', 'msrsandbox' );
+		return __( 'Atlas Briefing', 'msrpublishing' );
 	}
 	if ( false !== stripos( $name, 'montreal' ) || 'Atlas Briefing' !== $name ) {
-		return __( 'Atlas Briefing', 'msrsandbox' );
+		return __( 'Atlas Briefing', 'msrpublishing' );
 	}
 
 	return $name;
@@ -33,12 +33,12 @@ function msr_publishing_brand_tagline() {
 
 	foreach ( $demos as $marker ) {
 		if ( $desc !== '' && false !== stripos( $desc, $marker ) ) {
-			return __( 'Curated briefings, whitepapers, and analysis for workforce and resilience leaders.', 'msrsandbox' );
+			return __( 'Curated briefings, whitepapers, and analysis for workforce and resilience leaders.', 'msrpublishing' );
 		}
 	}
 
 	if ( '' === trim( $desc ) ) {
-		return __( 'Curated briefings, whitepapers, and analysis for workforce and resilience leaders.', 'msrsandbox' );
+		return __( 'Curated briefings, whitepapers, and analysis for workforce and resilience leaders.', 'msrpublishing' );
 	}
 
 	return $desc;

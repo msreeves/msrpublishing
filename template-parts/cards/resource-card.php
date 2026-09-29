@@ -2,12 +2,13 @@
 /**
  * Resource archive card.
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 $card_args = isset( $args ) && is_array( $args ) ? $args : array();
 $layout    = isset( $card_args['layout'] ) ? (string) $card_args['layout'] : '';
 $featured  = ( 'featured' === $layout );
+$compact   = ( 'compact' === $layout );
 
 $post_id = isset( $card_args['post_id'] ) ? (int) $card_args['post_id'] : 0;
 if ( $post_id <= 0 ) {
@@ -16,6 +17,8 @@ if ( $post_id <= 0 ) {
 $classes = array( 'msr-card', 'resource-card', 'card', 'h-100' );
 if ( $featured ) {
 	$classes = array( 'msr-card', 'resource-card', 'resource-card--featured', 'card', 'h-100' );
+} elseif ( $compact ) {
+	$classes[] = 'resource-card--compact';
 }
 $terms   = get_the_terms( $post_id, 'resource_type' );
 $primary = msr_publishing_get_primary_resource_type( $post_id );
@@ -29,7 +32,7 @@ $newtab   = ( $external && $url !== '' );
 $card_title = get_the_title( $post_id );
 $media_label = sprintf(
 	/* translators: %s: resource title */
-	__( 'View resource: %s', 'msrsandbox' ),
+	__( 'View resource: %s', 'msrpublishing' ),
 	$card_title
 );
 
@@ -41,7 +44,7 @@ $media_args = array(
 	'aria_label' => $media_label,
 );
 
-$render_body = static function () use ( $primary, $terms, $href, $newtab, $featured, $post_id ) {
+$render_body = static function () use ( $primary, $terms, $href, $newtab, $featured, $compact, $post_id ) {
 	$programme = msr_publishing_get_resource_programme( $post_id );
 	?>
 	<div class="card-body d-flex flex-column">
@@ -62,17 +65,26 @@ $render_body = static function () use ( $primary, $terms, $href, $newtab, $featu
 				<?php echo esc_html( $programme['label'] ); ?>
 			</p>
 		<?php endif; ?>
-		<h2 class="<?php echo $featured ? 'h4' : 'h5'; ?> card-title msr-reveal">
+		<h2 class="<?php echo $featured ? 'h4' : ( $compact ? 'h6' : 'h5' ); ?> card-title msr-reveal">
 			<a href="<?php echo esc_url( $href ); ?>" <?php echo $newtab ? ' target="_blank" rel="noopener noreferrer"' : ''; ?>>
 				<?php echo esc_html( get_the_title( $post_id ) ); ?>
 				<?php if ( $newtab ) : ?>
-					<span class="visually-hidden"><?php esc_html_e( '(opens in new tab)', 'msrsandbox' ); ?></span>
+					<span class="visually-hidden"><?php esc_html_e( '(opens in new tab)', 'msrpublishing' ); ?></span>
 					<i class="fa-solid fa-arrow-up-right-from-square ms-1 small" aria-hidden="true"></i>
 				<?php endif; ?>
 			</a>
 		</h2>
-		<?php if ( has_excerpt( $post_id ) ) : ?>
-			<p class="card-text small<?php echo $featured ? '' : ''; ?>"><?php echo esc_html( wp_strip_all_tags( get_the_excerpt( $post_id ) ) ); ?></p>
+		<?php if ( ! $compact ) : ?>
+		<?php
+		$card_teaser = has_excerpt( $post_id )
+			? wp_strip_all_tags( get_the_excerpt( $post_id ) )
+			: wp_trim_words( wp_strip_all_tags( (string) get_post_field( 'post_content', $post_id ) ), 28, '…' );
+		if ( $card_teaser !== '' ) :
+			?>
+			<p class="card-text small flex-grow-1"><?php echo esc_html( $card_teaser ); ?></p>
+		<?php else : ?>
+			<p class="card-text small flex-grow-1 card-text--placeholder" aria-hidden="true">&nbsp;</p>
+		<?php endif; ?>
 		<?php endif; ?>
 		<?php msr_publishing_render_resource_card_meta( $post_id ); ?>
 	</div>

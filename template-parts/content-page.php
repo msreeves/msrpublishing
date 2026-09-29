@@ -4,7 +4,7 @@
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 ?>
@@ -21,7 +21,7 @@
 
 		wp_link_pages(
 			array(
-				'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'msrsandbox' ),
+				'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'msrpublishing' ),
 				'after'  => '</div>',
 			)
 		);

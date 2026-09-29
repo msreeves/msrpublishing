@@ -2,17 +2,17 @@
 /**
  * Related resources block for resource singles.
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 $post_id = get_the_ID();
-$related = msr_publishing_get_related_resources( $post_id, 3 );
+$related = msr_publishing_get_related_resources( $post_id );
 if ( ! $related->have_posts() ) {
 	return;
 }
 ?>
 <section class="resource-single__related mt-5 pt-4 border-top">
-	<h2 class="h4 mb-4"><?php esc_html_e( 'Related resources', 'msrsandbox' ); ?></h2>
+	<h2 class="h4 mb-4"><?php esc_html_e( 'Related resources', 'msrpublishing' ); ?></h2>
 	<div class="row g-4">
 		<?php
 		while ( $related->have_posts() ) {

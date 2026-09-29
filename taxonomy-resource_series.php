@@ -2,7 +2,7 @@
 /**
  * Resource series hub — ordered reading path.
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 get_header();
@@ -14,7 +14,7 @@ if ( ! $term instanceof WP_Term ) {
 ?>
 <main id="site-content" class="taxonomy-resource-series publishing-series-hub">
 	<header class="page-header container py-4">
-		<p class="publishing-series-hub__eyebrow small text-uppercase fw-semibold text-muted mb-2"><?php esc_html_e( 'Resource series', 'msrsandbox' ); ?></p>
+		<p class="publishing-series-hub__eyebrow small text-uppercase fw-semibold text-muted mb-2"><?php esc_html_e( 'Resource series', 'msrpublishing' ); ?></p>
 		<h1 class="page-title msr-reveal"><?php single_term_title(); ?></h1>
 		<?php
 		$desc = term_description();
@@ -23,7 +23,7 @@ if ( ! $term instanceof WP_Term ) {
 		} else {
 			?>
 			<p class="taxonomy-description msr-reveal">
-				<?php esc_html_e( 'Follow the recommended reading order across formats in this Atlas Briefing series.', 'msrsandbox' ); ?>
+				<?php esc_html_e( 'Follow the recommended reading order across formats in this Atlas Briefing series.', 'msrpublishing' ); ?>
 			</p>
 			<?php
 		}
@@ -31,7 +31,7 @@ if ( ! $term instanceof WP_Term ) {
 	</header>
 
 	<section class="container pb-5" aria-labelledby="publishing-series-reading-heading">
-		<h2 id="publishing-series-reading-heading" class="h4 mb-4"><?php esc_html_e( 'Reading order', 'msrsandbox' ); ?></h2>
+		<h2 id="publishing-series-reading-heading" class="h4 mb-4"><?php esc_html_e( 'Reading order', 'msrpublishing' ); ?></h2>
 		<?php msr_publishing_render_series_reading_order( $term ); ?>
 	</section>
 

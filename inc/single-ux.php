@@ -2,7 +2,7 @@
 /**
  * Single UX — share tools, key takeaways, sticky TOC, dates (P39).
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 /**
@@ -161,7 +161,7 @@ function msr_publishing_should_render_sticky_toc( $post_id = 0 ) {
 		? msr_publishing_get_primary_resource_type_slug( $post_id )
 		: '';
 
-	if ( 'whitepaper' !== $format ) {
+	if ( ! in_array( $format, array( 'whitepaper', 'playbook' ), true ) ) {
 		return false;
 	}
 
@@ -192,13 +192,13 @@ function msr_publishing_render_single_dates( $post_id = 0 ) {
 	?>
 	<p class="publishing-single-dates resource-single__meta small text-muted mb-0">
 		<span class="publishing-single-dates__published">
-			<span class="visually-hidden"><?php esc_html_e( 'Published', 'msrsandbox' ); ?></span>
+			<span class="visually-hidden"><?php esc_html_e( 'Published', 'msrpublishing' ); ?></span>
 			<time datetime="<?php echo esc_attr( get_the_date( 'c', $post_id ) ); ?>"><?php echo esc_html( get_the_date( '', $post_id ) ); ?></time>
 		</span>
 		<?php if ( msr_publishing_post_has_updated_date( $post_id ) ) : ?>
 			<span class="publishing-single-dates__separator" aria-hidden="true"> · </span>
 			<span class="publishing-single-dates__updated">
-				<span class="visually-hidden"><?php esc_html_e( 'Updated', 'msrsandbox' ); ?></span>
+				<span class="visually-hidden"><?php esc_html_e( 'Updated', 'msrpublishing' ); ?></span>
 				<time datetime="<?php echo esc_attr( get_the_modified_date( 'c', $post_id ) ); ?>"><?php echo esc_html( get_the_modified_date( '', $post_id ) ); ?></time>
 			</span>
 		<?php endif; ?>
@@ -220,15 +220,15 @@ function msr_publishing_render_single_share_tools( $post_id = 0 ) {
 	$linkedin = msr_publishing_get_linkedin_share_url( $url );
 	?>
 	<div class="publishing-single-share" data-share-url="<?php echo esc_url( $url ); ?>">
-		<p class="publishing-single-share__label small text-uppercase fw-semibold text-muted mb-2"><?php esc_html_e( 'Share', 'msrsandbox' ); ?></p>
+		<p class="publishing-single-share__label small text-uppercase fw-semibold mb-2"><?php esc_html_e( 'Share', 'msrpublishing' ); ?></p>
 		<div class="publishing-single-share__actions d-flex flex-wrap gap-2 align-items-center">
 			<button type="button" class="btn btn-sm btn-outline-secondary publishing-single-share__copy" data-copy-url="<?php echo esc_url( $url ); ?>">
 				<i class="fa-solid fa-link me-1" aria-hidden="true"></i>
-				<?php esc_html_e( 'Copy link', 'msrsandbox' ); ?>
+				<?php esc_html_e( 'Copy link', 'msrpublishing' ); ?>
 			</button>
 			<a class="btn btn-sm btn-outline-primary publishing-single-share__linkedin" href="<?php echo esc_url( $linkedin ); ?>" target="_blank" rel="noopener noreferrer">
 				<i class="fa-brands fa-linkedin me-1" aria-hidden="true"></i>
-				<?php esc_html_e( 'LinkedIn', 'msrsandbox' ); ?>
+				<?php esc_html_e( 'LinkedIn', 'msrpublishing' ); ?>
 			</a>
 			<span class="publishing-single-share__status small text-success" role="status" aria-live="polite" hidden></span>
 		</div>
@@ -247,7 +247,7 @@ function msr_publishing_render_key_takeaways( $post_id = 0 ) {
 	}
 	?>
 	<section class="publishing-key-takeaways mb-4" aria-labelledby="publishing-key-takeaways-title">
-		<h2 id="publishing-key-takeaways-title" class="h5 mb-3"><?php esc_html_e( 'Key takeaways', 'msrsandbox' ); ?></h2>
+		<h2 id="publishing-key-takeaways-title" class="h5 mb-3"><?php esc_html_e( 'Key takeaways', 'msrpublishing' ); ?></h2>
 		<ul class="publishing-key-takeaways__list mb-0">
 			<?php foreach ( $items as $item ) : ?>
 				<li><?php echo esc_html( $item ); ?></li>
@@ -270,7 +270,7 @@ function msr_publishing_render_sticky_toc( $post_id = 0 ) {
 	}
 	?>
 	<nav class="publishing-single-toc publishing-single-toc--sticky" aria-labelledby="publishing-single-toc-title">
-		<p id="publishing-single-toc-title" class="publishing-single-toc__label small text-uppercase fw-semibold text-muted mb-2"><?php esc_html_e( 'On this page', 'msrsandbox' ); ?></p>
+		<p id="publishing-single-toc-title" class="publishing-single-toc__label small text-uppercase fw-semibold text-muted mb-2"><?php esc_html_e( 'On this page', 'msrpublishing' ); ?></p>
 		<ol class="publishing-single-toc__list small mb-0">
 			<?php foreach ( $headings as $heading ) : ?>
 				<li class="publishing-single-toc__item publishing-single-toc__item--h<?php echo esc_attr( (string) $heading['level'] ); ?>">
@@ -340,6 +340,26 @@ function msr_publishing_get_case_study_outcome_metrics( $post_id = 0 ) {
 
 /**
  * @param int $post_id Post ID.
+ * @return bool
+ */
+function msr_publishing_case_study_has_psr_content( $post_id = 0 ) {
+	$post_id = $post_id ? (int) $post_id : get_the_ID();
+	if ( msr_publishing_get_case_study_outcome_metrics( $post_id ) ) {
+		return true;
+	}
+	if ( ! function_exists( 'get_field' ) ) {
+		return false;
+	}
+	foreach ( array( 'case_study_challenge', 'case_study_approach', 'case_study_results' ) as $key ) {
+		if ( trim( (string) get_field( $key, $post_id ) ) !== '' ) {
+			return true;
+		}
+	}
+	return false;
+}
+
+/**
+ * @param int $post_id Post ID.
  * @return void
  */
 function msr_publishing_render_case_study_industry( $post_id = 0 ) {
@@ -369,7 +389,7 @@ function msr_publishing_render_case_study_metrics( $post_id = 0 ) {
 	}
 	?>
 	<section class="resource-case-study__metrics mb-4" aria-labelledby="resource-case-study-metrics-title">
-		<h2 id="resource-case-study-metrics-title" class="h6 text-uppercase fw-semibold text-muted mb-3"><?php esc_html_e( 'Outcome metrics', 'msrsandbox' ); ?></h2>
+		<h2 id="resource-case-study-metrics-title" class="h6 text-uppercase fw-semibold text-muted mb-3"><?php esc_html_e( 'Outcome metrics', 'msrpublishing' ); ?></h2>
 		<div class="row g-3 msr-reveal-stagger">
 			<?php foreach ( $metrics as $metric ) : ?>
 				<div class="col-6 col-md-4">
@@ -400,15 +420,15 @@ function msr_publishing_render_case_study_narrative( $post_id = 0 ) {
 
 	$sections = array(
 		'challenge' => array(
-			'label' => __( 'Challenge', 'msrsandbox' ),
+			'label' => __( 'Challenge', 'msrpublishing' ),
 			'value' => trim( (string) get_field( 'case_study_challenge', $post_id ) ),
 		),
 		'approach'  => array(
-			'label' => __( 'Approach', 'msrsandbox' ),
+			'label' => __( 'Approach', 'msrpublishing' ),
 			'value' => trim( (string) get_field( 'case_study_approach', $post_id ) ),
 		),
 		'results'   => array(
-			'label' => __( 'Results', 'msrsandbox' ),
+			'label' => __( 'Results', 'msrpublishing' ),
 			'value' => trim( (string) get_field( 'case_study_results', $post_id ) ),
 		),
 	);

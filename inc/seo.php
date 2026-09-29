@@ -4,7 +4,7 @@
  *
  * Option A (theme hooks). Supersedes tenweb_meta_description on publishing routes.
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 /**
@@ -75,7 +75,7 @@ function msr_publishing_seo_title() {
 		}
 	}
 	if ( is_post_type_archive( 'resource' ) ) {
-		return __( 'Resources', 'msrsandbox' ) . ' — ' . msr_publishing_seo_site_name();
+		return __( 'Resources', 'msrpublishing' ) . ' — ' . msr_publishing_seo_site_name();
 	}
 	if ( is_tax() || is_category() ) {
 		return single_term_title( '', false ) . ' — ' . msr_publishing_seo_site_name();
@@ -83,7 +83,7 @@ function msr_publishing_seo_title() {
 	if ( is_search() ) {
 		return sprintf(
 			/* translators: %s: search query */
-			__( 'Search results for "%s"', 'msrsandbox' ),
+			__( 'Search results for "%s"', 'msrpublishing' ),
 			get_search_query()
 		) . ' — ' . msr_publishing_seo_site_name();
 	}
@@ -108,34 +108,34 @@ function msr_publishing_seo_description() {
 		}
 		return msr_publishing_get_seo_description_option(
 			'seo_home_description',
-			__( 'Atlas Briefing — workforce briefings, whitepapers, webinars, and commentary on hiring and resilience.', 'msrsandbox' )
+			__( 'Atlas Briefing — workforce briefings, whitepapers, webinars, and commentary on hiring and resilience.', 'msrpublishing' )
 		);
 	}
 	if ( is_page( 'topics' ) ) {
 		return msr_publishing_get_seo_description_option(
 			'seo_topics_description',
-			__( 'Browse Atlas Briefing topics — workforce, resilience, and related demonstration hubs.', 'msrsandbox' )
+			__( 'Browse Atlas Briefing topics — workforce, resilience, and related demonstration hubs.', 'msrpublishing' )
 		);
 	}
 	if ( is_page( 'insights' ) ) {
 		return msr_publishing_get_seo_description_option(
 			'seo_insights_description',
-			__( 'Commentary and editorial insights from Atlas Briefing — workforce and resilience analysis for portfolio review.', 'msrsandbox' )
+			__( 'Commentary and editorial insights from Atlas Briefing — workforce and resilience analysis for portfolio review.', 'msrpublishing' )
 		);
 	}
 	if ( is_page( 'about' ) ) {
 		return msr_publishing_get_seo_description_option(
 			'seo_about_description',
-			__( 'About Atlas Briefing — methodology, formats, and demonstration disclaimer for portfolio review.', 'msrsandbox' )
+			__( 'About Atlas Briefing — methodology, formats, and demonstration disclaimer for portfolio review.', 'msrpublishing' )
 		);
 	}
 	if ( is_page( 'privacy' ) ) {
-		return __( 'Privacy notice (demonstration) for Atlas Briefing — portfolio placeholder, not legal advice.', 'msrsandbox' );
+		return __( 'Privacy notice (demonstration) for Atlas Briefing — portfolio placeholder, not legal advice.', 'msrpublishing' );
 	}
 	if ( is_page( 'subscribe' ) ) {
 		return msr_publishing_get_seo_description_option(
 			'seo_subscribe_description',
-			__( 'Subscribe to Atlas Briefing — workforce briefings, whitepapers, webinars, and commentary. Demonstration signup for portfolio review.', 'msrsandbox' )
+			__( 'Subscribe to Atlas Briefing — workforce briefings, whitepapers, webinars, and commentary. Demonstration signup for portfolio review.', 'msrpublishing' )
 		);
 	}
 	if ( is_singular( 'resource' ) ) {
@@ -157,7 +157,7 @@ function msr_publishing_seo_description() {
 	if ( is_post_type_archive( 'resource' ) ) {
 		return msr_publishing_get_seo_description_option(
 			'seo_resources_archive_description',
-			__( 'Atlas Briefing resource library — demonstration insights for portfolio review.', 'msrsandbox' )
+			__( 'Atlas Briefing resource library — demonstration insights for portfolio review.', 'msrpublishing' )
 		);
 	}
 	if ( is_tax() || is_category() ) {
@@ -167,7 +167,7 @@ function msr_publishing_seo_description() {
 		}
 	}
 	if ( is_search() ) {
-		return __( 'Search Atlas Briefing resources and commentary.', 'msrsandbox' );
+		return __( 'Search Atlas Briefing resources and commentary.', 'msrpublishing' );
 	}
 	return get_bloginfo( 'description', 'display' );
 }
@@ -289,7 +289,7 @@ function msr_publishing_seo_image_meta() {
 	if ( $default_url !== '' ) {
 		return array(
 			'url'    => $default_url,
-			'alt'    => __( 'Atlas Briefing featured resource', 'msrsandbox' ),
+			'alt'    => __( 'Atlas Briefing featured resource', 'msrpublishing' ),
 			'width'  => 0,
 			'height' => 0,
 		);

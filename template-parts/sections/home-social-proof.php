@@ -2,7 +2,7 @@
 /**
  * Home social proof — stats strip + programme logo row.
  *
- * @package msrsandbox
+ * @package msrpublishing
  *
  * @var array $args {
  *     @type string $eyebrow Eyebrow label.
@@ -26,7 +26,7 @@ if ( ! $stats && ! $logos ) {
 		<?php endif; ?>
 
 		<?php if ( $stats ) : ?>
-			<ul class="publishing-home-social-proof__stats list-unstyled mb-0" aria-label="<?php esc_attr_e( 'Atlas Briefing at a glance', 'msrsandbox' ); ?>">
+			<ul class="publishing-home-social-proof__stats list-unstyled mb-0" aria-label="<?php esc_attr_e( 'Atlas Briefing at a glance', 'msrpublishing' ); ?>">
 				<?php foreach ( $stats as $stat ) : ?>
 					<?php
 					if ( empty( $stat['value'] ) || empty( $stat['label'] ) ) {
@@ -42,7 +42,7 @@ if ( ! $stats && ! $logos ) {
 		<?php endif; ?>
 
 		<?php if ( $logos ) : ?>
-			<ul class="publishing-home-social-proof__logos list-unstyled mb-0" aria-label="<?php esc_attr_e( 'Connected MSR programmes', 'msrsandbox' ); ?>">
+			<ul class="publishing-home-social-proof__logos list-unstyled mb-0" aria-label="<?php esc_attr_e( 'Connected MSR programmes', 'msrpublishing' ); ?>">
 				<?php foreach ( $logos as $logo ) : ?>
 					<?php
 					$name    = isset( $logo['name'] ) ? trim( (string) $logo['name'] ) : '';

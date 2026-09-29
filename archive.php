@@ -2,7 +2,7 @@
 /**
  * Category archives — publishing commentary chrome.
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 get_header();

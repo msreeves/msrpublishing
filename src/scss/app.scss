@@ -1,6 +1,6 @@
 /*
-Theme Name: msrsandbox
-Theme URI: https://www.msreeves.co.uk/msrsandbox
+Theme Name: msrpublishing
+Theme URI: https://www.msreeves.co.uk/msrpublishing
 Description: Atlas Briefing publishing theme — resources, commentary, and lead-gen flows. Assets built with Vite 5 + SCSS (npm run production).
 Author: Michael Reeves
 Author URI: https://www.msreeves.co.uk
@@ -17,13 +17,18 @@ Requires PHP: 7.4
 
 @import 'elements/links';
 @import 'filter-bar';
+@import 'discovery';
+@import 'search-page';
 @import 'context';
 @import 'components/card-media';
 @import 'site-footer';
 @import 'responsive';
 @import 'a11y';
 @import 'nav';
+@import 'site-header-layout';
 @import 'header';
 @import 'content';
 @import 'cta-cluster';
+@import 'home-standards';
+@import 'pub-ux-polish';
 @import 'footer';

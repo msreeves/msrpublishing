@@ -2,7 +2,7 @@
 /**
  * Author / byline helpers for resources and commentary.
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 /**
@@ -29,6 +29,12 @@ function msr_publishing_get_content_author_meta( $post_id = 0 ) {
 			$meta['title']    = trim( (string) get_field( 'guest_author_title', $post_id ) );
 			$meta['image_id'] = (int) get_field( 'guest_author_image', $post_id );
 			$meta['source']   = 'guest';
+			if ( $meta['image_id'] <= 0 && function_exists( 'msr_publishing_get_expert_stock_avatar_id' ) ) {
+				$expert = msr_publishing_get_expert_by_name( $guest );
+				if ( $expert ) {
+					$meta['image_id'] = msr_publishing_get_expert_stock_avatar_id( $expert );
+				}
+			}
 			return $meta;
 		}
 	}
@@ -48,7 +54,7 @@ function msr_publishing_get_content_author_meta( $post_id = 0 ) {
 	}
 
 	if ( 'post' === get_post_type( $post_id ) ) {
-		$meta['name']   = __( 'Atlas Briefing editorial', 'msrsandbox' );
+		$meta['name']   = __( 'Atlas Briefing editorial', 'msrpublishing' );
 		$meta['source'] = 'default';
 	}
 
@@ -75,19 +81,26 @@ function msr_publishing_render_content_byline( $post_id = 0, $show_date = false 
 			<div class="publishing-byline__author d-flex align-items-center gap-2">
 				<?php if ( $author['image_id'] > 0 ) : ?>
 					<?php
+					$avatar_alt = $author['name'] !== ''
+						? sprintf(
+							/* translators: %s: author name */
+							__( '%s (demonstration profile)', 'msrpublishing' ),
+							$author['name']
+						)
+						: '';
 					echo wp_get_attachment_image(
 						$author['image_id'],
 						'thumbnail',
 						false,
 						array(
 							'class' => 'publishing-byline__avatar',
-							'alt'   => '',
+							'alt'   => $avatar_alt,
 						)
 					);
 					?>
 				<?php endif; ?>
 				<p class="mb-0">
-					<span class="publishing-byline__label visually-hidden"><?php esc_html_e( 'Author', 'msrsandbox' ); ?></span>
+					<span class="publishing-byline__label visually-hidden"><?php esc_html_e( 'Author', 'msrpublishing' ); ?></span>
 					<?php
 					$profile_url = msr_publishing_get_expert_profile_url_for_name( $author['name'] );
 					if ( $profile_url !== '' ) :
@@ -106,7 +119,7 @@ function msr_publishing_render_content_byline( $post_id = 0, $show_date = false 
 			<?php msr_publishing_render_single_dates( $post_id ); ?>
 		<?php elseif ( $mins > 0 && 'resource' === get_post_type( $post_id ) ) : ?>
 			<p class="resource-single__meta mb-0 mt-1">
-				<?php echo esc_html( sprintf( _n( '%d min read', '%d min read', $mins, 'msrsandbox' ), $mins ) ); ?>
+				<?php echo esc_html( sprintf( _n( '%d min read', '%d min read', $mins, 'msrpublishing' ), $mins ) ); ?>
 			</p>
 		<?php endif; ?>
 	</div>

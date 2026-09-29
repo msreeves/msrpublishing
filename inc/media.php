@@ -2,7 +2,7 @@
 /**
  * Media helpers — SVG logo, uploads.
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 /**
@@ -28,7 +28,7 @@ function msr_publishing_fix_attachment_image_src_for_svg( $image, $attachment_id
 add_filter( 'wp_get_attachment_image_src', 'msr_publishing_fix_attachment_image_src_for_svg', 10, 4 );
 
 /** @deprecated */
-function msrsandbox_fix_attachment_image_src_for_svg( $image, $attachment_id, $size, $icon ) {
+function msrpublishing_fix_attachment_image_src_for_svg( $image, $attachment_id, $size, $icon ) {
 	return msr_publishing_fix_attachment_image_src_for_svg( $image, $attachment_id, $size, $icon );
 }
 
@@ -84,7 +84,7 @@ function msr_publishing_render_site_logo() {
 }
 
 /** @deprecated */
-function msrsandbox_render_site_logo() {
+function msrpublishing_render_site_logo() {
 	msr_publishing_render_site_logo();
 }
 
@@ -100,6 +100,6 @@ function msr_publishing_enable_svg_upload( $upload_mimes ) {
 add_filter( 'upload_mimes', 'msr_publishing_enable_svg_upload', 10, 1 );
 
 /** @deprecated */
-function msrsandbox_enable_svg_upload( $upload_mimes ) {
+function msrpublishing_enable_svg_upload( $upload_mimes ) {
 	return msr_publishing_enable_svg_upload( $upload_mimes );
 }

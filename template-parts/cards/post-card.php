@@ -2,26 +2,31 @@
 /**
  * Commentary post card (publishing chrome).
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
-$post_id    = get_the_ID();
-$card_title = get_the_title( $post_id );
-$topics     = get_the_terms( $post_id, 'topic' );
+$card_args = isset( $args ) && is_array( $args ) ? $args : array();
+$post_id   = isset( $card_args['post_id'] ) ? (int) $card_args['post_id'] : (int) get_the_ID();
+if ( $post_id <= 0 ) {
+	return;
+}
+
+$card_title  = get_the_title( $post_id );
+$topics      = get_the_terms( $post_id, 'topic' );
+$permalink   = get_permalink( $post_id );
 $media_label = sprintf(
 	/* translators: %s: post title */
-	__( 'View insight: %s', 'msrsandbox' ),
+	__( 'View insight: %s', 'msrpublishing' ),
 	$card_title
 );
-
-$card_args = isset( $args ) && is_array( $args ) ? $args : array();
-$reveal    = empty( $card_args['no_reveal'] ) ? ' msr-reveal msr-reveal--up' : '';
+$reveal      = empty( $card_args['no_reveal'] ) ? ' msr-reveal msr-reveal--up' : '';
 ?>
-<article <?php post_class( 'msr-card post-card card h-100' . $reveal ); ?>>
+<article class="<?php echo esc_attr( implode( ' ', get_post_class( 'msr-card post-card card h-100' . $reveal, $post_id ) ) ); ?>">
 	<?php
 	msr_publishing_render_card_media(
 		array(
 			'post_id'    => $post_id,
+			'href'       => $permalink ? $permalink : '',
 			'title'      => $card_title,
 			'aria_label' => $media_label,
 		)
@@ -38,13 +43,24 @@ $reveal    = empty( $card_args['no_reveal'] ) ? ' msr-reveal msr-reveal--up' : '
 			</div>
 		<?php endif; ?>
 		<?php if ( msr_publishing_post_is_sponsored( $post_id ) ) : ?>
-			<p class="small text-muted mb-2"><em><?php esc_html_e( 'Sponsored content', 'msrsandbox' ); ?></em></p>
+			<p class="small text-muted mb-2"><em><?php esc_html_e( 'Sponsored content', 'msrpublishing' ); ?></em></p>
 		<?php endif; ?>
 		<h3 class="h5 card-title">
-			<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+			<?php if ( $permalink ) : ?>
+				<a href="<?php echo esc_url( $permalink ); ?>"><?php echo esc_html( $card_title ); ?></a>
+			<?php else : ?>
+				<?php echo esc_html( $card_title ); ?>
+			<?php endif; ?>
 		</h3>
-		<?php if ( has_excerpt() ) : ?>
-			<p class="card-text small text-muted flex-grow-1"><?php echo esc_html( wp_strip_all_tags( get_the_excerpt() ) ); ?></p>
+		<?php
+		$card_teaser = has_excerpt( $post_id )
+			? wp_strip_all_tags( get_the_excerpt( $post_id ) )
+			: wp_trim_words( wp_strip_all_tags( (string) get_post_field( 'post_content', $post_id ) ), 28, '…' );
+		if ( $card_teaser !== '' ) :
+			?>
+			<p class="card-text small text-muted flex-grow-1"><?php echo esc_html( $card_teaser ); ?></p>
+		<?php else : ?>
+			<p class="card-text small text-muted flex-grow-1 card-text--placeholder" aria-hidden="true">&nbsp;</p>
 		<?php endif; ?>
 		<?php msr_publishing_render_post_card_meta( $post_id ); ?>
 	</div>

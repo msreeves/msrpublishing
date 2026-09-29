@@ -2,7 +2,7 @@
 /**
  * Publishing filter bar — markup helpers (no Bootstrap nav-link / nav-pills).
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 /**
@@ -10,11 +10,17 @@
  *
  * @param string $aria_label Accessible name.
  * @param bool   $tablist    Add role="tablist" for in-page tabs.
+ * @param string $variant    underline|chips — chips for discovery panel rows.
  * @return void
  */
-function msr_publishing_filter_bar_open( $aria_label, $tablist = false ) {
+function msr_publishing_filter_bar_open( $aria_label, $tablist = false, $variant = 'underline' ) {
+	$classes = 'publishing-filter-bar';
+	if ( 'chips' === $variant ) {
+		$classes .= ' publishing-filter-bar--chips';
+	}
 	printf(
-		'<nav class="publishing-filter-bar" aria-label="%s"><ul class="publishing-filter-bar__list"%s>',
+		'<nav class="%s" aria-label="%s"><ul class="publishing-filter-bar__list"%s>',
+		esc_attr( $classes ),
 		esc_attr( $aria_label ),
 		$tablist ? ' role="tablist"' : ''
 	);
@@ -57,6 +63,8 @@ function msr_publishing_filter_bar_link( $label, $url, $active = false ) {
 /**
  * Filter tab (Bootstrap tab toggle, in-page).
  *
+ * @deprecated 2026-09-29 Use msr_publishing_filter_bar_link() + URL pills (insights/resources archives).
+ *
  * @param string $label         Tab label.
  * @param string $tab_id        Button id (…-tab).
  * @param string $pane_id       Panel id target.
@@ -64,6 +72,7 @@ function msr_publishing_filter_bar_link( $label, $url, $active = false ) {
  * @return void
  */
 function msr_publishing_filter_bar_tab( $label, $tab_id, $pane_id, $active = false ) {
+	_deprecated_function( __FUNCTION__, '2026-09-29', 'msr_publishing_filter_bar_link' );
 	$classes = 'publishing-filter-bar__tab';
 	if ( $active ) {
 		$classes .= ' is-active active';

@@ -14,21 +14,16 @@
 
 	.resource-card__media-col {
 		background: $surface-mid;
-		min-height: 12rem;
+		min-height: 0;
 	}
 
 	.msr-card-media {
-		aspect-ratio: 16 / 10;
-		min-height: 12rem;
+		aspect-ratio: 3 / 2;
+		min-height: 0;
 		max-height: none;
 		height: auto;
 		border-radius: 0;
-
-		@media (min-width: 768px) {
-			aspect-ratio: unset;
-			height: 100%;
-			min-height: 100%;
-		}
+		width: 100%;
 	}
 
 	.card-body {
@@ -109,6 +104,19 @@
 		padding-left: 0.25rem;
 		padding-right: 0.25rem;
 
+		&--chips {
+			margin-left: 0;
+			margin-right: 0;
+			padding-left: 0;
+			padding-right: 0;
+			overflow: visible;
+
+			&::before,
+			&::after {
+				display: none;
+			}
+		}
+
 		&::before,
 		&::after {
 			content: '';
@@ -151,7 +159,7 @@
 
 	.publishing-hub-featured__card .resource-card--featured .msr-card-media,
 	.publishing-featured-hero .resource-card--featured .msr-card-media {
-		min-height: 12rem;
+		min-height: 0;
 	}
 
 	.publishing-hub-featured__card .col-lg-8,
@@ -220,9 +228,9 @@
 
 	.resource-card--featured {
 		.msr-card-media {
-			min-height: 11rem;
-			max-height: 14rem;
-			aspect-ratio: 16 / 10;
+			min-height: 0;
+			max-height: none;
+			aspect-ratio: 3 / 2;
 		}
 
 		.card-body {
@@ -269,7 +277,7 @@
 	}
 
 	.msr-card-media {
-		max-height: 12rem;
+		max-height: none;
 	}
 
 	.publishing-ecosystem .col-md-4 {

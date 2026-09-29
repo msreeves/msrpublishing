@@ -10,7 +10,7 @@
  * @param string $relative Path under theme root.
  * @return int|null
  */
-function msrsandbox_asset_version( $relative ) {
+function msrpublishing_asset_version( $relative ) {
 	$path  = get_template_directory() . '/' . ltrim( $relative, '/' );
 	$mtime = @filemtime( $path );
 	return $mtime ? (int) $mtime : null;
@@ -20,8 +20,8 @@ function msrsandbox_asset_version( $relative ) {
  * @return void
  */
 function theme_scripts() {
-	$app_css_ver = msrsandbox_asset_version( 'dist/app.css' );
-	$app_js_ver  = msrsandbox_asset_version( 'dist/app.js' );
+	$app_css_ver = msrpublishing_asset_version( 'dist/app.css' );
+	$app_js_ver  = msrpublishing_asset_version( 'dist/app.js' );
 
 	wp_enqueue_style(
 		'appcss',
@@ -51,21 +51,21 @@ add_action( 'wp_enqueue_scripts', 'theme_scripts' );
  * @param string $src    Script URL.
  * @return string
  */
-function msrsandbox_appjs_module_tag( $tag, $handle, $src ) {
+function msrpublishing_appjs_module_tag( $tag, $handle, $src ) {
 	if ( 'appjs' !== $handle || strpos( $tag, 'type=' ) !== false ) {
 		return $tag;
 	}
 
 	return str_replace( '<script ', '<script type="module" ', $tag );
 }
-add_filter( 'script_loader_tag', 'msrsandbox_appjs_module_tag', 10, 3 );
+add_filter( 'script_loader_tag', 'msrpublishing_appjs_module_tag', 10, 3 );
 
 /**
  * Remove front-end emoji script/styles (audit P0 perf).
  *
  * @return void
  */
-function msrsandbox_disable_emoji_assets() {
+function msrpublishing_disable_emoji_assets() {
 	if ( is_admin() ) {
 		return;
 	}
@@ -74,4 +74,4 @@ function msrsandbox_disable_emoji_assets() {
 	remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
 	remove_action( 'admin_print_styles', 'print_emoji_styles' );
 }
-add_action( 'init', 'msrsandbox_disable_emoji_assets' );
+add_action( 'init', 'msrpublishing_disable_emoji_assets' );

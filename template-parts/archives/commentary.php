@@ -2,7 +2,7 @@
 /**
  * Commentary archive — category and generic post archives.
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 $is_category = is_category();
@@ -11,7 +11,7 @@ $is_category = is_category();
 	<div class="container py-4">
 		<header class="publishing-section-header text-center mb-4">
 			<?php if ( $is_category ) : ?>
-				<p class="small text-uppercase fw-semibold text-muted mb-2"><?php esc_html_e( 'Commentary', 'msrsandbox' ); ?></p>
+				<p class="small text-uppercase fw-semibold text-muted mb-2"><?php esc_html_e( 'Commentary', 'msrpublishing' ); ?></p>
 				<h1 class="page-title msr-reveal"><?php single_cat_title(); ?></h1>
 				<?php
 				$desc = term_description();
@@ -20,7 +20,7 @@ $is_category = is_category();
 				} else {
 					?>
 					<p class="text-muted msr-reveal">
-						<?php esc_html_e( 'Editorial posts from Atlas Briefing — analysis alongside the resource library.', 'msrsandbox' ); ?>
+						<?php esc_html_e( 'Editorial posts from Atlas Briefing — analysis alongside the resource library.', 'msrpublishing' ); ?>
 					</p>
 					<?php
 				}
@@ -30,13 +30,13 @@ $is_category = is_category();
 				<?php the_archive_description( '<div class="taxonomy-description text-muted">', '</div>' ); ?>
 			<?php endif; ?>
 		</header>
-
-		<?php
-		if ( $is_category ) {
-			msr_publishing_render_commentary_topic_nav();
-		}
-		?>
-
+	</div>
+	<?php
+	if ( $is_category ) {
+		msr_publishing_render_commentary_discovery_panel( 'commentary' );
+	}
+	?>
+	<div class="container pb-4">
 		<?php if ( have_posts() ) : ?>
 			<div class="row g-4">
 				<?php
@@ -56,8 +56,8 @@ $is_category = is_category();
 				the_posts_pagination(
 					array(
 						'mid_size'  => 2,
-						'prev_text' => __( 'Previous', 'msrsandbox' ),
-						'next_text' => __( 'Next', 'msrsandbox' ),
+						'prev_text' => __( 'Previous', 'msrpublishing' ),
+						'next_text' => __( 'Next', 'msrpublishing' ),
 					)
 				);
 				?>

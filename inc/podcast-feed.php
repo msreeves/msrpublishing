@@ -2,7 +2,7 @@
 /**
  * Podcast RSS feed for resource_type=podcast episodes (P47).
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 /**
@@ -62,7 +62,7 @@ function msr_publishing_render_podcast_rss_feed() {
 	$site_url  = home_url( '/' );
 	$feed_url  = msr_publishing_get_podcast_feed_url();
 	$charset   = get_bloginfo( 'charset' );
-	$desc      = __( 'Atlas Briefing podcast episodes — audio briefings for portfolio demonstration.', 'msrsandbox' );
+	$desc      = __( 'Atlas Briefing podcast episodes — audio briefings for portfolio demonstration.', 'msrpublishing' );
 
 	header( 'Content-Type: application/rss+xml; charset=' . $charset, true );
 

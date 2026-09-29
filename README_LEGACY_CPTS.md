@@ -12,4 +12,4 @@ These post types predate the Atlas Briefing **resource** IA. They remain in the 
 
 **Public publishing routes:** `/` (home), `/resources/` (archive), `/resources/{format}/` (format hubs), single resources at `/resources/{slug}/`.
 
-Legacy listing partials were archived to `scripts/archive/msrsandbox-p59-legacy/` (P59). Home sections live in `template-parts/sections/`.
+Legacy listing partials were archived to `scripts/archive/msrpublishing-p59-legacy/` (P59). Home sections live in `template-parts/sections/`.

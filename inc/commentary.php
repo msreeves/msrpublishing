@@ -2,16 +2,17 @@
 /**
  * Commentary archive helpers — topic pills, grids, related posts.
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 /**
  * Topic pill nav for commentary surfaces (archive — links to topic hubs).
  *
- * @param bool $show_all_active Highlight "All topics" as current page.
+ * @param bool   $show_all_active Highlight "All topics" as current page.
+ * @param string $layout          standalone|panel
  * @return void
  */
-function msr_publishing_render_commentary_topic_nav( $show_all_active = false ) {
+function msr_publishing_render_commentary_topic_nav( $show_all_active = false, $layout = 'standalone' ) {
 	$topics = get_terms(
 		array(
 			'taxonomy'   => 'topic',
@@ -24,16 +25,32 @@ function msr_publishing_render_commentary_topic_nav( $show_all_active = false ) 
 	}
 
 	$insights = msr_publishing_insights_url();
-	msr_publishing_filter_bar_open( __( 'Commentary topics', 'msrsandbox' ) );
-	if ( $show_all_active ) {
-		msr_publishing_filter_bar_link( __( 'All topics', 'msrsandbox' ), '', true );
-	} else {
-		msr_publishing_filter_bar_link( __( 'All insights', 'msrsandbox' ), $insights, false );
+	$variant  = 'panel' === $layout ? 'chips' : 'underline';
+
+	$render_bar = static function () use ( $show_all_active, $insights, $topics, $variant ) {
+		msr_publishing_filter_bar_open( __( 'Insight topics', 'msrpublishing' ), false, $variant );
+		if ( $show_all_active ) {
+			msr_publishing_filter_bar_link( __( 'All topics', 'msrpublishing' ), '', true );
+		} else {
+			msr_publishing_filter_bar_link( __( 'All insights', 'msrpublishing' ), $insights, false );
+		}
+		foreach ( $topics as $topic ) {
+			$link = get_term_link( $topic );
+			if ( ! is_wp_error( $link ) ) {
+				msr_publishing_filter_bar_link( $topic->name, $link, false );
+			}
+		}
+		msr_publishing_filter_bar_close();
+	};
+
+	if ( 'panel' === $layout ) {
+		msr_publishing_discovery_row_open( __( 'Topic', 'msrpublishing' ) );
+		$render_bar();
+		msr_publishing_discovery_row_close();
+		return;
 	}
-	foreach ( $topics as $topic ) {
-		msr_publishing_filter_bar_link( $topic->name, get_term_link( $topic ), false );
-	}
-	msr_publishing_filter_bar_close();
+
+	$render_bar();
 }
 
 /**
@@ -68,7 +85,27 @@ function msr_publishing_get_commentary_query_args( $topic_id = 0, $posts_per_pag
 		);
 	}
 
-	return $args;
+	return function_exists( 'msr_publishing_append_portfolio_surface_excludes' )
+		? msr_publishing_append_portfolio_surface_excludes( $args )
+		: $args;
+}
+
+/**
+ * Default grid size for insights landing, hub strips, and related commentary blocks.
+ *
+ * @return int
+ */
+function msr_publishing_get_insights_feed_per_page() {
+	return 24;
+}
+
+/**
+ * Related commentary cards on hubs and resource singles.
+ *
+ * @return int
+ */
+function msr_publishing_get_commentary_related_count() {
+	return 9;
 }
 
 /**
@@ -80,7 +117,27 @@ function msr_publishing_get_commentary_query_args( $topic_id = 0, $posts_per_pag
 function msr_publishing_render_commentary_post_grid( WP_Query $query, $stagger = false ) {
 	if ( ! $query->have_posts() ) {
 		echo '<p class="text-center text-muted mb-0">';
-		esc_html_e( 'No commentary posts for this topic yet.', 'msrsandbox' );
+		esc_html_e( 'No commentary posts for this topic yet.', 'msrpublishing' );
+		echo '</p>';
+		return;
+	}
+
+	msr_publishing_render_commentary_post_grid_from_ids( wp_list_pluck( $query->posts, 'ID' ), $stagger );
+	wp_reset_postdata();
+}
+
+/**
+ * Render commentary cards from explicit post IDs (title/media order preserved).
+ *
+ * @param int[] $post_ids Post IDs.
+ * @param bool  $stagger  Reveal stagger wrapper.
+ * @return void
+ */
+function msr_publishing_render_commentary_post_grid_from_ids( array $post_ids, $stagger = false ) {
+	$post_ids = array_values( array_filter( array_map( 'intval', $post_ids ) ) );
+	if ( ! $post_ids ) {
+		echo '<p class="text-center text-muted mb-0">';
+		esc_html_e( 'No commentary posts for this topic yet.', 'msrpublishing' );
 		echo '</p>';
 		return;
 	}
@@ -92,31 +149,89 @@ function msr_publishing_render_commentary_post_grid( WP_Query $query, $stagger =
 	?>
 	<div class="<?php echo esc_attr( $row_class ); ?>"<?php echo $stagger ? ' data-msr-reveal-stagger="grid"' : ''; ?>>
 		<?php
-		while ( $query->have_posts() ) {
-			$query->the_post();
-			echo '<div class="col-md-6 col-lg-4">';
+		foreach ( $post_ids as $post_id ) {
+			echo '<div class="col-sm-6 col-lg-4 publishing-commentary-grid__cell">';
 			get_template_part(
 				'template-parts/cards/post',
 				'card',
 				array(
+					'post_id'   => (int) $post_id,
 					'no_reveal' => (bool) $stagger,
 				)
 			);
 			echo '</div>';
 		}
-		wp_reset_postdata();
 		?>
 	</div>
 	<?php
 }
 
 /**
- * In-page topic filter (Bootstrap tabs) — filters grid below without navigation.
+ * Home / surface commentary IDs — unique card media, optional post excludes.
+ *
+ * @param int   $limit         Target count.
+ * @param int[] $exclude_posts Post IDs to skip.
+ * @return int[]
+ */
+function msr_publishing_get_commentary_ids_for_surface( $limit, $exclude_posts = array() ) {
+	$limit         = max( 1, (int) $limit );
+	$exclude_posts = array_values( array_unique( array_filter( array_map( 'intval', (array) $exclude_posts ) ) ) );
+
+	$blocked_media = array();
+	$featured_id   = msr_publishing_get_site_featured_resource_id();
+	if ( $featured_id ) {
+		$blocked_media[] = msr_publishing_get_card_hero_attachment_id( $featured_id );
+	}
+
+	$pool_args = msr_publishing_get_commentary_query_args( 0, max( $limit * 4, 48 ) );
+	if ( $exclude_posts ) {
+		$pool_args['post__not_in'] = $exclude_posts;
+	}
+
+	$query = new WP_Query( $pool_args );
+	if ( empty( $query->posts ) ) {
+		return array();
+	}
+
+	$candidate_ids = wp_list_pluck( $query->posts, 'ID' );
+	if ( function_exists( 'msr_publishing_is_curated_surface_noise_post' ) ) {
+		$candidate_ids = array_values(
+			array_filter(
+				$candidate_ids,
+				static function ( $id ) {
+					return ! msr_publishing_is_curated_surface_noise_post( (int) $id );
+				}
+			)
+		);
+	}
+
+	$picked = msr_publishing_pick_post_ids_unique_card_media_local( $candidate_ids, $limit, $blocked_media );
+	if ( count( $picked ) >= $limit ) {
+		return $picked;
+	}
+
+	foreach ( $candidate_ids as $candidate_id ) {
+		$candidate_id = (int) $candidate_id;
+		if ( $candidate_id <= 0 || in_array( $candidate_id, $picked, true ) ) {
+			continue;
+		}
+		if ( function_exists( 'msr_publishing_is_curated_surface_noise_post' ) && msr_publishing_is_curated_surface_noise_post( $candidate_id ) ) {
+			continue;
+		}
+		$picked[] = $candidate_id;
+		if ( count( $picked ) >= $limit ) {
+			break;
+		}
+	}
+
+	return array_slice( $picked, 0, $limit );
+}
+
+/**
+ * Commentary topic strip — URL pills to `/insights/` (no in-page tab panes).
  *
  * @param array $args {
- *   @type string $id_prefix      Unique prefix for tab pane IDs.
- *   @type int    $posts_per_page Posts per tab.
- *   @type string $all_label      Label for the “all topics” tab.
+ *   @type int $posts_per_page Posts in the grid below the pills.
  * }
  * @return void
  */
@@ -124,73 +239,18 @@ function msr_publishing_render_commentary_topic_filter( array $args = array() ) 
 	$args = wp_parse_args(
 		$args,
 		array(
-			'id_prefix'      => 'commentary',
 			'posts_per_page' => 6,
-			'all_label'      => __( 'All insights', 'msrsandbox' ),
 		)
 	);
 
-	$topics = get_terms(
-		array(
-			'taxonomy'   => 'topic',
-			'hide_empty' => false,
-		)
-	);
-
-	if ( ! $topics || is_wp_error( $topics ) ) {
-		$query = new WP_Query( msr_publishing_get_commentary_query_args( 0, (int) $args['posts_per_page'] ) );
-		msr_publishing_render_commentary_post_grid( $query );
-		return;
+	if ( function_exists( 'msr_publishing_render_insights_topic_nav' ) ) {
+		msr_publishing_render_insights_topic_nav();
 	}
 
-	$prefix   = sanitize_html_class( (string) $args['id_prefix'] );
-	$per_page = (int) $args['posts_per_page'];
-	$all_id   = $prefix . '-commentary-all';
-	?>
-	<div class="publishing-commentary__filter" data-commentary-filter data-msr-filter-tabs>
-		<?php
-		msr_publishing_filter_bar_open( __( 'Filter commentary by topic', 'msrsandbox' ), true );
-		msr_publishing_filter_bar_tab( $args['all_label'], $all_id . '-tab', $all_id, true );
-		foreach ( $topics as $topic ) {
-			$pane_id = $prefix . '-commentary-' . $topic->slug;
-			msr_publishing_filter_bar_tab( $topic->name, $pane_id . '-tab', $pane_id, false );
-		}
-		msr_publishing_filter_bar_close();
-		?>
-
-		<div class="tab-content publishing-commentary__panes">
-			<div
-				class="tab-pane fade show active"
-				id="<?php echo esc_attr( $all_id ); ?>"
-				role="tabpanel"
-				aria-labelledby="<?php echo esc_attr( $all_id ); ?>-tab"
-				tabindex="0"
-			>
-				<?php
-				msr_publishing_render_commentary_post_grid(
-					new WP_Query( msr_publishing_get_commentary_query_args( 0, $per_page ) )
-				);
-				?>
-			</div>
-			<?php foreach ( $topics as $topic ) : ?>
-				<?php $pane_id = $prefix . '-commentary-' . $topic->slug; ?>
-				<div
-					class="tab-pane fade"
-					id="<?php echo esc_attr( $pane_id ); ?>"
-					role="tabpanel"
-					aria-labelledby="<?php echo esc_attr( $pane_id ); ?>-tab"
-					tabindex="0"
-				>
-					<?php
-					msr_publishing_render_commentary_post_grid(
-						new WP_Query( msr_publishing_get_commentary_query_args( (int) $topic->term_id, $per_page ) )
-					);
-					?>
-				</div>
-			<?php endforeach; ?>
-		</div>
-	</div>
-	<?php
+	msr_publishing_render_commentary_post_grid(
+		new WP_Query( msr_publishing_get_commentary_query_args( 0, (int) $args['posts_per_page'] ) ),
+		true
+	);
 }
 
 /**
@@ -257,7 +317,7 @@ function msr_publishing_get_insights_paged() {
  *
  * @return void
  */
-function msr_publishing_render_insights_topic_nav() {
+function msr_publishing_render_insights_topic_nav( $layout = 'standalone' ) {
 	$topics = get_terms(
 		array(
 			'taxonomy'   => 'topic',
@@ -270,21 +330,33 @@ function msr_publishing_render_insights_topic_nav() {
 	}
 
 	$active_topic = msr_publishing_get_insights_topic_slug();
+	$variant      = 'panel' === $layout ? 'chips' : 'underline';
 
-	msr_publishing_filter_bar_open( __( 'Filter commentary by topic', 'msrsandbox' ) );
-	msr_publishing_filter_bar_link(
-		__( 'All insights', 'msrsandbox' ),
-		msr_publishing_build_insights_url( '', null ),
-		$active_topic === ''
-	);
-	foreach ( $topics as $topic ) {
+	$render_bar = static function () use ( $active_topic, $topics, $variant ) {
+		msr_publishing_filter_bar_open( __( 'Filter commentary by topic', 'msrpublishing' ), false, $variant );
 		msr_publishing_filter_bar_link(
-			$topic->name,
-			msr_publishing_build_insights_url( $topic->slug, null ),
-			$active_topic === $topic->slug
+			__( 'All insights', 'msrpublishing' ),
+			msr_publishing_build_insights_url( '', null ),
+			$active_topic === ''
 		);
+		foreach ( $topics as $topic ) {
+			msr_publishing_filter_bar_link(
+				$topic->name,
+				msr_publishing_build_insights_url( $topic->slug, null ),
+				$active_topic === $topic->slug
+			);
+		}
+		msr_publishing_filter_bar_close();
+	};
+
+	if ( 'panel' === $layout ) {
+		msr_publishing_discovery_row_open( __( 'Topic', 'msrpublishing' ) );
+		$render_bar();
+		msr_publishing_discovery_row_close();
+		return;
 	}
-	msr_publishing_filter_bar_close();
+
+	$render_bar();
 }
 
 /**
@@ -299,7 +371,7 @@ function msr_publishing_render_insights_feed( array $args = array() ) {
 	$args = wp_parse_args(
 		$args,
 		array(
-			'posts_per_page' => 9,
+			'posts_per_page' => msr_publishing_get_insights_feed_per_page(),
 		)
 	);
 
@@ -326,7 +398,7 @@ function msr_publishing_render_insights_feed( array $args = array() ) {
 		<?php msr_publishing_render_commentary_post_grid( $query ); ?>
 
 		<?php if ( $query->max_num_pages > 1 ) : ?>
-			<nav class="pagination mt-4" aria-label="<?php esc_attr_e( 'Insights pages', 'msrsandbox' ); ?>">
+			<nav class="pagination mt-4" aria-label="<?php esc_attr_e( 'Insights pages', 'msrpublishing' ); ?>">
 				<?php
 				$base_args = array( 'paged' => '%#%' );
 				if ( $topic_slug !== '' ) {
@@ -339,8 +411,8 @@ function msr_publishing_render_insights_feed( array $args = array() ) {
 						'current'   => $paged,
 						'total'     => $query->max_num_pages,
 						'mid_size'  => 2,
-						'prev_text' => __( 'Previous', 'msrsandbox' ),
-						'next_text' => __( 'Next', 'msrsandbox' ),
+						'prev_text' => __( 'Previous', 'msrpublishing' ),
+						'next_text' => __( 'Next', 'msrpublishing' ),
 						'type'      => 'list',
 					)
 				);
@@ -357,33 +429,38 @@ function msr_publishing_render_insights_feed( array $args = array() ) {
  * @param int $limit    Max posts.
  * @return WP_Query
  */
-function msr_publishing_get_related_commentary_by_topic( $topic_id, $exclude = 0, $limit = 3 ) {
+function msr_publishing_get_related_commentary_by_topic( $topic_id, $exclude = 0, $limit = 0 ) {
 	$topic_id = (int) $topic_id;
 	$exclude  = (int) $exclude;
+	$limit    = $limit > 0 ? (int) $limit : msr_publishing_get_commentary_related_count();
 
 	if ( ! $topic_id ) {
 		return new WP_Query( array( 'post__in' => array( 0 ) ) );
 	}
 
-	return new WP_Query(
-		array(
-			'post_type'           => 'post',
-			'posts_per_page'      => $limit,
-			'post__not_in'        => $exclude ? array( $exclude ) : array(),
-			'orderby'             => 'date',
-			'order'               => 'DESC',
-			'no_found_rows'       => true,
-			'ignore_sticky_posts' => true,
-			'category__not_in'    => msr_publishing_get_excluded_sponsored_category_ids(),
-			'tax_query'           => array(
-				array(
-					'taxonomy' => 'topic',
-					'field'    => 'term_id',
-					'terms'    => array( $topic_id ),
-				),
+	$args = array(
+		'post_type'           => 'post',
+		'posts_per_page'      => $limit,
+		'post__not_in'        => $exclude ? array( $exclude ) : array(),
+		'orderby'             => 'date',
+		'order'               => 'DESC',
+		'no_found_rows'       => true,
+		'ignore_sticky_posts' => true,
+		'category__not_in'    => msr_publishing_get_excluded_sponsored_category_ids(),
+		'tax_query'           => array(
+			array(
+				'taxonomy' => 'topic',
+				'field'    => 'term_id',
+				'terms'    => array( $topic_id ),
 			),
-		)
+		),
 	);
+
+	if ( function_exists( 'msr_publishing_append_portfolio_surface_excludes' ) ) {
+		$args = msr_publishing_append_portfolio_surface_excludes( $args );
+	}
+
+	return new WP_Query( $args );
 }
 
 /**
@@ -458,7 +535,7 @@ function msr_publishing_render_resource_commentary_crosslink( $post_id = 0 ) {
 			echo esc_html(
 				sprintf(
 					/* translators: %s: topic name */
-					__( 'Related commentary on %s', 'msrsandbox' ),
+					__( 'Related commentary on %s', 'msrpublishing' ),
 					$primary_topic->name
 				)
 			);
@@ -505,7 +582,7 @@ function msr_publishing_render_post_resource_crosslink( $post_id = 0 ) {
 			echo esc_html(
 				sprintf(
 					/* translators: %s: topic name */
-					__( 'Resources on %s', 'msrsandbox' ),
+					__( 'Resources on %s', 'msrpublishing' ),
 					$primary_topic->name
 				)
 			);

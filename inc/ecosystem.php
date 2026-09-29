@@ -6,7 +6,7 @@
  * MAMP; non-local requests scrub any leftover MAMP hosts. See
  * config/programme-urls.json + docs/plans/programmes/msr-estate-url-lock-playbook.md.
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 /**
@@ -98,28 +98,28 @@ function msr_publishing_is_local_request() {
 function msr_publishing_get_programme_registry_defaults() {
 	return array(
 		'hub'      => array(
-			'label'       => __( 'MSR Events hub', 'msrsandbox' ),
+			'label'       => __( 'MSR Events hub', 'msrpublishing' ),
 			'url'         => 'https://www.msreeves.co.uk/events/',
-			'description' => __( 'Programmes, events, and editorial from the central hub.', 'msrsandbox' ),
-			'cta'         => __( 'Visit the events hub', 'msrsandbox' ),
+			'description' => __( 'Programmes, events, and editorial from the central hub.', 'msrpublishing' ),
+			'cta'         => __( 'Visit the events hub', 'msrpublishing' ),
 			'icon'        => 'fa-solid fa-calendar-days',
-			'meta'        => __( 'Live programmes', 'msrsandbox' ),
+			'meta'        => __( 'Live programmes', 'msrpublishing' ),
 		),
 		'awards'   => array(
-			'label'       => __( 'MSR Awards', 'msrsandbox' ),
+			'label'       => __( 'MSR Awards', 'msrpublishing' ),
 			'url'         => 'https://www.msreeves.co.uk/events/msrawards/',
-			'description' => __( 'Awards programme, nominees, and industry recognition.', 'msrsandbox' ),
-			'cta'         => __( 'Explore MSR Awards', 'msrsandbox' ),
+			'description' => __( 'Awards programme, nominees, and industry recognition.', 'msrpublishing' ),
+			'cta'         => __( 'Explore MSR Awards', 'msrpublishing' ),
 			'icon'        => 'fa-solid fa-trophy',
-			'meta'        => __( 'Awards season', 'msrsandbox' ),
+			'meta'        => __( 'Awards season', 'msrpublishing' ),
 		),
 		'seminars' => array(
-			'label'       => __( 'MSR Seminars', 'msrsandbox' ),
+			'label'       => __( 'MSR Seminars', 'msrpublishing' ),
 			'url'         => 'https://www.msreeves.co.uk/events/msrseminars/',
-			'description' => __( 'Delegate seminars, agendas, and speaker content.', 'msrsandbox' ),
-			'cta'         => __( 'View MSR Seminars', 'msrsandbox' ),
+			'description' => __( 'Delegate seminars, agendas, and speaker content.', 'msrpublishing' ),
+			'cta'         => __( 'View MSR Seminars', 'msrpublishing' ),
 			'icon'        => 'fa-solid fa-chalkboard-user',
-			'meta'        => __( 'Delegate seminars', 'msrsandbox' ),
+			'meta'        => __( 'Delegate seminars', 'msrpublishing' ),
 		),
 	);
 }
@@ -330,10 +330,10 @@ function msr_publishing_render_resource_programme_cta( $post_id = 0 ) {
 		return;
 	}
 	?>
-	<aside class="resource-single__programme card border mb-4" aria-label="<?php esc_attr_e( 'MSR programme link', 'msrsandbox' ); ?>">
+	<aside class="resource-single__programme card border mb-4" aria-label="<?php esc_attr_e( 'MSR programme link', 'msrpublishing' ); ?>">
 		<div class="card-body d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
 			<div>
-				<p class="small text-uppercase fw-semibold text-muted mb-1"><?php esc_html_e( 'MSR programme link', 'msrsandbox' ); ?></p>
+				<p class="small text-uppercase fw-semibold text-muted mb-1"><?php esc_html_e( 'MSR programme link', 'msrpublishing' ); ?></p>
 				<p class="mb-0"><?php echo esc_html( $programme['description'] ); ?></p>
 			</div>
 			<a class="btn btn-outline-primary" href="<?php echo esc_url( $programme['url'] ); ?>">

@@ -1,5 +1,5 @@
-Theme Name: msrsandbox
-Theme URI: https://www.msreeves.co.uk/msrsandbox
+Theme Name: msrpublishing
+Theme URI: https://www.msreeves.co.uk/msrpublishing
 Description: MSRSandbox Theme
 Author: Michael Reeves
 Author URI: https://www.msreeves.co.uk

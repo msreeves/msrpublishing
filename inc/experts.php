@@ -2,7 +2,7 @@
 /**
  * Named expert profiles for author archives (P42).
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 /**
@@ -33,6 +33,13 @@ function msr_publishing_get_expert_registry() {
 			'bio'   => 'Priya Nair edits workforce commentary and connects editorial posts to topic hubs and flagship resources.',
 			'login' => 'priya-nair',
 		),
+		'alex-chen'    => array(
+			'slug'  => 'alex-chen',
+			'name'  => 'Alex Chen',
+			'title' => 'Resilience columnist (demonstration)',
+			'bio'   => 'Alex Chen writes resilience and distributed-operations commentary for Atlas Briefing demonstration assets.',
+			'login' => 'alex-chen',
+		),
 	);
 }
 
@@ -40,6 +47,66 @@ function msr_publishing_get_expert_registry() {
  * @param string $slug Expert nicename / login slug.
  * @return array<string, mixed>|null
  */
+/**
+ * Deterministic demo headshot from editorial stock (no real likenesses).
+ *
+ * @param string|array<string, mixed> $expert_or_slug Registry row or slug.
+ * @return int Attachment ID or 0.
+ */
+function msr_publishing_get_expert_stock_avatar_id( $expert_or_slug ) {
+	if ( ! function_exists( 'msr_publishing_get_editorial_stock_image_ids' ) ) {
+		return 0;
+	}
+
+	$slug = is_array( $expert_or_slug )
+		? sanitize_title( (string) ( $expert_or_slug['slug'] ?? '' ) )
+		: sanitize_title( (string) $expert_or_slug );
+
+	if ( $slug === '' ) {
+		return 0;
+	}
+
+	static $map = null;
+	if ( null === $map ) {
+		$stock = msr_publishing_get_editorial_stock_image_ids( 12 );
+		$order = array( 'jordan-ellis', 'morgan-reid', 'priya-nair', 'alex-chen' );
+		$map   = array();
+		foreach ( $order as $index => $expert_slug ) {
+			$map[ $expert_slug ] = isset( $stock[ $index ] ) ? (int) $stock[ $index ] : 0;
+		}
+	}
+
+	return (int) ( $map[ $slug ] ?? 0 );
+}
+
+/**
+ * @param int    $attachment_id Image attachment.
+ * @param string $name          Accessible name.
+ * @param string $class         Optional extra class.
+ * @return void
+ */
+function msr_publishing_render_expert_avatar( $attachment_id, $name, $class = '' ) {
+	$attachment_id = (int) $attachment_id;
+	if ( ! $attachment_id ) {
+		return;
+	}
+
+	$classes = trim( 'publishing-expert-card__avatar ' . $class );
+	echo wp_get_attachment_image(
+		$attachment_id,
+		'thumbnail',
+		false,
+		array(
+			'class' => $classes,
+			'alt'   => $name !== '' ? sprintf(
+				/* translators: %s: expert name */
+				__( '%s (demonstration profile)', 'msrpublishing' ),
+				$name
+			) : '',
+		)
+	);
+}
+
 function msr_publishing_get_expert_by_slug( $slug ) {
 	$slug     = sanitize_title( (string) $slug );
 	$registry = msr_publishing_get_expert_registry();
@@ -159,9 +226,14 @@ function msr_publishing_render_author_profile_header( $author ) {
 	$name   = $expert['name'] ?? $author->display_name;
 	$title  = $expert['title'] ?? get_user_meta( $author->ID, '_msr_expert_title', true );
 	$bio    = $expert['bio'] ?? (string) get_the_author_meta( 'description', $author->ID );
+	$avatar = $expert ? msr_publishing_get_expert_stock_avatar_id( $expert ) : 0;
 	?>
 	<header class="publishing-author-archive__header mb-5">
-		<p class="publishing-author-archive__eyebrow text-uppercase small fw-semibold text-muted mb-2"><?php esc_html_e( 'Atlas Briefing expert', 'msrsandbox' ); ?></p>
+		<?php if ( $avatar ) : ?>
+			<?php msr_publishing_render_expert_avatar( $avatar, $name, 'publishing-author-archive__avatar' ); ?>
+		<?php endif; ?>
+		<div class="publishing-author-archive__copy">
+		<p class="publishing-author-archive__eyebrow text-uppercase small fw-semibold text-muted mb-2"><?php esc_html_e( 'Atlas Briefing expert', 'msrpublishing' ); ?></p>
 		<h1 class="publishing-author-archive__name h2 mb-2"><?php echo esc_html( $name ); ?></h1>
 		<?php if ( $title !== '' ) : ?>
 			<p class="publishing-author-archive__title lead text-muted mb-3"><?php echo esc_html( $title ); ?></p>
@@ -169,6 +241,7 @@ function msr_publishing_render_author_profile_header( $author ) {
 		<?php if ( $bio !== '' ) : ?>
 			<p class="publishing-author-archive__bio text-muted mb-0"><?php echo esc_html( $bio ); ?></p>
 		<?php endif; ?>
+		</div>
 	</header>
 	<?php
 }
@@ -182,13 +255,21 @@ function msr_publishing_render_about_experts_grid() {
 	$experts = msr_publishing_get_expert_registry();
 	?>
 	<section class="publishing-about-experts mb-5" aria-labelledby="about-experts-heading">
-		<h2 id="about-experts-heading" class="h3 mb-2"><?php esc_html_e( 'Meet the editorial team', 'msrsandbox' ); ?></h2>
-		<p class="text-muted mb-4"><?php esc_html_e( 'Named experts behind flagship resources and commentary — demonstration profiles for portfolio review.', 'msrsandbox' ); ?></p>
+		<h2 id="about-experts-heading" class="h3 mb-2"><?php esc_html_e( 'Meet the editorial team', 'msrpublishing' ); ?></h2>
+		<p class="text-muted mb-4"><?php esc_html_e( 'Named experts behind flagship resources and commentary — demonstration profiles for portfolio review.', 'msrpublishing' ); ?></p>
 		<div class="row g-3 publishing-about-experts__grid">
 			<?php foreach ( $experts as $expert ) : ?>
 				<?php $profile_url = msr_publishing_get_expert_profile_url( $expert ); ?>
 				<div class="col-md-4">
 					<article class="publishing-expert-card panel h-100">
+						<?php
+						$avatar_id = msr_publishing_get_expert_stock_avatar_id( $expert );
+						if ( $avatar_id ) :
+							?>
+							<div class="publishing-expert-card__media">
+								<?php msr_publishing_render_expert_avatar( $avatar_id, $expert['name'] ); ?>
+							</div>
+						<?php endif; ?>
 						<h3 class="h5 publishing-expert-card__name mb-1">
 							<?php if ( $profile_url !== '' ) : ?>
 								<a class="publishing-expert-card__link" href="<?php echo esc_url( $profile_url ); ?>"><?php echo esc_html( $expert['name'] ); ?></a>
@@ -200,7 +281,7 @@ function msr_publishing_render_about_experts_grid() {
 						<p class="publishing-expert-card__bio small mb-3"><?php echo esc_html( $expert['bio'] ); ?></p>
 						<?php if ( $profile_url !== '' ) : ?>
 							<a class="btn btn-sm btn-outline-primary publishing-expert-card__cta" href="<?php echo esc_url( $profile_url ); ?>">
-								<?php esc_html_e( 'View profile', 'msrsandbox' ); ?>
+								<?php esc_html_e( 'View profile', 'msrpublishing' ); ?>
 							</a>
 						<?php endif; ?>
 					</article>

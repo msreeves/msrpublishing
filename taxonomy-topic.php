@@ -2,7 +2,7 @@
 /**
  * Topic taxonomy archive (resource library hubs).
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 get_header();
@@ -17,17 +17,21 @@ $term = get_queried_object();
 				<?php echo wp_kses_post( wpautop( msr_publishing_get_topic_hub_intro( $term ) ) ); ?>
 			</div>
 		<?php endif; ?>
-		<?php
-		msr_publishing_render_resource_type_nav( 'all' );
-		msr_publishing_render_topic_nav( 'term', $term instanceof WP_Term ? $term : null );
-		?>
 	</header>
+	<?php
+	msr_publishing_render_resource_discovery_panel(
+		'all',
+		null,
+		'term',
+		$term instanceof WP_Term ? $term : null
+	);
+	?>
 	<?php msr_publishing_render_ecosystem_band_for_archive( 'before' ); ?>
 	<?php
 	$featured_id = msr_publishing_render_hub_featured_pick( $term instanceof WP_Term ? $term : null, 'topic' );
 	msr_publishing_render_hub_commentary_strip( $term instanceof WP_Term ? $term : null );
 	msr_publishing_render_resource_grid(
-		__( 'No resources for this topic yet.', 'msrsandbox' ),
+		__( 'No resources for this topic yet.', 'msrpublishing' ),
 		$featured_id ? array( $featured_id ) : array()
 	);
 	msr_publishing_render_ecosystem_band_for_archive( 'after' );

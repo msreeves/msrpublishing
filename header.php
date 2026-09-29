@@ -8,7 +8,9 @@
 </head>
 <body <?php body_class(); ?>>
 	<?php wp_body_open(); ?>
-	<a class="publishing-skip-link" href="#site-content"><?php esc_html_e( 'Skip to content', 'msrsandbox' ); ?></a>
+	<a class="publishing-skip-link" href="#site-content"><?php esc_html_e( 'Skip to content', 'msrpublishing' ); ?></a>
+	<a class="publishing-skip-link publishing-skip-link--search d-none d-lg-inline-flex" href="#site-header-search-region"><?php esc_html_e( 'Skip to search', 'msrpublishing' ); ?></a>
+	<a class="publishing-skip-link publishing-skip-link--search d-lg-none" href="#msr-header-search-input"><?php esc_html_e( 'Skip to search', 'msrpublishing' ); ?></a>
 	<script>document.documentElement.classList.add('js-reveal');</script>
 	<noscript><style>.msr-reveal{opacity:1!important;transform:none!important;transition:none!important}</style></noscript>
 	<?php

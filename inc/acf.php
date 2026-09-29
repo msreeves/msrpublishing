@@ -6,7 +6,7 @@
  * Re-export after schema changes:
  *   wp eval-file scripts/msr-publishing-acf-json-export.php (from sites/wp/msrpublishing)
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 /**
@@ -21,8 +21,8 @@ function msr_publishing_register_acf_options_page() {
 
 	acf_add_options_page(
 		array(
-			'page_title' => __( 'Atlas Briefing settings', 'msrsandbox' ),
-			'menu_title' => __( 'Atlas Briefing', 'msrsandbox' ),
+			'page_title' => __( 'Atlas Briefing settings', 'msrpublishing' ),
+			'menu_title' => __( 'Atlas Briefing', 'msrpublishing' ),
 			'menu_slug'  => 'msr-publishing-settings',
 			'capability' => 'edit_posts',
 			'redirect'   => false,

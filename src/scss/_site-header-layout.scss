@@ -1,0 +1,113 @@
+// Two-row publishing header — brand/utilities, then nav + search (lg+).
+
+.site-header__shell {
+	width: 100%;
+	max-width: var(--msr-content-max, 72rem);
+	margin-inline: auto;
+	padding: 0.75rem 1rem 0;
+
+	@include media('>=desktop') {
+		padding: 1rem 1.5rem 0.75rem;
+	}
+}
+
+.site-header__row {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	min-width: 0;
+}
+
+.site-header__row--brand {
+	justify-content: space-between;
+	gap: 1rem;
+}
+
+.site-header__row--desktop {
+	align-items: stretch;
+	gap: 1.25rem 2rem;
+	margin-top: 0.75rem;
+	padding-top: 0.75rem;
+	border-top: 1px solid $border-mid;
+}
+
+.site-header__shortcuts {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem 1rem;
+	margin-left: auto;
+	margin-right: 0.5rem;
+	min-width: 0;
+}
+
+.site-header__shortcut {
+	color: $ink;
+	font-size: 0.875rem;
+	font-weight: 600;
+	text-decoration: none;
+	white-space: nowrap;
+
+	&:hover {
+		color: $accent-dark;
+	}
+}
+
+.site-header__utilities {
+	display: flex;
+	flex-shrink: 0;
+	align-items: center;
+	gap: 0.5rem 0.75rem;
+	margin-left: auto;
+}
+
+.site-header__tools {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.25rem;
+}
+
+.site-header__search-slot {
+	flex: 1 1 18rem;
+	min-width: 12rem;
+	max-width: 28rem;
+	margin-left: auto;
+	align-self: center;
+
+	.msr-site-search--header .form-control {
+		background-color: $surface-mid;
+	}
+}
+
+.site-header__mobile-nav__search {
+	width: 100%;
+	max-width: 42rem;
+	margin: 0 auto 1.5rem;
+	padding-bottom: 1.25rem;
+	border-bottom: 1px solid rgba($paper, 0.15);
+
+	.msr-site-search--header .form-control {
+		background: rgba($paper, 0.08);
+		border-color: rgba($paper, 0.25);
+		color: $paper;
+
+		&::placeholder {
+			color: rgba($paper, 0.55);
+		}
+	}
+
+	.msr-site-search--header .btn[type='submit'] {
+		background-color: $accent;
+		border-color: $accent;
+	}
+}
+
+.site-header {
+	.navbar {
+		padding: 0 !important;
+		border-bottom: 1px solid $border-mid;
+	}
+
+	.navbar-brand {
+		max-width: min(220px, 42vw);
+	}
+}

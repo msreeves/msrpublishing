@@ -2,7 +2,7 @@
 /**
  * Subscribe landing page template (slug: subscribe).
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 get_header();
@@ -26,22 +26,22 @@ $insights  = msr_publishing_insights_url();
 		<section class="publishing-subscribe-value-prop mb-5" aria-labelledby="subscribe-value-heading">
 			<div class="row justify-content-center">
 				<div class="col-lg-8">
-					<h2 id="subscribe-value-heading" class="h4 text-center mb-4"><?php esc_html_e( 'What you receive', 'msrsandbox' ); ?></h2>
+					<h2 id="subscribe-value-heading" class="h4 text-center mb-4"><?php esc_html_e( 'What you receive', 'msrpublishing' ); ?></h2>
 					<div class="row g-3">
 						<div class="col-md-6">
 							<div class="publishing-subscribe-value-prop__item h-100">
-								<h3 class="h6 mb-2"><?php esc_html_e( 'Workforce & resilience briefings', 'msrsandbox' ); ?></h3>
-								<p class="small text-muted mb-0"><?php esc_html_e( 'Topic hubs curate resources and commentary for hiring, planning, and distributed operations.', 'msrsandbox' ); ?></p>
+								<h3 class="h6 mb-2"><?php esc_html_e( 'Workforce & resilience briefings', 'msrpublishing' ); ?></h3>
+								<p class="small text-muted mb-0"><?php esc_html_e( 'Topic hubs curate resources and commentary for hiring, planning, and distributed operations.', 'msrpublishing' ); ?></p>
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="publishing-subscribe-value-prop__item h-100">
-								<h3 class="h6 mb-2"><?php esc_html_e( 'All resource formats', 'msrsandbox' ); ?></h3>
+								<h3 class="h6 mb-2"><?php esc_html_e( 'All resource formats', 'msrpublishing' ); ?></h3>
 								<p class="small text-muted mb-0">
 									<?php
 									printf(
 										/* translators: %s: comma-separated list of resource formats */
-										esc_html__( 'Gated downloads, replays, and singles across %s — each with topic hubs and programme cross-links.', 'msrsandbox' ),
+										esc_html__( 'Gated downloads, replays, and singles across %s — each with topic hubs and programme cross-links.', 'msrpublishing' ),
 										esc_html( msr_publishing_get_subscribe_formats_summary() )
 									);
 									?>
@@ -50,28 +50,28 @@ $insights  = msr_publishing_insights_url();
 						</div>
 						<div class="col-md-6">
 							<div class="publishing-subscribe-value-prop__item h-100">
-								<h3 class="h6 mb-2"><?php esc_html_e( 'Commentary & insights', 'msrsandbox' ); ?></h3>
-								<p class="small text-muted mb-0"><?php esc_html_e( 'Editorial analysis cross-linked to the resource library on every topic.', 'msrsandbox' ); ?></p>
+								<h3 class="h6 mb-2"><?php esc_html_e( 'Insights', 'msrpublishing' ); ?></h3>
+								<p class="small text-muted mb-0"><?php esc_html_e( 'Editorial analysis cross-linked to the resource library on every topic.', 'msrpublishing' ); ?></p>
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="publishing-subscribe-value-prop__item h-100">
-								<h3 class="h6 mb-2"><?php esc_html_e( 'MSR programme network', 'msrsandbox' ); ?></h3>
-								<p class="small text-muted mb-0"><?php esc_html_e( 'Occasional previews connecting Atlas Briefing to Events, Awards, and Seminars demonstrations.', 'msrsandbox' ); ?></p>
+								<h3 class="h6 mb-2"><?php esc_html_e( 'MSR programme network', 'msrpublishing' ); ?></h3>
+								<p class="small text-muted mb-0"><?php esc_html_e( 'Occasional previews connecting Atlas Briefing to Events, Awards, and Seminars demonstrations.', 'msrpublishing' ); ?></p>
 							</div>
 						</div>
 					</div>
 					<?php if ( $resources || $insights ) : ?>
 						<p class="text-center small text-muted mt-4 mb-0 publishing-subscribe-value-prop__explore">
-							<?php esc_html_e( 'Explore before you subscribe:', 'msrsandbox' ); ?>
+							<?php esc_html_e( 'Explore before you subscribe:', 'msrpublishing' ); ?>
 							<?php if ( $resources ) : ?>
-								<a href="<?php echo esc_url( $resources ); ?>"><?php esc_html_e( 'Resource library', 'msrsandbox' ); ?></a>
+								<a href="<?php echo esc_url( $resources ); ?>"><?php esc_html_e( 'Resource library', 'msrpublishing' ); ?></a>
 							<?php endif; ?>
 							<?php if ( $resources && $insights ) : ?>
 								<span aria-hidden="true"> · </span>
 							<?php endif; ?>
 							<?php if ( $insights ) : ?>
-								<a href="<?php echo esc_url( $insights ); ?>"><?php esc_html_e( 'Insights', 'msrsandbox' ); ?></a>
+								<a href="<?php echo esc_url( $insights ); ?>"><?php esc_html_e( 'Insights', 'msrpublishing' ); ?></a>
 							<?php endif; ?>
 						</p>
 					<?php endif; ?>

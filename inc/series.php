@@ -2,7 +2,7 @@
 /**
  * Resource series hubs — taxonomy queries and reading-order UI (P43).
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 /**
@@ -124,7 +124,7 @@ function msr_publishing_render_resource_series_context( $post_id = 0 ) {
 	}
 	?>
 	<p class="resource-single__series small mb-3">
-		<span class="resource-single__series-label fw-semibold"><?php esc_html_e( 'Series', 'msrsandbox' ); ?></span>
+		<span class="resource-single__series-label fw-semibold"><?php esc_html_e( 'Series', 'msrpublishing' ); ?></span>
 		<a class="resource-single__series-link" href="<?php echo esc_url( $link ); ?>"><?php echo esc_html( $term->name ); ?></a>
 		<?php if ( $position > 0 && $total > 0 ) : ?>
 			<span class="resource-single__series-meta text-muted" aria-hidden="true"> · </span>
@@ -132,7 +132,7 @@ function msr_publishing_render_resource_series_context( $post_id = 0 ) {
 				<?php
 				printf(
 					/* translators: 1: position in series, 2: total parts */
-					esc_html__( 'Part %1$d of %2$d', 'msrsandbox' ),
+					esc_html__( 'Part %1$d of %2$d', 'msrpublishing' ),
 					(int) $position,
 					(int) $total
 				);
@@ -154,7 +154,7 @@ function msr_publishing_render_series_reading_order( WP_Term $term, $current_id 
 	$query = msr_publishing_get_series_resources_query( $term );
 	if ( ! $query->have_posts() ) {
 		echo '<p class="text-muted mb-0">';
-		esc_html_e( 'No resources in this series yet.', 'msrsandbox' );
+		esc_html_e( 'No resources in this series yet.', 'msrpublishing' );
 		echo '</p>';
 		return;
 	}
@@ -162,7 +162,7 @@ function msr_publishing_render_series_reading_order( WP_Term $term, $current_id 
 	$current_id = (int) $current_id;
 	$total      = (int) $query->post_count;
 	?>
-	<ol class="publishing-series-reading-order list-unstyled mb-0" aria-label="<?php esc_attr_e( 'Reading order', 'msrsandbox' ); ?>">
+	<ol class="publishing-series-reading-order list-unstyled mb-0" aria-label="<?php esc_attr_e( 'Reading order', 'msrpublishing' ); ?>">
 		<?php
 		$index = 0;
 		while ( $query->have_posts() ) {
@@ -189,7 +189,7 @@ function msr_publishing_render_series_reading_order( WP_Term $term, $current_id 
 						<?php
 						printf(
 							/* translators: 1: step number, 2: total parts */
-							esc_html__( 'Part %1$d of %2$d', 'msrsandbox' ),
+							esc_html__( 'Part %1$d of %2$d', 'msrpublishing' ),
 							(int) $order,
 							(int) $total
 						);

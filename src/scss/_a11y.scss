@@ -5,6 +5,11 @@ body.msr-publishing {
 }
 
 .publishing-skip-link {
+	&--search {
+		left: auto;
+		right: 1rem;
+	}
+
 	position: absolute;
 	top: 0.5rem;
 	left: 0.5rem;
@@ -156,11 +161,11 @@ body.msr-publishing {
 	}
 }
 
-// Registry owner: resource-card topic/format badges
+// Registry owner: resource-card topic/format badges (ink on tint — passes WCAG AA at 0.7rem)
 .resource-card__type,
 .resource-single__types .badge {
-	background: rgba($accent, 0.12);
-	color: $accent-dark;
+	background: rgba($accent-dark, 0.14);
+	color: $ink;
 	font-weight: 600;
 	letter-spacing: 0.03em;
 	text-transform: uppercase;
@@ -181,4 +186,27 @@ body.msr-publishing {
 .resource-card--webinar .resource-card__format {
 	background: rgba($accent, 0.18);
 	color: $accent-dark;
+}
+
+// Home + archive cards — Bootstrap text-muted fails axe on long home pages (desktop).
+body.msr-publishing {
+	.resource-card,
+	.post-card {
+		.card-text.text-muted,
+		.card-text.small,
+		.card-meta__item,
+		.card-meta__date,
+		.resource-card__programme {
+			color: $text-secondary;
+		}
+
+		.card-title a {
+			color: $text-primary;
+		}
+
+		.resource-card__type.badge {
+			background: rgba($accent-dark, 0.14);
+			color: $ink;
+		}
+	}
 }

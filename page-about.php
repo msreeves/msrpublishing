@@ -2,7 +2,7 @@
 /**
  * About / methodology page (slug: about).
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 get_header();
@@ -32,7 +32,7 @@ if ( have_posts() ) {
 <main id="site-content" class="publishing-about-page">
 	<div class="container py-5">
 		<header class="publishing-section-header text-center mb-5">
-			<h1 class="entry-title msr-reveal"><?php esc_html_e( 'About Atlas Briefing', 'msrsandbox' ); ?></h1>
+			<h1 class="entry-title msr-reveal"><?php esc_html_e( 'About Atlas Briefing', 'msrpublishing' ); ?></h1>
 			<p class="lead text-muted msr-reveal mb-0"><?php echo esc_html( $lead ); ?></p>
 		</header>
 
@@ -44,7 +44,7 @@ if ( have_posts() ) {
 				<?php endif; ?>
 
 				<section class="publishing-about-page__methodology mb-5" aria-labelledby="about-methodology-heading">
-					<h2 id="about-methodology-heading" class="h3 mb-3"><?php esc_html_e( 'Methodology', 'msrsandbox' ); ?></h2>
+					<h2 id="about-methodology-heading" class="h3 mb-3"><?php esc_html_e( 'Methodology', 'msrpublishing' ); ?></h2>
 					<p class="text-muted"><?php echo esc_html( msr_publishing_get_about_methodology_intro() ); ?></p>
 					<?php if ( ! empty( $bullets ) ) : ?>
 					<ul class="publishing-about-page__standards">
@@ -56,7 +56,7 @@ if ( have_posts() ) {
 				</section>
 
 				<section class="publishing-about-page__formats mb-5" aria-labelledby="about-formats-heading">
-					<h2 id="about-formats-heading" class="h3 mb-3"><?php esc_html_e( 'What we publish', 'msrsandbox' ); ?></h2>
+					<h2 id="about-formats-heading" class="h3 mb-3"><?php esc_html_e( 'What we publish', 'msrpublishing' ); ?></h2>
 					<div class="row g-3">
 						<?php foreach ( $formats as $format ) : ?>
 						<div class="col-md-6">
@@ -73,17 +73,17 @@ if ( have_posts() ) {
 
 				<?php if ( msr_publishing_show_about_demo_notice() ) : ?>
 				<section class="publishing-about-page__disclaimer mb-5" aria-labelledby="about-disclaimer-heading">
-					<h2 id="about-disclaimer-heading" class="h3 mb-3"><?php esc_html_e( 'Demonstration notice', 'msrsandbox' ); ?></h2>
+					<h2 id="about-disclaimer-heading" class="h3 mb-3"><?php esc_html_e( 'Demonstration notice', 'msrpublishing' ); ?></h2>
 					<p class="text-muted mb-0"><?php echo esc_html( msr_publishing_get_about_disclaimer() ); ?></p>
 				</section>
 				<?php endif; ?>
 
-				<nav class="publishing-about-page__actions d-flex flex-wrap gap-2 justify-content-center" aria-label="<?php esc_attr_e( 'Explore Atlas Briefing', 'msrsandbox' ); ?>">
+				<nav class="publishing-about-page__actions d-flex flex-wrap gap-2 justify-content-center" aria-label="<?php esc_attr_e( 'Explore Atlas Briefing', 'msrpublishing' ); ?>">
 					<?php if ( $resources ) : ?>
-						<a class="btn btn-primary" href="<?php echo esc_url( $resources ); ?>"><?php esc_html_e( 'Browse resources', 'msrsandbox' ); ?></a>
+						<a class="btn btn-primary" href="<?php echo esc_url( $resources ); ?>"><?php esc_html_e( 'Browse resources', 'msrpublishing' ); ?></a>
 					<?php endif; ?>
-					<a class="btn btn-outline-primary" href="<?php echo esc_url( $insights ); ?>"><?php esc_html_e( 'View insights', 'msrsandbox' ); ?></a>
-					<a class="btn btn-outline-primary" href="<?php echo esc_url( $subscribe ); ?>"><?php esc_html_e( 'Subscribe', 'msrsandbox' ); ?></a>
+					<a class="btn btn-outline-primary" href="<?php echo esc_url( $insights ); ?>"><?php esc_html_e( 'View insights', 'msrpublishing' ); ?></a>
+					<a class="btn btn-outline-primary" href="<?php echo esc_url( $subscribe ); ?>"><?php esc_html_e( 'Subscribe', 'msrpublishing' ); ?></a>
 				</nav>
 		</div>
 	</div>

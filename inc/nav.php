@@ -2,7 +2,7 @@
 /**
  * Primary navigation — WP menu (menu-1) first; PHP fallback only when unassigned.
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 /**
@@ -164,13 +164,13 @@ function msr_publishing_render_fullscreen_nav_sublist( $type ) {
 	if ( 'resources' === $type ) {
  $terms = msr_publishing_get_nav_megamenu_resource_formats();
  $view_all = get_post_type_archive_link( 'resource' );
- $eyebrow = __( 'Browse by format', 'msrsandbox' );
- $view_label = __( 'View all resources', 'msrsandbox' );
+ $eyebrow = __( 'Browse by format', 'msrpublishing' );
+ $view_label = __( 'View all resources', 'msrpublishing' );
 	} elseif ( 'topics' === $type ) {
  $terms = msr_publishing_get_nav_megamenu_topics();
  $view_all = msr_publishing_get_topic_hub_url();
- $eyebrow = __( 'Browse by topic', 'msrsandbox' );
- $view_label = __( 'View topics hub', 'msrsandbox' );
+ $eyebrow = __( 'Browse by topic', 'msrpublishing' );
+ $view_label = __( 'View topics hub', 'msrpublishing' );
 	} else {
  return;
 	}
@@ -294,13 +294,13 @@ function msr_publishing_render_nav_megamenu_panel( $type, $panel_id, $parent_url
 	if ( 'resources' === $type ) {
  $terms = msr_publishing_get_nav_megamenu_resource_formats();
  $view_all = get_post_type_archive_link( 'resource' );
- $eyebrow = __( 'Browse by format', 'msrsandbox' );
- $view_label = __( 'View all resources', 'msrsandbox' );
+ $eyebrow = __( 'Browse by format', 'msrpublishing' );
+ $view_label = __( 'View all resources', 'msrpublishing' );
 	} elseif ( 'topics' === $type ) {
  $terms = msr_publishing_get_nav_megamenu_topics();
  $view_all = msr_publishing_get_topic_hub_url();
- $eyebrow = __( 'Browse by topic', 'msrsandbox' );
- $view_label = __( 'View topics hub', 'msrsandbox' );
+ $eyebrow = __( 'Browse by topic', 'msrpublishing' );
+ $view_label = __( 'View topics hub', 'msrpublishing' );
 	} else {
  return;
 	}
@@ -309,7 +309,7 @@ function msr_publishing_render_nav_megamenu_panel( $type, $panel_id, $parent_url
  id="<?php echo esc_attr( $panel_id ); ?>"
  class="site-header__megamenu"
  role="region"
- aria-label="<?php echo esc_attr( sprintf( /* translators: %s: nav section */ __( '%s menu', 'msrsandbox' ), $parent_label ) ); ?>"
+ aria-label="<?php echo esc_attr( sprintf( /* translators: %s: nav section */ __( '%s menu', 'msrpublishing' ), $parent_label ) ); ?>"
  hidden
 	>
  <p class="site-header__megamenu__eyebrow"><?php echo esc_html( $eyebrow ); ?></p>
@@ -340,7 +340,7 @@ function msr_publishing_render_desktop_primary_nav() {
  return;
 	}
 	?>
-	<nav class="site-header__desktop-nav d-none d-lg-flex" aria-label="<?php esc_attr_e( 'Primary', 'msrsandbox' ); ?>">
+	<nav class="site-header__desktop-nav d-none d-lg-flex" aria-label="<?php esc_attr_e( 'Primary', 'msrpublishing' ); ?>">
  <ul class="site-header__desktop-nav__list">
  <?php foreach ( $links as $index => $link ) : ?>
  <?php
@@ -368,7 +368,7 @@ function msr_publishing_render_desktop_primary_nav() {
  class="site-header__desktop-nav__trigger"
  aria-expanded="false"
  aria-controls="<?php echo esc_attr( $panel_id ); ?>"
- aria-label="<?php echo esc_attr( sprintf( /* translators: %s: nav section */ __( 'Show %s sections', 'msrsandbox' ), $title ) ); ?>"
+ aria-label="<?php echo esc_attr( sprintf( /* translators: %s: nav section */ __( 'Show %s sections', 'msrpublishing' ), $title ) ); ?>"
  >
  <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
  </button>
@@ -473,8 +473,8 @@ add_filter( 'wp_nav_menu_objects', 'msr_publishing_filter_legacy_footer_menu_ite
  */
 function msr_publishing_register_legacy_admin_menu() {
 	add_menu_page(
- __( 'Legacy demos', 'msrsandbox' ),
- __( 'Legacy demos', 'msrsandbox' ),
+ __( 'Legacy demos', 'msrpublishing' ),
+ __( 'Legacy demos', 'msrpublishing' ),
  'edit_posts',
  'msr-legacy-demos',
  '__return_null',

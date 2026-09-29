@@ -2,7 +2,7 @@
 /**
  * Unified empty-state panel for archives, listings, and search.
  *
- * @package msrsandbox
+ * @package msrpublishing
  *
  * @var array $args {
  *     @type string $context search|archive|listing.
@@ -31,7 +31,7 @@ $links   = isset( $args['links'] ) && is_array( $args['links'] ) ? $args['links'
 			<?php get_template_part( 'template-parts/forms/site-search' ); ?>
 		<?php endif; ?>
 		<?php if ( $links ) : ?>
-			<nav class="msr-empty-state__links d-flex flex-wrap gap-2 justify-content-center mt-3" aria-label="<?php esc_attr_e( 'Helpful links', 'msrsandbox' ); ?>">
+			<nav class="msr-empty-state__links d-flex flex-wrap gap-2 justify-content-center mt-3" aria-label="<?php esc_attr_e( 'Helpful links', 'msrpublishing' ); ?>">
 				<?php foreach ( $links as $link ) : ?>
 					<?php if ( empty( $link['url'] ) ) { continue; } ?>
 					<a class="btn btn-outline-primary btn-sm" href="<?php echo esc_url( $link['url'] ); ?>">

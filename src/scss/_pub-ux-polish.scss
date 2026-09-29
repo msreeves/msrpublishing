@@ -1,0 +1,395 @@
+// PUB-UX-1–5 — vertical rhythm, archive density, reading templates, trust surfaces
+
+body.msr-publishing {
+	--msr-reading-measure: 42rem;
+	--msr-reading-line: 1.6;
+}
+
+// --- Home (PUB-UX-1) ---
+.publishing-home {
+	--msr-section-y: clamp(2.25rem, 3.75vw, 3.5rem);
+
+	section {
+		padding-block: var(--msr-section-y);
+	}
+
+	.publishing-home-hero {
+		padding-block: clamp(2.5rem, 5vw, 4rem);
+
+		&__trust-link {
+			color: $accent-dark;
+			font-weight: 600;
+			text-decoration-thickness: 1px;
+			text-underline-offset: 0.15em;
+
+			&:hover,
+			&:focus-visible {
+				color: $ink;
+			}
+		}
+
+		&__visual-title {
+			line-height: 1.35;
+		}
+	}
+
+	.publishing-home-library {
+		display: grid;
+		gap: 1.25rem;
+		align-items: start;
+
+		@media (min-width: 768px) {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		@media (min-width: 992px) {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+	}
+
+	.publishing-home-formats__row--spaced {
+		margin-top: 2rem;
+		padding-top: 2rem;
+	}
+
+
+	.publishing-ecosystem {
+		padding-block: var(--msr-section-y);
+	}
+}
+
+.publishing-section-header {
+	margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+
+	&__lead {
+		max-width: 40rem;
+		margin-inline: auto;
+		line-height: 1.55;
+	}
+}
+
+// --- Resources archive (PUB-UX-2) ---
+.archive-resource,
+.tax-resource_type,
+.tax-topic {
+	.page-header {
+		padding-bottom: 1.5rem;
+		max-width: 42rem;
+	}
+
+	.page-header .lead {
+		line-height: 1.55;
+	}
+}
+
+.publishing-hub-commentary,
+.publishing-commentary-archive,
+.publishing-insights-page {
+	.row.g-4 {
+		align-items: stretch;
+		justify-content: flex-start;
+	}
+
+	.post-card,
+	.resource-card.h-100 {
+		height: 100%;
+	}
+
+	.post-card {
+		.card-body {
+			padding: 1.15rem 1.25rem 1.35rem;
+		}
+
+		.card-title {
+			font-size: clamp(1.05rem, 2vw, 1.2rem);
+			line-height: 1.3;
+			display: -webkit-box;
+			-webkit-line-clamp: 3;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+		}
+
+		.card-text {
+			display: -webkit-box;
+			-webkit-line-clamp: 3;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+		}
+	}
+}
+
+.archive-resource {
+	.page-header {
+		padding-bottom: 1.5rem;
+	}
+
+	.publishing-discovery-band {
+		margin-bottom: 0.5rem;
+	}
+
+	.resource-card {
+		height: 100%;
+
+		.card-body {
+			padding: 1.15rem 1.25rem 1.35rem;
+			display: flex;
+			flex-direction: column;
+			gap: 0.35rem;
+		}
+
+		.card-title {
+			font-size: clamp(1.05rem, 2vw, 1.2rem);
+			line-height: 1.3;
+			display: -webkit-box;
+			-webkit-line-clamp: 3;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+		}
+
+		.card-text {
+			display: -webkit-box;
+			-webkit-line-clamp: 3;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+			line-height: 1.5;
+			margin-bottom: 0;
+		}
+	}
+}
+
+// --- Singles — resource + commentary (PUB-UX-3, PUB-UX-4) ---
+.post-single--insight {
+	.post-single__format-label {
+		letter-spacing: 0.1em;
+		color: $accent;
+	}
+
+	.post-single__dek {
+		max-width: var(--msr-reading-measure);
+		font-size: 1.125rem;
+		line-height: 1.55;
+		margin-bottom: 1.25rem;
+		color: $text-secondary;
+	}
+
+	.post-single__body--insight {
+		max-width: var(--msr-reading-measure);
+		margin-inline: auto;
+	}
+}
+
+.resource-single,
+.post-single {
+	&__header {
+		margin-bottom: 1.75rem;
+		max-width: var(--msr-content-max, 72rem);
+		margin-inline: auto;
+	}
+
+	&__body,
+	.entry-content.post-single__body {
+		max-width: var(--msr-reading-measure);
+		margin-inline: auto;
+		line-height: var(--msr-reading-line);
+		font-size: 1.0625rem;
+		color: $text-primary;
+	}
+
+	&__layout .entry-content.resource-single__body,
+	&__layout .resource-single__body--longform {
+		max-width: none;
+		margin-inline: 0;
+	}
+
+	.entry-content.resource-single__body:not(.resource-single__body--longform) {
+		max-width: var(--msr-reading-measure);
+		margin-inline: auto;
+		line-height: var(--msr-reading-line);
+		font-size: 1.0625rem;
+		color: $text-primary;
+	}
+
+	.entry-content.resource-single__body,
+	.entry-content.post-single__body {
+
+		> *:first-child {
+			margin-top: 0;
+		}
+
+		p {
+			margin-bottom: 1.35em;
+		}
+
+		h2,
+		h3,
+		h4 {
+			margin-top: 2rem;
+			margin-bottom: 0.75rem;
+			text-align: left;
+			line-height: 1.25;
+		}
+
+		ul,
+		ol {
+			margin-bottom: 1.35em;
+			padding-left: 1.35em;
+		}
+
+		blockquote {
+			margin: 1.5em 0;
+			padding-left: 1rem;
+		}
+
+		.wp-block-code,
+		pre.wp-block-preformatted,
+		pre {
+			background: $surface;
+			border: 1px solid $border-mid;
+			border-radius: var(--msr-radius, 2px);
+			padding: 1rem 1.15rem;
+			overflow-x: auto;
+			font-size: 0.9rem;
+			line-height: 1.5;
+			margin-bottom: 1.35em;
+		}
+
+		.wp-block-table {
+			width: 100%;
+			margin-bottom: 1.35em;
+		}
+	}
+}
+
+.publishing-byline {
+	margin-bottom: 1.25rem;
+
+	&__avatar {
+		width: 2.5rem;
+		height: 2.5rem;
+		border-radius: 50%;
+		object-fit: cover;
+		flex-shrink: 0;
+		border: 1px solid $border-mid;
+	}
+
+	&__author p {
+		margin-bottom: 0;
+		line-height: 1.45;
+	}
+}
+
+.publishing-insights-page {
+	.publishing-section-header {
+		margin-bottom: 1.75rem;
+	}
+
+	.publishing-insights__feed {
+		padding-bottom: 2rem;
+	}
+}
+
+// --- About + subscribe (PUB-UX-5) ---
+.publishing-about-page {
+	&__disclaimer {
+		padding: 1.25rem 1.5rem;
+		background: $surface-mid;
+		border: 1px solid $border-subtle;
+		border-radius: var(--msr-radius, 2px);
+	}
+
+	&__actions {
+		margin-top: 2rem;
+		padding-top: 1.5rem;
+		border-top: 1px solid $border-mid;
+	}
+}
+
+.publishing-subscribe-page {
+	.publishing-subscribe-value-prop__item {
+		padding: 1.15rem 1.25rem;
+		background: $surface;
+		border: 1px solid $border-mid;
+		border-radius: var(--msr-radius, 2px);
+		height: 100%;
+	}
+
+	&__lead {
+		max-width: 36rem;
+		margin-inline: auto;
+		line-height: 1.55;
+	}
+}
+
+// --- Expert visuals (PUB-UX-7) ---
+.publishing-expert-card {
+	&__media {
+		margin-bottom: 0.85rem;
+	}
+
+	&__avatar {
+		width: 4rem;
+		height: 4rem;
+		border-radius: 50%;
+		object-fit: cover;
+		border: 2px solid $border-mid;
+		display: block;
+	}
+}
+
+.publishing-author-archive__header {
+	display: grid;
+	gap: 0.75rem;
+
+	@media (min-width: 576px) {
+		grid-template-columns: auto 1fr;
+		align-items: start;
+		column-gap: 1.25rem;
+	}
+}
+
+.publishing-author-archive__avatar {
+	width: 5rem;
+	height: 5rem;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 2px solid $border-mid;
+}
+
+// Equal-height cards across grids and Bootstrap rows (Q4 polish).
+body.msr-publishing {
+	.publishing-home-library,
+	.publishing-home-bento,
+	.publishing-home-formats .row.g-4,
+	.archive-resource .row.g-4,
+	.tax-resource_type .row.g-4,
+	.tax-topic .row.g-4,
+	.publishing-commentary-archive .row.g-4,
+	.publishing-insights-page .row.g-4,
+	.publishing-hub-commentary .row.g-4,
+	.publishing-home-commentary-preview .row.g-4,
+	.resource-single__related .row.g-4,
+	.post-single__related .row.g-4 {
+		align-items: stretch;
+	}
+
+	.msr-card.resource-card,
+	.msr-card.post-card {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		min-height: 0;
+
+		> .row.g-0 {
+			flex: 1 1 auto;
+			min-height: 0;
+		}
+
+		.card-body {
+			flex: 1 1 auto;
+		}
+
+		.card-text--placeholder {
+			min-height: 4.5em;
+		}
+	}
+}

@@ -3,13 +3,13 @@
  * The template for displaying all single posts
  *
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 get_header();
 ?>
 
-<main id="site-content">
+<main id="site-content" class="publishing-commentary-single">
 
 	<?php
 

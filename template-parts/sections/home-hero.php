@@ -1,8 +1,8 @@
 <?php
 /**
- * Publishing home hero — Atlas Briefing.
+ * Publishing home hero — mission, single CTA, flagship resource visual.
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 $brand   = msr_publishing_brand_name();
@@ -11,32 +11,44 @@ $tagline = msr_publishing_brand_tagline();
 $resources_url = get_post_type_archive_link( 'resource' );
 $insights_url  = msr_publishing_insights_url();
 
-$featured_id    = msr_publishing_get_site_featured_resource_id();
-$featured_hero  = msr_publishing_get_site_featured_resource_hero_id();
-$featured_title = $featured_id ? get_the_title( $featured_id ) : '';
-$featured_href  = $featured_id ? get_permalink( $featured_id ) : '';
-$featured_type  = $featured_id ? msr_publishing_get_primary_resource_type( $featured_id ) : null;
-$has_visual     = $featured_id && $featured_href;
-$freshness      = msr_publishing_get_home_freshness_signal();
-$editor_voice   = msr_publishing_get_home_editor_voice();
+$freshness    = msr_publishing_get_home_freshness_signal();
+$editor_voice = msr_publishing_get_home_editor_voice();
 
-$hero_class = 'publishing-home-hero';
+$featured_id = (int) msr_publishing_get_site_featured_resource_id();
+$has_visual  = $featured_id > 0;
+
+msr_publishing_init_home_surface_media_registry();
+msr_publishing_get_home_curated_resource_layout();
+
+$hero_class = 'publishing-home-hero publishing-home-hero--editorial';
 if ( $has_visual ) {
 	$hero_class .= ' publishing-home-hero--has-visual';
+} else {
+	$hero_class .= ' publishing-home-hero--no-feature';
 }
 ?>
-<section class="<?php echo esc_attr( $hero_class ); ?>">
-	<div class="container py-5">
-		<div class="row align-items-center g-4 g-lg-5 justify-content-center">
-			<div class="<?php echo $has_visual ? 'col-lg-6 text-center text-lg-start' : 'col-12 col-lg-8 text-center'; ?>">
+<section class="<?php echo esc_attr( $hero_class ); ?>" aria-labelledby="publishing-home-hero-title">
+	<div class="container py-4 py-lg-5">
+		<div class="publishing-home-hero__layout">
+			<div class="publishing-home-hero__mission publishing-home-hero__copy">
 				<div class="publishing-home-hero__copy-panel msr-reveal-stagger" data-msr-reveal-stagger="hero">
-					<p class="publishing-home-hero__eyebrow"><?php esc_html_e( 'Workforce and resilience insights', 'msrsandbox' ); ?></p>
-					<h1 class="publishing-home-hero__title"><?php echo esc_html( $brand ); ?></h1>
-					<p class="publishing-home-hero__lead"><?php echo esc_html( $tagline ); ?></p>
+					<p class="publishing-home-hero__eyebrow"><?php esc_html_e( 'Workforce and resilience insights', 'msrpublishing' ); ?></p>
+					<h1 id="publishing-home-hero-title" class="publishing-home-hero__title"><?php echo esc_html( $tagline ); ?></h1>
+					<p class="publishing-home-hero__purpose text-muted">
+						<?php
+						echo esc_html(
+							sprintf(
+								/* translators: %s: site brand name */
+								__( '%s is the B2B resource desk for briefings, whitepapers, webinars, and commentary — browse by topic or format in the library.', 'msrpublishing' ),
+								$brand
+							)
+						);
+						?>
+					</p>
 					<ul class="publishing-home-hero__trust list-unstyled mb-0">
 						<?php if ( $freshness ) : ?>
 							<li class="publishing-home-hero__trust-item">
-								<?php esc_html_e( 'Updated', 'msrsandbox' ); ?>
+								<?php esc_html_e( 'Updated', 'msrpublishing' ); ?>
 								<time class="publishing-home-hero__trust-date" datetime="<?php echo esc_attr( $freshness['datetime'] ); ?>">
 									<?php echo esc_html( wp_date( get_option( 'date_format' ), strtotime( $freshness['datetime'] ) ) ); ?>
 								</time>
@@ -53,55 +65,71 @@ if ( $has_visual ) {
 							echo esc_html(
 								sprintf(
 									/* translators: %s: author or editorial desk name */
-									__( 'Curated by %s', 'msrsandbox' ),
+									__( 'Curated by %s', 'msrpublishing' ),
 									$editor_voice
 								)
 							);
 							?>
 						</li>
 					</ul>
-					<?php if ( $resources_url || $insights_url ) : ?>
-						<p class="publishing-home-hero__cta d-flex flex-wrap gap-2 justify-content-center<?php echo $has_visual ? ' justify-content-lg-start' : ''; ?>">
-							<?php if ( $resources_url ) : ?>
-								<a class="btn btn-primary" href="<?php echo esc_url( $resources_url ); ?>"><?php esc_html_e( 'Browse resources', 'msrsandbox' ); ?></a>
-							<?php endif; ?>
+					<?php if ( $resources_url ) : ?>
+						<p class="publishing-home-hero__cta d-flex flex-wrap gap-2 align-items-center">
+							<a class="btn btn-primary" href="<?php echo esc_url( $resources_url ); ?>"><?php esc_html_e( 'Browse resources', 'msrpublishing' ); ?></a>
 							<?php if ( $insights_url ) : ?>
-								<a class="btn btn-outline-primary" href="<?php echo esc_url( $insights_url ); ?>"><?php esc_html_e( 'View insights', 'msrsandbox' ); ?></a>
+								<a class="publishing-home-hero__secondary-link" href="<?php echo esc_url( $insights_url ); ?>"><?php esc_html_e( 'View insights', 'msrpublishing' ); ?></a>
 							<?php endif; ?>
 						</p>
 					<?php endif; ?>
 				</div>
 			</div>
+
 			<?php if ( $has_visual ) : ?>
-				<div class="col-lg-6">
-					<a class="publishing-home-hero__visual msr-card-media msr-reveal msr-reveal--up d-block<?php echo $featured_hero ? '' : ' msr-card-media--placeholder'; ?>" href="<?php echo esc_url( $featured_href ); ?>" aria-label="<?php echo esc_attr( sprintf( /* translators: %s: resource title */ __( 'Featured pick: %s', 'msrsandbox' ), $featured_title ) ); ?>">
-						<?php if ( $featured_hero ) : ?>
+				<?php
+				$featured_title = get_the_title( $featured_id );
+				$featured_url   = get_permalink( $featured_id );
+				$hero_id        = msr_publishing_get_site_featured_resource_hero_id();
+				$format         = function_exists( 'msr_publishing_get_primary_resource_type' )
+					? msr_publishing_get_primary_resource_type( $featured_id )
+					: null;
+				$excerpt        = has_excerpt( $featured_id ) ? get_the_excerpt( $featured_id ) : '';
+				?>
+				<div class="publishing-home-hero__feature">
+					<a class="publishing-home-hero__visual" href="<?php echo esc_url( $featured_url ); ?>">
+						<span class="publishing-home-hero__visual-scrim" aria-hidden="true"></span>
+						<?php if ( $hero_id ) : ?>
 							<?php
 							echo wp_get_attachment_image(
-								$featured_hero,
+								$hero_id,
 								'large',
 								false,
 								array(
-									'class'   => 'publishing-home-hero__visual-img msr-card-media__img',
+									'class'   => 'publishing-home-hero__visual-img w-100 h-100 object-fit-cover',
 									'loading' => 'eager',
-									'alt'     => $featured_title,
+									'alt'     => '',
 								)
 							);
 							?>
-						<?php else : ?>
-							<span class="msr-card-media__placeholder" aria-hidden="true">
-								<i class="fa-solid <?php echo esc_attr( msr_publishing_get_card_placeholder_icon( $featured_id ) ); ?>"></i>
-							</span>
 						<?php endif; ?>
-						<span class="publishing-home-hero__visual-scrim" aria-hidden="true"></span>
 						<span class="publishing-home-hero__visual-meta">
-							<span class="publishing-home-hero__visual-label small text-uppercase fw-semibold"><?php esc_html_e( 'Featured pick', 'msrsandbox' ); ?></span>
-							<?php if ( $featured_type ) : ?>
-								<span class="publishing-home-hero__visual-format badge"><?php echo esc_html( $featured_type->name ); ?></span>
+							<span class="publishing-home-hero__visual-label publishing-home-hero__visual-format">
+								<?php esc_html_e( 'Featured resource', 'msrpublishing' ); ?>
+							</span>
+							<?php if ( $format instanceof WP_Term ) : ?>
+								<span class="publishing-home-hero__visual-label publishing-home-hero__visual-format">
+									<?php echo esc_html( $format->name ); ?>
+								</span>
 							<?php endif; ?>
 							<span class="publishing-home-hero__visual-title"><?php echo esc_html( $featured_title ); ?></span>
 						</span>
 					</a>
+					<?php if ( $excerpt !== '' ) : ?>
+						<p class="publishing-home-hero__feature-excerpt text-muted mb-0"><?php echo esc_html( wp_trim_words( $excerpt, 28, '…' ) ); ?></p>
+						<p class="publishing-home-hero__feature-action mb-0">
+							<a class="publishing-home-hero__feature-link" href="<?php echo esc_url( $featured_url ); ?>">
+								<?php esc_html_e( 'Read the featured briefing', 'msrpublishing' ); ?>
+							</a>
+						</p>
+					<?php endif; ?>
 				</div>
 			<?php endif; ?>
 		</div>

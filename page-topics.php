@@ -2,7 +2,7 @@
 /**
  * Topics hub (slug: topics) — browse Workforce, Resilience, and other briefing topics.
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 get_header();
@@ -10,7 +10,7 @@ get_header();
 <main id="site-content" class="publishing-topics-page">
 	<div class="container py-4">
 		<header class="publishing-section-header text-center mb-4">
-			<h1 class="entry-title msr-reveal"><?php esc_html_e( 'Topics', 'msrsandbox' ); ?></h1>
+			<h1 class="entry-title msr-reveal"><?php esc_html_e( 'Topics', 'msrpublishing' ); ?></h1>
 			<p class="text-muted msr-reveal">
 				<?php echo esc_html( msr_publishing_get_topics_hub_intro() ); ?>
 			</p>

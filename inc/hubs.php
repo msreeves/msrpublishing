@@ -2,7 +2,7 @@
 /**
  * Resource hub enrichment — featured picks and related commentary strips.
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 /**
@@ -28,7 +28,7 @@ function msr_publishing_get_topic_hub_intro( $term ) {
 	if ( $intro === '' ) {
 		return sprintf(
 			/* translators: %s: topic name */
-			__( 'Resources and briefings on %s from Atlas Briefing.', 'msrsandbox' ),
+			__( 'Resources and briefings on %s from Atlas Briefing.', 'msrpublishing' ),
 			$term->name
 		);
 	}
@@ -181,7 +181,7 @@ function msr_publishing_render_hub_featured_pick( $term = null, $taxonomy = '' )
 	?>
 	<section class="publishing-hub-featured container pb-4" aria-labelledby="publishing-hub-featured-heading">
 		<h2 id="publishing-hub-featured-heading" class="publishing-featured-hero__label text-uppercase small fw-semibold text-muted mb-2">
-			<?php esc_html_e( 'Featured pick', 'msrsandbox' ); ?>
+			<?php esc_html_e( 'Featured pick', 'msrpublishing' ); ?>
 		</h2>
 		<div class="publishing-featured-hero publishing-hub-featured__card">
 			<?php
@@ -205,21 +205,27 @@ function msr_publishing_render_hub_featured_pick( $term = null, $taxonomy = '' )
  * Related commentary strip for topic-linked hubs.
  *
  * @param WP_Term|null $topic_term Topic for the query.
+ * @param bool         $compact    Fewer cards after the main resource grid (resources archive).
  * @return void
  */
-function msr_publishing_render_hub_commentary_strip( $topic_term = null ) {
+function msr_publishing_render_hub_commentary_strip( $topic_term = null, $compact = false ) {
 	if ( ! $topic_term instanceof WP_Term ) {
 		return;
 	}
 
-	$related = msr_publishing_get_related_commentary_by_topic( (int) $topic_term->term_id, 0, 3 );
+	$limit   = $compact ? 3 : 0;
+	$related = msr_publishing_get_related_commentary_by_topic( (int) $topic_term->term_id, 0, $limit );
 	if ( ! $related->have_posts() ) {
 		return;
 	}
 
 	$insights = msr_publishing_insights_url();
+	$section_class = 'publishing-hub-commentary container py-4 border-top';
+	if ( $compact ) {
+		$section_class .= ' publishing-hub-commentary--compact';
+	}
 	?>
-	<section class="publishing-hub-commentary container py-4 border-top" aria-labelledby="publishing-hub-commentary-heading">
+	<section class="<?php echo esc_attr( $section_class ); ?>" aria-labelledby="publishing-hub-commentary-heading">
 		<header class="d-flex flex-wrap justify-content-between align-items-end gap-2 mb-4">
 			<div>
 				<h2 id="publishing-hub-commentary-heading" class="h4 mb-1">
@@ -227,17 +233,17 @@ function msr_publishing_render_hub_commentary_strip( $topic_term = null ) {
 					echo esc_html(
 						sprintf(
 							/* translators: %s: topic name */
-							__( 'Commentary on %s', 'msrsandbox' ),
+							__( 'Insights on %s', 'msrpublishing' ),
 							$topic_term->name
 						)
 					);
 					?>
 				</h2>
-				<p class="text-muted small mb-0"><?php esc_html_e( 'Editorial analysis linked to this hub.', 'msrsandbox' ); ?></p>
+				<p class="text-muted small mb-0"><?php esc_html_e( 'Editorial analysis linked to this hub.', 'msrpublishing' ); ?></p>
 			</div>
 			<?php if ( $insights ) : ?>
 				<a class="btn btn-sm btn-outline-primary" href="<?php echo esc_url( $insights ); ?>">
-					<?php esc_html_e( 'All insights', 'msrsandbox' ); ?>
+					<?php esc_html_e( 'All insights', 'msrpublishing' ); ?>
 				</a>
 			<?php endif; ?>
 		</header>
@@ -273,7 +279,7 @@ function msr_publishing_render_topics_hub() {
 
 	if ( ! $topics || is_wp_error( $topics ) ) {
 		echo '<p class="text-center text-muted">';
-		esc_html_e( 'No topics are configured yet.', 'msrsandbox' );
+		esc_html_e( 'No topics are configured yet.', 'msrpublishing' );
 		echo '</p>';
 		return;
 	}
@@ -289,13 +295,13 @@ function msr_publishing_render_topics_hub() {
 			if ( $description === '' ) {
 				$description = sprintf(
 					/* translators: %s: topic name */
-					__( 'Resources and commentary on %s.', 'msrsandbox' ),
+					__( 'Resources and commentary on %s.', 'msrpublishing' ),
 					$topic->name
 				);
 			}
 			$count_label = sprintf(
 				/* translators: %d: number of resources */
-				_n( '%d resource', '%d resources', (int) $topic->count, 'msrsandbox' ),
+				_n( '%d resource', '%d resources', (int) $topic->count, 'msrpublishing' ),
 				(int) $topic->count
 			);
 			?>
@@ -314,7 +320,7 @@ function msr_publishing_render_topics_hub() {
 							echo esc_html(
 								sprintf(
 									/* translators: %s: topic name */
-									__( 'Browse %s', 'msrsandbox' ),
+									__( 'Browse %s', 'msrpublishing' ),
 									$topic->name
 								)
 							);

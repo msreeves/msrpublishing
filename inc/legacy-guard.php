@@ -2,7 +2,7 @@
 /**
  * Block or redirect legacy sandbox routes on the publishing front end.
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 /**

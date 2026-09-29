@@ -1,9 +1,9 @@
 /**
  * Hero / section reveal — CSS transitions + IntersectionObserver (replaces Animate.css).
  */
-document.documentElement.classList.add('js-reveal');
-
 document.addEventListener('DOMContentLoaded', function () {
+	document.documentElement.classList.add('js-reveal');
+
 	var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 	var staggerPresets = {
 		hero: 90,
@@ -68,4 +68,9 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 		observeReveal(children);
 	});
+
+	// Failsafe — never leave home grids invisible if IO misses a target.
+	window.setTimeout(function () {
+		document.querySelectorAll('.msr-reveal:not(.is-visible)').forEach(reveal);
+	}, 1200);
 });

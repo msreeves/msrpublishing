@@ -2,6 +2,25 @@
  * Publishing home — sticky subscribe bar, hero intersection, mobile more-bands panel.
  */
 document.addEventListener( 'DOMContentLoaded', function () {
+	const loadMoreInsights = document.querySelector( '[data-msr-insights-load-more]' );
+	if ( loadMoreInsights ) {
+		const grid = loadMoreInsights.closest( '.container' )?.querySelector( '.publishing-home-commentary-preview__grid' );
+		loadMoreInsights.addEventListener( 'click', function () {
+			const hidden = grid ? grid.querySelectorAll( '.publishing-commentary-grid__cell--more' ) : [];
+			hidden.forEach( function ( cell ) {
+				cell.classList.remove( 'd-none' );
+				cell.querySelectorAll( '.msr-reveal' ).forEach( function ( el ) {
+					el.classList.add( 'is-visible' );
+				} );
+			} );
+			loadMoreInsights.setAttribute( 'aria-expanded', 'true' );
+			const wrap = loadMoreInsights.closest( '.publishing-home-commentary-preview__load-more-wrap' );
+			if ( wrap ) {
+				wrap.hidden = true;
+			}
+		} );
+	}
+
 	const sticky = document.querySelector( '.publishing-subscribe-sticky' );
 	const hero = document.querySelector( '.publishing-home-hero' );
 	const subscribeBand = document.getElementById( 'publishing-home-subscribe' );
@@ -30,6 +49,8 @@ document.addEventListener( 'DOMContentLoaded', function () {
 	const reduced = window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches;
 	const desktop = window.matchMedia( '(min-width: 992px)' );
 
+	const stickyCta = sticky.querySelector( '.publishing-subscribe-sticky__cta' );
+
 	function setStickyVisible( visible ) {
 		if ( desktop.matches ) {
 			visible = false;
@@ -38,8 +59,16 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		sticky.setAttribute( 'aria-hidden', visible ? 'false' : 'true' );
 		if ( visible ) {
 			sticky.removeAttribute( 'inert' );
+			sticky.removeAttribute( 'hidden' );
+			if ( stickyCta ) {
+				stickyCta.removeAttribute( 'tabindex' );
+			}
 		} else {
 			sticky.setAttribute( 'inert', '' );
+			sticky.setAttribute( 'hidden', '' );
+			if ( stickyCta ) {
+				stickyCta.setAttribute( 'tabindex', '-1' );
+			}
 		}
 	}
 
@@ -77,4 +106,6 @@ document.addEventListener( 'DOMContentLoaded', function () {
 	if ( reduced ) {
 		sticky.style.transition = 'none';
 	}
+
+	setStickyVisible( false );
 } );

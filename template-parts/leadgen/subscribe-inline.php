@@ -2,11 +2,11 @@
 /**
  * Compact inline subscribe form for home conversion band.
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 ?>
 <form class="publishing-subscribe-inline msr-subscribe-demo-form" data-subscribe-demo-form novalidate>
-	<label class="visually-hidden" for="msr-home-subscribe-email"><?php esc_html_e( 'Work email', 'msrsandbox' ); ?></label>
+	<label class="visually-hidden" for="msr-home-subscribe-email"><?php esc_html_e( 'Work email', 'msrpublishing' ); ?></label>
 	<div class="publishing-subscribe-inline__row">
 		<input
 			type="email"
@@ -15,12 +15,12 @@
 			name="email"
 			required
 			autocomplete="email"
-			placeholder="<?php esc_attr_e( 'Work email', 'msrsandbox' ); ?>"
+			placeholder="<?php esc_attr_e( 'Work email', 'msrpublishing' ); ?>"
 		/>
-		<button type="submit" class="btn btn-primary publishing-subscribe-inline__submit"><?php esc_html_e( 'Subscribe', 'msrsandbox' ); ?></button>
+		<button type="submit" class="btn btn-primary publishing-subscribe-inline__submit"><?php esc_html_e( 'Subscribe', 'msrpublishing' ); ?></button>
 	</div>
-	<p class="publishing-subscribe-inline__note small text-muted mb-0 mt-2"><?php esc_html_e( 'Curated briefings — demo signup only, no data stored.', 'msrsandbox' ); ?></p>
+	<p class="publishing-subscribe-inline__note small text-muted mb-0 mt-2"><?php esc_html_e( 'Curated briefings — demo signup only, no data stored.', 'msrpublishing' ); ?></p>
 </form>
 <div class="msr-subscribe-thanks d-none mt-3" data-subscribe-thanks role="status">
-	<p class="mb-0 fw-semibold"><?php esc_html_e( 'Thank you — you are on the list.', 'msrsandbox' ); ?></p>
+	<p class="mb-0 fw-semibold"><?php esc_html_e( 'Thank you — you are on the list.', 'msrpublishing' ); ?></p>
 </div>

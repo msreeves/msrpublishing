@@ -2,7 +2,7 @@
 /**
  * Block editor support: patterns, Classic Editor coexistence for publishing CPTs.
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 /**
@@ -28,7 +28,7 @@ function msr_publishing_register_block_pattern_category() {
 	register_block_pattern_category(
 		'msr-publishing',
 		array(
-			'label' => __( 'Atlas Briefing', 'msrsandbox' ),
+			'label' => __( 'Atlas Briefing', 'msrpublishing' ),
 		)
 	);
 }
@@ -45,10 +45,10 @@ function msr_publishing_register_block_patterns() {
 	$hub_blurb       = esc_html( msr_publishing_get_block_pattern_hub_hero_text() );
 
 	register_block_pattern(
-		'msrsandbox/subscribe-band',
+		'msrpublishing/subscribe-band',
 		array(
-			'title'       => __( 'Subscribe band', 'msrsandbox' ),
-			'description' => __( 'Newsletter signup band with Atlas Briefing copy.', 'msrsandbox' ),
+			'title'       => __( 'Subscribe band', 'msrpublishing' ),
+			'description' => __( 'Newsletter signup band with Atlas Briefing copy.', 'msrpublishing' ),
 			'categories'  => array( 'msr-publishing', 'call-to-action' ),
 			'content'     => '<!-- wp:group {"align":"full","style":{"color":{"background":"#f3efe8"},"spacing":{"padding":{"top":"2.5rem","bottom":"2.5rem","left":"1.5rem","right":"1.5rem"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull has-background" style="background-color:#f3efe8;padding-top:2.5rem;padding-right:1.5rem;padding-bottom:2.5rem;padding-left:1.5rem"><!-- wp:heading {"textAlign":"center","level":2,"fontFamily":"display"} -->
@@ -69,10 +69,10 @@ function msr_publishing_register_block_patterns() {
 	);
 
 	register_block_pattern(
-		'msrsandbox/resource-cta',
+		'msrpublishing/resource-cta',
 		array(
-			'title'       => __( 'Resource library CTA', 'msrsandbox' ),
-			'description' => __( 'Call-to-action band linking to the resource archive.', 'msrsandbox' ),
+			'title'       => __( 'Resource library CTA', 'msrpublishing' ),
+			'description' => __( 'Call-to-action band linking to the resource archive.', 'msrpublishing' ),
 			'categories'  => array( 'msr-publishing', 'call-to-action' ),
 			'content'     => '<!-- wp:group {"align":"wide","style":{"border":{"width":"1px","color":"#ddd5c8","radius":"2px"},"spacing":{"padding":{"top":"2rem","bottom":"2rem","left":"2rem","right":"2rem"}}},"backgroundColor":"surface","layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignwide has-border-color has-surface-background-color has-background" style="border-color:#ddd5c8;border-width:1px;border-radius:2px;padding-top:2rem;padding-right:2rem;padding-bottom:2rem;padding-left:2rem"><!-- wp:columns {"verticalAlignment":"center"} -->
@@ -99,10 +99,10 @@ function msr_publishing_register_block_patterns() {
 	);
 
 	register_block_pattern(
-		'msrsandbox/hub-hero',
+		'msrpublishing/hub-hero',
 		array(
-			'title'       => __( 'Hub hero', 'msrsandbox' ),
-			'description' => __( 'Editorial hero for Atlas Briefing hub pages.', 'msrsandbox' ),
+			'title'       => __( 'Hub hero', 'msrpublishing' ),
+			'description' => __( 'Editorial hero for Atlas Briefing hub pages.', 'msrpublishing' ),
 			'categories'  => array( 'msr-publishing', 'banner' ),
 			'content'     => '<!-- wp:group {"align":"full","style":{"color":{"background":"#f8f5f0"},"spacing":{"padding":{"top":"3rem","bottom":"3rem","left":"1.5rem","right":"1.5rem"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull has-background" style="background-color:#f8f5f0;padding-top:3rem;padding-right:1.5rem;padding-bottom:3rem;padding-left:1.5rem"><!-- wp:heading {"textAlign":"center","level":1,"fontFamily":"display","textColor":"ink"} -->

@@ -1,24 +1,50 @@
-// Card + single image system (consistent aspect ratios)
+// Card + single image system — one aspect ratio everywhere (home, archive, hub, related).
+@use 'sass:math';
+
+$msr-card-media-aspect: math.div(3, 2);
+
 .msr-card-media {
 	position: relative;
 	display: block;
 	overflow: hidden;
 	width: 100%;
+	flex: 0 0 auto;
 	flex-shrink: 0;
+	align-self: stretch;
 	background: $surface-mid;
-	aspect-ratio: 16 / 10;
+	aspect-ratio: $msr-card-media-aspect;
+	min-height: 0;
+	text-decoration: none;
+	color: inherit;
 
-	&__img {
+	&--playback {
+		background: $surface-mid;
+
+		.msr-card-media__fill > img {
+			// Crop baked-in provider letterboxing on rare thumbs after object-fit: cover.
+			transform: scale(1.08);
+		}
+	}
+
+	&__fill {
 		position: absolute;
 		inset: 0;
+		overflow: hidden;
+		z-index: 0;
+	}
+
+	&__img,
+	&__fill > img,
+	> img.msr-card-media__img {
+		display: block;
 		width: 100%;
 		height: 100%;
 		max-width: none;
 		max-height: none;
 		object-fit: cover;
 		object-position: center;
-		display: block;
 		margin: 0;
+		border-radius: 0;
 	}
 
 	&--placeholder {
@@ -33,6 +59,34 @@
 		justify-content: center;
 		color: rgba($ink, 0.28);
 		font-size: clamp(2rem, 8vw, 3rem);
+	}
+
+	&--playback::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(180deg, rgba($ink, 0.08) 0%, rgba($ink, 0.35) 100%);
+		pointer-events: none;
+		z-index: 1;
+	}
+
+	&__playback {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		z-index: 2;
+		pointer-events: none;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 3rem;
+		height: 3rem;
+		border-radius: 50%;
+		background: rgba($paper, 0.92);
+		color: $accent-dark;
+		font-size: 1.35rem;
+		box-shadow: 0 4px 16px rgba($ink, 0.18);
 	}
 }
 
@@ -82,6 +136,12 @@
 
 	.msr-card-media {
 		border-radius: var(--msr-radius, 2px) var(--msr-radius, 2px) 0 0;
+		flex: 0 0 auto;
+		width: 100%;
+	}
+
+	.msr-card-media__img {
+		height: 100%;
 	}
 
 	.card-body {
@@ -92,7 +152,7 @@
 	// Legacy img without wrapper
 	> a:not(.msr-card-media) .card-img-top,
 	.card-img-top:not(.msr-card-media__img) {
-		aspect-ratio: 16 / 10;
+		aspect-ratio: $msr-card-media-aspect;
 		object-fit: cover;
 		width: 100%;
 	}
@@ -139,6 +199,21 @@
 	&:hover {
 		transform: none;
 	}
+
+	// Horizontal featured layout — do not stretch media to body height; keep 3:2 band like grid cards.
+	&.card .row.align-items-stretch {
+		align-items: flex-start;
+	}
+
+	.resource-card__media-col {
+		align-self: flex-start;
+	}
+
+	.msr-card-media {
+		width: 100%;
+		height: auto;
+		max-height: none;
+	}
 }
 
 .publishing-featured-hero .resource-card {
@@ -154,6 +229,22 @@
 
 .msr-single-media {
 	margin-bottom: 1.5rem;
+
+	&--contain .msr-single-media__frame--contain {
+		aspect-ratio: auto;
+		max-height: none;
+		padding: 0.75rem;
+		background: $surface-mid;
+	}
+
+	&--contain .msr-single-media__img {
+		object-fit: contain;
+		max-height: min(22rem, 52vw);
+		width: auto;
+		max-width: 100%;
+		margin-inline: auto;
+		height: auto;
+	}
 
 	&__frame {
 		overflow: hidden;
@@ -239,6 +330,16 @@ body.msr-publishing {
 }
 
 .publishing-featured-hero .msr-card-media,
-.publishing-hub-featured__card .msr-card-media {
-	aspect-ratio: 16 / 10;
+.publishing-hub-featured__card .msr-card-media,
+.publishing-home-library .msr-card-media,
+.publishing-home-bento .msr-card-media,
+.publishing-home-formats .msr-card-media,
+.publishing-hub-featured .msr-card-media,
+.archive-resource .msr-card-media,
+.search-results .msr-card-media,
+.resource-single__related .msr-card-media,
+.publishing-insights-page .msr-card-media,
+.publishing-commentary .msr-card-media {
+	aspect-ratio: $msr-card-media-aspect;
+	max-height: none;
 }

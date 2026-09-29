@@ -2,7 +2,7 @@
 /**
  * Resources CPT + resource_type taxonomy (ACF Free ecosystem plan).
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 /**
@@ -163,7 +163,7 @@ function msr_publishing_pre_get_posts_resources( $query ) {
 		return;
 	}
 	if ( $query->is_post_type_archive( 'resource' ) || $query->is_tax( 'resource_type' ) || $query->is_tax( 'topic' ) || $query->is_tax( 'resource_series' ) ) {
-		$query->set( 'posts_per_page', 12 );
+		$query->set( 'posts_per_page', 18 );
 	}
 	if ( $query->is_tax( 'resource_type' ) || $query->is_tax( 'topic' ) || $query->is_tax( 'resource_series' ) ) {
 		$query->set( 'post_type', 'resource' );
@@ -179,6 +179,29 @@ function msr_publishing_pre_get_posts_resources( $query ) {
 			)
 		);
 		$query->set( 'order', 'ASC' );
+	} elseif ( function_exists( 'msr_publishing_get_browse_sort' ) ) {
+		$sort = msr_publishing_get_browse_sort();
+		if ( 'oldest' === $sort ) {
+			$query->set( 'orderby', 'date' );
+			$query->set( 'order', 'ASC' );
+		} elseif ( 'title' === $sort ) {
+			$query->set( 'orderby', 'title' );
+			$query->set( 'order', 'ASC' );
+		} else {
+			$query->set( 'orderby', 'date' );
+			$query->set( 'order', 'DESC' );
+		}
+	}
+
+	if ( ! $query->is_singular() && function_exists( 'msr_publishing_get_density_filler_post_ids' ) ) {
+		$exclude = msr_publishing_get_density_filler_post_ids();
+		if ( function_exists( 'msr_publishing_get_curated_surface_noise_post_ids' ) ) {
+			$exclude = array_merge( $exclude, msr_publishing_get_curated_surface_noise_post_ids() );
+		}
+		$exclude = array_values( array_unique( array_filter( array_map( 'intval', $exclude ) ) ) );
+		if ( $exclude ) {
+			$query->set( 'post__not_in', array_merge( (array) $query->get( 'post__not_in' ), $exclude ) );
+		}
 	}
 }
 add_action( 'pre_get_posts', 'msr_publishing_pre_get_posts_resources' );

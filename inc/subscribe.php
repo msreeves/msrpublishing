@@ -2,7 +2,7 @@
 /**
  * Subscribe preferences — topic/format choices for demo signup (P49).
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 /**
@@ -33,14 +33,17 @@ function msr_publishing_get_subscribe_format_choices() {
  * @return array<int, array{slug: string, label: string}>
  */
 function msr_publishing_get_subscribe_topic_choices() {
-	$terms = get_terms(
-		array(
-			'taxonomy'   => 'topic',
-			'hide_empty' => false,
-			'orderby'    => 'name',
-			'order'      => 'ASC',
-		)
-	);
+	$terms = function_exists( 'msr_publishing_get_footer_topic_terms' )
+		? msr_publishing_get_footer_topic_terms()
+		: get_terms(
+			array(
+				'taxonomy'   => 'topic',
+				'hide_empty' => true,
+				'orderby'    => 'name',
+				'order'      => 'ASC',
+				'number'     => 6,
+			)
+		);
 
 	if ( is_wp_error( $terms ) || ! is_array( $terms ) ) {
 		return array();
@@ -63,7 +66,7 @@ function msr_publishing_get_subscribe_topic_choices() {
  * @return string
  */
 function msr_publishing_get_subscribe_formats_summary() {
-	return __( 'whitepapers, webinars, briefings, playbooks, case studies, videos, and podcasts', 'msrsandbox' );
+	return __( 'whitepapers, webinars, briefings, playbooks, case studies, videos, and podcasts', 'msrpublishing' );
 }
 
 /**
@@ -82,12 +85,12 @@ function msr_publishing_render_subscribe_preferences() {
 	$formats_summary = msr_publishing_get_subscribe_formats_summary();
 	?>
 	<fieldset class="publishing-subscribe-preferences mb-4" data-subscribe-preferences>
-		<legend class="form-label fw-semibold mb-1"><?php esc_html_e( 'Email preferences', 'msrsandbox' ); ?></legend>
+		<legend class="form-label fw-semibold mb-1"><?php esc_html_e( 'Email preferences', 'msrpublishing' ); ?></legend>
 		<p class="small text-muted mb-3">
 			<?php
 			printf(
 				/* translators: %s: comma-separated list of resource formats */
-				esc_html__( 'Optional — choose topic hubs and formats. We cover %s across Atlas Briefing.', 'msrsandbox' ),
+				esc_html__( 'Optional — choose topic hubs and formats. We cover %s across Atlas Briefing.', 'msrpublishing' ),
 				esc_html( $formats_summary )
 			);
 			?>
@@ -95,7 +98,7 @@ function msr_publishing_render_subscribe_preferences() {
 		<div class="row g-3">
 			<?php if ( $topics ) : ?>
 				<div class="col-md-6">
-					<p class="small fw-semibold mb-2" id="msr-subscribe-topics-label"><?php esc_html_e( 'Topic interests', 'msrsandbox' ); ?></p>
+					<p class="small fw-semibold mb-2" id="msr-subscribe-topics-label"><?php esc_html_e( 'Topic interests', 'msrpublishing' ); ?></p>
 					<div class="publishing-subscribe-preferences__group" role="group" aria-labelledby="msr-subscribe-topics-label">
 						<?php foreach ( $topics as $choice ) : ?>
 							<?php
@@ -119,7 +122,7 @@ function msr_publishing_render_subscribe_preferences() {
 			<?php endif; ?>
 			<?php if ( $formats ) : ?>
 				<div class="col-md-6">
-					<p class="small fw-semibold mb-2" id="msr-subscribe-formats-label"><?php esc_html_e( 'Format interests', 'msrsandbox' ); ?></p>
+					<p class="small fw-semibold mb-2" id="msr-subscribe-formats-label"><?php esc_html_e( 'Format interests', 'msrpublishing' ); ?></p>
 					<div class="publishing-subscribe-preferences__group" role="group" aria-labelledby="msr-subscribe-formats-label">
 						<?php foreach ( $formats as $choice ) : ?>
 							<?php

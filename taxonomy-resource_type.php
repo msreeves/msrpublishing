@@ -2,7 +2,7 @@
 /**
  * Resource type taxonomy archive.
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 get_header();
@@ -19,20 +19,25 @@ $term = get_queried_object();
 		} else {
 			?>
 			<p class="taxonomy-format-intro text-muted msr-reveal mb-0">
-				<?php esc_html_e( 'Browse resources in this format. The featured pick is the best entry point; the grid below lists every matching asset.', 'msrsandbox' ); ?>
+				<?php esc_html_e( 'Browse resources in this format. The featured pick is the best entry point; the grid below lists every matching asset.', 'msrpublishing' ); ?>
 			</p>
 			<?php
 		}
 		?>
-		<?php
-		msr_publishing_render_resource_type_nav( 'term', $term instanceof WP_Term ? $term : null );
-		msr_publishing_render_topic_nav( 'all', null, $term instanceof WP_Term ? $term : null );
-		?>
 	</header>
+	<?php
+	msr_publishing_render_resource_discovery_panel(
+		'term',
+		$term instanceof WP_Term ? $term : null,
+		'all',
+		null,
+		$term instanceof WP_Term ? $term : null
+	);
+	?>
 	<?php
 	$featured_id = msr_publishing_render_hub_featured_pick( $term instanceof WP_Term ? $term : null, 'resource_type' );
 	msr_publishing_render_resource_grid(
-		__( 'No resources in this format yet.', 'msrsandbox' ),
+		__( 'No resources in this format yet.', 'msrpublishing' ),
 		$featured_id ? array( $featured_id ) : array()
 	);
 	?>

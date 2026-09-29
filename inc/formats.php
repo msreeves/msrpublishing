@@ -2,7 +2,7 @@
 /**
  * Canonical resource format vocabulary (P48) — single source for nav, filters, badges.
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 /**
@@ -20,52 +20,52 @@
 function msr_publishing_get_format_registry() {
 	return array(
 		'whitepaper' => array(
-			'label'       => __( 'Whitepaper', 'msrsandbox' ),
-			'description' => __( 'Long-form PDF assets with optional gated download flows.', 'msrsandbox' ),
+			'label'       => __( 'Whitepaper', 'msrpublishing' ),
+			'description' => __( 'Long-form PDF assets with optional gated download flows.', 'msrpublishing' ),
 			'icon'        => 'fa-file-pdf',
 			'order'       => 10,
 			'nav'         => true,
 		),
 		'webinar'    => array(
-			'label'       => __( 'Webinar', 'msrsandbox' ),
-			'description' => __( 'On-demand session recaps with registration, embedded replay, and speaker rosters.', 'msrsandbox' ),
+			'label'       => __( 'Webinar', 'msrpublishing' ),
+			'description' => __( 'On-demand session recaps with registration, embedded replay, and speaker rosters.', 'msrpublishing' ),
 			'icon'        => 'fa-video',
 			'order'       => 20,
 			'nav'         => true,
 		),
 		'briefing'   => array(
-			'label'       => __( 'Briefing', 'msrsandbox' ),
-			'description' => __( 'Executive summaries and market commentary for leadership readers.', 'msrsandbox' ),
+			'label'       => __( 'Briefing', 'msrpublishing' ),
+			'description' => __( 'Executive summaries and market commentary for leadership readers.', 'msrpublishing' ),
 			'icon'        => 'fa-briefcase',
 			'order'       => 30,
 			'nav'         => true,
 			'legacy_slugs' => array( 'market-pulse', 'executive-briefing' ),
 		),
 		'playbook'   => array(
-			'label'       => __( 'Playbook', 'msrsandbox' ),
-			'description' => __( 'Operational guides, checklists, and field-ready how-to assets.', 'msrsandbox' ),
+			'label'       => __( 'Playbook', 'msrpublishing' ),
+			'description' => __( 'Operational guides, checklists, and field-ready how-to assets.', 'msrpublishing' ),
 			'icon'        => 'fa-list-check',
 			'order'       => 40,
 			'nav'         => true,
 			'legacy_slugs' => array( 'field-playbook' ),
 		),
 		'case-study' => array(
-			'label'       => __( 'Case study', 'msrsandbox' ),
-			'description' => __( 'Client outcomes and programme proof points for portfolio demonstrations.', 'msrsandbox' ),
+			'label'       => __( 'Case study', 'msrpublishing' ),
+			'description' => __( 'Client outcomes and programme proof points for portfolio demonstrations.', 'msrpublishing' ),
 			'icon'        => 'fa-chart-line',
 			'order'       => 45,
 			'nav'         => true,
 		),
 		'video'      => array(
-			'label'       => __( 'Video', 'msrsandbox' ),
-			'description' => __( 'Short-form explainers and embedded replays for portfolio demos.', 'msrsandbox' ),
+			'label'       => __( 'Video', 'msrpublishing' ),
+			'description' => __( 'Short-form explainers and embedded replays for portfolio demos.', 'msrpublishing' ),
 			'icon'        => 'fa-circle-play',
 			'order'       => 50,
 			'nav'         => true,
 		),
 		'podcast'    => array(
-			'label'       => __( 'Podcast', 'msrsandbox' ),
-			'description' => __( 'Audio episodes and interview clips for Atlas Briefing demos.', 'msrsandbox' ),
+			'label'       => __( 'Podcast', 'msrpublishing' ),
+			'description' => __( 'Audio episodes and interview clips for Atlas Briefing demos.', 'msrpublishing' ),
 			'icon'        => 'fa-podcast',
 			'order'       => 60,
 			'nav'         => true,

@@ -2,7 +2,7 @@
 /**
  * Theme setup and query defaults.
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 /**
@@ -67,7 +67,7 @@ add_action( 'after_setup_theme', 'msr_publishing_theme_setup' );
 add_filter( 'get_the_archive_title_prefix', '__return_empty_string' );
 
 /** @deprecated Use msr_publishing_theme_setup */
-function msrsandbox_setup() {
+function msrpublishing_setup() {
 	msr_publishing_theme_setup();
 }
 
@@ -82,7 +82,7 @@ function msr_publishing_body_classes( $classes ) {
 add_filter( 'body_class', 'msr_publishing_body_classes' );
 
 /** @deprecated */
-function msrsandbox_body_classes( $classes ) {
+function msrpublishing_body_classes( $classes ) {
 	return msr_publishing_body_classes( $classes );
 }
 

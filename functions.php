@@ -1,8 +1,8 @@
 <?php
 /**
- * msrsandbox functions and definitions
+ * msrpublishing functions and definitions
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 if ( ! defined( '_S_VERSION' ) ) {
@@ -22,16 +22,25 @@ require_once get_template_directory() . '/inc/formats.php';
 require_once get_template_directory() . '/inc/podcast-feed.php';
 require_once get_template_directory() . '/inc/ecosystem.php';
 require_once get_template_directory() . '/inc/filter-bar.php';
+require_once get_template_directory() . '/inc/discovery.php';
 require_once get_template_directory() . '/inc/archive.php';
 require_once get_template_directory() . '/inc/hubs.php';
 require_once get_template_directory() . '/inc/legacy-guard.php';
 require_once get_template_directory() . '/inc/acf.php';
 require_once get_template_directory() . '/inc/breadcrumbs.php';
 require_once get_template_directory() . '/inc/helpers.php';
+
+$msr_editorial_art_direction = dirname( get_template_directory(), 6 ) . '/scripts/seeds/publishing/msr-publishing-editorial-art-direction.php';
+if ( is_readable( $msr_editorial_art_direction ) ) {
+	require_once $msr_editorial_art_direction;
+}
+require_once get_template_directory() . '/inc/url-hygiene.php';
+require_once get_template_directory() . '/inc/error-routes.php';
 require_once get_template_directory() . '/inc/options.php';
 require_once get_template_directory() . '/inc/authors.php';
 require_once get_template_directory() . '/inc/experts.php';
 require_once get_template_directory() . '/inc/single-ux.php';
+require_once get_template_directory() . '/inc/single-resource-layout.php';
 require_once get_template_directory() . '/inc/cards.php';
 require_once get_template_directory() . '/inc/admin.php';
 require_once get_template_directory() . '/inc/leadgen.php';
@@ -40,6 +49,7 @@ require_once get_template_directory() . '/inc/commentary.php';
 require_once get_template_directory() . '/inc/search.php';
 require_once get_template_directory() . '/inc/nav.php';
 require_once get_template_directory() . '/inc/category-redirects.php';
+require_once get_template_directory() . '/inc/commentary-redirects.php';
 require_once get_template_directory() . '/inc/footer.php';
 require_once get_template_directory() . '/inc/seo.php';
 require_once get_template_directory() . '/inc/home.php';

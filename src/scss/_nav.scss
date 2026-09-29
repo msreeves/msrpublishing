@@ -41,16 +41,49 @@
 	&[aria-expanded='true'] &__bar--bot { bottom: 50%; transform: translateY(50%) rotate(-45deg); }
 }
 
-body.site-header-nav-open { overflow: hidden; }
+body.site-header-nav-open {
+	overflow: hidden;
+
+	&::before {
+		content: '';
+		position: fixed;
+		inset: 0;
+		z-index: 1048;
+		background: rgba($ink, 0.72);
+		pointer-events: none;
+	}
+}
+
+body.site-header-search-open {
+	&::before {
+		content: '';
+		position: fixed;
+		inset: 0;
+		z-index: 1038;
+		background: rgba($ink, 0.45);
+		pointer-events: none;
+	}
+}
+
+body.site-header-megamenu-open {
+	&::before {
+		content: '';
+		position: fixed;
+		inset: 0;
+		z-index: 1035;
+		background: rgba($ink, 0.35);
+		pointer-events: none;
+	}
+}
 
 .site-header__mobile-nav {
 	position: fixed;
 	inset: 0;
-	z-index: 1050;
+	z-index: 1055;
 	display: flex;
 	flex-direction: column;
-	padding: 5.5rem 1.5rem 2rem;
-	background: rgba($ink, 0.97);
+	padding: 5rem 1.5rem 2rem;
+	background: $ink;
 	color: $paper;
 	opacity: 0;
 	visibility: hidden;
@@ -222,25 +255,29 @@ body.site-header-nav-open { overflow: hidden; }
 	.site-header__mobile-nav__view-all { opacity: 1; transform: none; }
 }
 
-.site-header__bar {
-	display: flex;
-	align-items: center;
-	gap: 1rem;
-	width: 100%;
-}
+// Legacy bar — replaced by site-header__shell rows (see _site-header-layout.scss).
 
 .site-header__search-toggle {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	width: 2.75rem;
-	height: 2.75rem;
-	padding: 0;
+	gap: 0.4rem;
+	min-width: 2.75rem;
+	min-height: 2.75rem;
+	padding: 0.35rem 0.75rem;
 	border: 1px solid $border-mid;
 	border-radius: var(--msr-radius, 2px);
 	background: $surface;
 	color: $ink;
+	font-size: 0.875rem;
+	font-weight: 600;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
 	cursor: pointer;
+
+	&__icon {
+ font-size: 0.95rem;
+	}
 
 	&:hover,
 	&:focus-visible {
@@ -255,9 +292,20 @@ body.site-header-nav-open { overflow: hidden; }
 	}
 }
 
+.site-header__search-wrap {
+	flex-shrink: 0;
+}
+
+.site-header__search-hint {
+	max-width: 42rem;
+}
+
 .site-header__search-panel {
+	position: relative;
+	z-index: 1042;
 	border-top: 1px solid $border-mid;
 	background: $surface;
+	box-shadow: 0 8px 24px rgba($ink, 0.08);
 
 	&.is-open {
  display: block;
@@ -272,10 +320,10 @@ body.site-header-search-open {
 
 // Laptop+ inline primary nav (P36) — fullscreen overlay remains < lg
 .site-header__desktop-nav {
-	flex: 1 1 auto;
-	justify-content: center;
+	flex: 0 1 auto;
+	justify-content: flex-start;
 	min-width: 0;
-	margin-inline: 0.5rem 1rem;
+	margin-inline: 0;
 
 	&__list {
  display: flex;

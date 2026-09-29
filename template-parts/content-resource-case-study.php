@@ -1,25 +1,31 @@
 <?php
 /**
- * Case study single resource.
+ * Case study — outcome metrics + three-act narrative (Instant Press-style).
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 $post_id = get_the_ID();
+msr_publishing_resource_single_open( 'case-study' );
+msr_publishing_resource_single_render_chrome( $post_id );
+msr_publishing_resource_single_preface_open( 'case-study' );
 ?>
-<article id="post-<?php the_ID(); ?>" <?php post_class( 'resource-single resource-single--case-study container py-4' ); ?>>
-	<?php get_template_part( 'template-parts/resource/single', 'header' ); ?>
-	<?php msr_publishing_render_single_utility_band( $post_id ); ?>
-	<?php msr_publishing_render_resource_programme_cta( $post_id ); ?>
-	<?php msr_publishing_render_case_study_industry( $post_id ); ?>
-	<?php msr_publishing_render_case_study_metrics( $post_id ); ?>
-	<?php msr_publishing_render_key_takeaways( $post_id ); ?>
-	<?php msr_publishing_render_case_study_narrative( $post_id ); ?>
-
-	<div class="entry-content resource-single__body">
-		<?php the_content(); ?>
-	</div>
-	<?php get_template_part( 'template-parts/resource/single', 'related' ); ?>
-	<?php msr_publishing_render_resource_commentary_crosslink( $post_id ); ?>
-	<?php msr_publishing_render_resource_single_subscribe(); ?>
-</article>
+<div class="resource-case-study__summary-band">
+	<?php
+	msr_publishing_render_case_study_industry( $post_id );
+	msr_publishing_render_case_study_metrics( $post_id );
+	?>
+</div>
+<?php
+msr_publishing_render_case_study_narrative( $post_id );
+msr_publishing_render_key_takeaways( $post_id );
+if ( ! msr_publishing_case_study_has_psr_content( $post_id ) ) {
+	msr_publishing_render_resource_format_preview(
+		$post_id,
+		__( 'At a glance', 'msrpublishing' )
+	);
+}
+msr_publishing_resource_single_preface_close();
+msr_publishing_resource_single_render_body( $post_id, false );
+msr_publishing_resource_single_render_footer();
+msr_publishing_resource_single_close();

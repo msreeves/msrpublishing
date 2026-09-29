@@ -2,7 +2,7 @@
 /**
  * Fallback template when no more specific template matches.
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 get_header();

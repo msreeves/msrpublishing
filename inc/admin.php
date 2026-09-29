@@ -2,7 +2,7 @@
 /**
  * Admin-first helpers — resolve URLs and nav from WP (menus, pages, terms), not hardcoded paths.
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 /**
@@ -105,7 +105,7 @@ function msr_publishing_get_nav_links_from_location( $location ) {
 function msr_publishing_get_primary_nav_fallback_links() {
 	$links = array(
 		array(
-			'title' => __( 'Home', 'msrsandbox' ),
+			'title' => __( 'Home', 'msrpublishing' ),
 			'url'   => home_url( '/' ),
 		),
 	);
@@ -113,20 +113,20 @@ function msr_publishing_get_primary_nav_fallback_links() {
 	$resources = get_post_type_archive_link( 'resource' );
 	if ( $resources ) {
 		$links[] = array(
-			'title' => __( 'Resources', 'msrsandbox' ),
+			'title' => __( 'Resources', 'msrpublishing' ),
 			'url'   => $resources,
 		);
 	}
 
 	$links[] = array(
-		'title' => __( 'Topics', 'msrsandbox' ),
+		'title' => __( 'Topics', 'msrpublishing' ),
 		'url'   => msr_publishing_get_topic_hub_url(),
 	);
 
 	$insights = msr_publishing_get_page_url( 'insights', '/insights/' );
 	if ( $insights ) {
 		$links[] = array(
-			'title' => __( 'Insights', 'msrsandbox' ),
+			'title' => __( 'Insights', 'msrpublishing' ),
 			'url'   => $insights,
 		);
 	}
@@ -134,7 +134,7 @@ function msr_publishing_get_primary_nav_fallback_links() {
 	$about = msr_publishing_get_page_url( 'about', '/about/' );
 	if ( $about ) {
 		$links[] = array(
-			'title' => __( 'About', 'msrsandbox' ),
+			'title' => __( 'About', 'msrpublishing' ),
 			'url'   => $about,
 		);
 	}
@@ -142,7 +142,7 @@ function msr_publishing_get_primary_nav_fallback_links() {
 	$subscribe = msr_publishing_get_page_url( 'subscribe', '/subscribe/' );
 	if ( $subscribe ) {
 		$links[] = array(
-			'title' => __( 'Subscribe', 'msrsandbox' ),
+			'title' => __( 'Subscribe', 'msrpublishing' ),
 			'url'   => $subscribe,
 		);
 	}

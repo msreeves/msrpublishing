@@ -2,7 +2,7 @@
 /**
  * Author archive — expert profiles + attributed commentary and resources.
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 get_header();
@@ -16,7 +16,7 @@ $expert = msr_publishing_get_expert_from_author_object( $author );
 
 		<?php if ( have_posts() ) : ?>
 			<section class="publishing-author-archive__commentary mb-5" aria-labelledby="author-commentary-heading">
-				<h2 id="author-commentary-heading" class="h4 mb-3"><?php esc_html_e( 'Commentary', 'msrsandbox' ); ?></h2>
+				<h2 id="author-commentary-heading" class="h4 mb-3"><?php esc_html_e( 'Commentary', 'msrpublishing' ); ?></h2>
 				<div class="row g-3 msr-reveal-stagger">
 					<?php
 					while ( have_posts() ) {
@@ -32,8 +32,8 @@ $expert = msr_publishing_get_expert_from_author_object( $author );
 			the_posts_pagination(
 				array(
 					'mid_size'  => 1,
-					'prev_text' => __( 'Previous', 'msrsandbox' ),
-					'next_text' => __( 'Next', 'msrsandbox' ),
+					'prev_text' => __( 'Previous', 'msrpublishing' ),
+					'next_text' => __( 'Next', 'msrpublishing' ),
 				)
 			);
 			?>
@@ -45,7 +45,7 @@ $expert = msr_publishing_get_expert_from_author_object( $author );
 			if ( $resources->have_posts() ) :
 				?>
 				<section class="publishing-author-archive__resources" aria-labelledby="author-resources-heading">
-					<h2 id="author-resources-heading" class="h4 mb-3"><?php esc_html_e( 'Resources', 'msrsandbox' ); ?></h2>
+					<h2 id="author-resources-heading" class="h4 mb-3"><?php esc_html_e( 'Resources', 'msrpublishing' ); ?></h2>
 					<div class="row g-3 msr-reveal-stagger">
 						<?php
 						while ( $resources->have_posts() ) {
@@ -61,7 +61,7 @@ $expert = msr_publishing_get_expert_from_author_object( $author );
 			<?php endif; ?>
 		<?php endif; ?>
 	<?php else : ?>
-		<p class="text-muted"><?php esc_html_e( 'Author not found.', 'msrsandbox' ); ?></p>
+		<p class="text-muted"><?php esc_html_e( 'Author not found.', 'msrpublishing' ); ?></p>
 	<?php endif; ?>
 </main>
 <?php

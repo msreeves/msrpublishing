@@ -2,7 +2,7 @@
 /**
  * Generic page template (publishing chrome).
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 get_header();

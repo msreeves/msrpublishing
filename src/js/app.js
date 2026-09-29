@@ -9,7 +9,6 @@ window.bootstrap = { Tab, Carousel };
 
 import '../scss/app.scss';
 import './scroll-reveal.js';
-import './publishing-filter-tabs.js';
 import './publishing-nav.js';
 import './publishing-home.js';
 import './publishing-single.js';

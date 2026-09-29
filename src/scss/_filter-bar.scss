@@ -98,6 +98,62 @@
 	}
 }
 
+// Chip variant — discovery panel rows (full width, wrap on all breakpoints)
+.publishing-filter-bar--chips {
+	margin-bottom: 0;
+	width: 100%;
+	max-width: 100%;
+	min-width: 0;
+	overflow: visible;
+
+	.publishing-filter-bar__list {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: flex-start;
+		align-items: center;
+		gap: 0.4rem 0.5rem;
+		width: 100%;
+		max-width: 100%;
+		min-width: 0;
+		padding: 0;
+		border-bottom: 0;
+		overflow: visible;
+	}
+
+	.publishing-filter-bar__link,
+	.publishing-filter-bar__tab {
+		padding: 0.4rem 0.85rem;
+		border-radius: 999px;
+		font-size: 0.875rem;
+		font-weight: 600;
+		line-height: 1.35;
+		color: $text-secondary;
+		background: $paper;
+		border: 1px solid $border-mid;
+		white-space: nowrap;
+
+		&::after {
+			display: none;
+		}
+
+		&:hover,
+		&:focus-visible {
+			color: $ink;
+			border-color: rgba($ink, 0.22);
+			background: $paper;
+		}
+	}
+
+	.publishing-filter-bar__link.is-active,
+	.publishing-filter-bar__link[aria-current='page'],
+	.publishing-filter-bar__tab.is-active {
+		color: $paper;
+		background: $ink;
+		border-color: $ink;
+		font-weight: 700;
+	}
+}
+
 @media (prefers-reduced-motion: reduce) {
 	.publishing-filter-bar {
 		&__link,

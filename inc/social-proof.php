@@ -2,7 +2,7 @@
 /**
  * Home social proof band — stats + programme logos (P50).
  *
- * @package msrsandbox
+ * @package msrpublishing
  */
 
 /**
@@ -33,19 +33,19 @@ function msr_publishing_get_home_social_proof_stats_defaults() {
 	return array(
 		array(
 			'value' => $resources > 0 ? (string) $resources : '20',
-			'label' => __( 'Resources', 'msrsandbox' ),
+			'label' => __( 'Resources', 'msrpublishing' ),
 		),
 		array(
 			'value' => '6',
-			'label' => __( 'Formats', 'msrsandbox' ),
+			'label' => __( 'Formats', 'msrpublishing' ),
 		),
 		array(
 			'value' => $commentary > 0 ? (string) $commentary : '12',
-			'label' => __( 'Insights', 'msrsandbox' ),
+			'label' => __( 'Insights', 'msrpublishing' ),
 		),
 		array(
 			'value' => $programmes > 0 ? (string) $programmes : '3',
-			'label' => __( 'MSR programmes', 'msrsandbox' ),
+			'label' => __( 'MSR programmes', 'msrpublishing' ),
 		),
 	);
 }
@@ -163,7 +163,7 @@ function msr_publishing_get_home_social_proof_logos() {
  * @return bool
  */
 function msr_publishing_home_social_proof_enabled() {
-	return msr_publishing_get_option_bool( 'home_social_proof_enabled', true );
+	return msr_publishing_get_option_bool( 'home_social_proof_enabled', false );
 }
 
 /**
@@ -174,7 +174,7 @@ function msr_publishing_home_social_proof_enabled() {
 function msr_publishing_get_home_social_proof_eyebrow() {
 	return msr_publishing_get_option_string(
 		'home_social_proof_eyebrow',
-		__( 'Programme reach', 'msrsandbox' )
+		__( 'Programme reach', 'msrpublishing' )
 	);
 }
 
