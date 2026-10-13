@@ -3,7 +3,7 @@
  * MSR Events programme links (hub, awards, seminars) for Atlas Briefing resources.
  *
  * Defaults are production URLs (safe when the theme ships). Local requests remap to
- * MAMP; non-local requests scrub any leftover MAMP hosts. See
+ * Herd; non-local requests scrub any leftover local dev hosts. See
  * config/programme-urls.json + docs/plans/programmes/msr-estate-url-lock-playbook.md.
  *
  * @package msrpublishing
@@ -22,27 +22,27 @@ function msr_publishing_get_programme_url_pairs() {
 
 	$pairs = array(
 		array(
-			'local' => 'http://127.0.0.1:8888/sites/wp/events/msrseminars',
+			'local' => 'http://msrevents.local/msrseminars',
 			'prod'  => 'https://www.msreeves.co.uk/events/msrseminars',
 		),
 		array(
-			'local' => 'http://127.0.0.1:8888/sites/wp/events/msrawards',
+			'local' => 'http://msrevents.local/msrawards',
 			'prod'  => 'https://www.msreeves.co.uk/events/msrawards',
 		),
 		array(
-			'local' => 'http://127.0.0.1:8888/sites/wp/events',
+			'local' => 'http://msrevents.local',
 			'prod'  => 'https://www.msreeves.co.uk/events',
 		),
 		array(
-			'local' => 'http://msrevents.local:8888/msrseminars',
+			'local' => 'http://msrevents.local/msrseminars',
 			'prod'  => 'https://www.msreeves.co.uk/events/msrseminars',
 		),
 		array(
-			'local' => 'http://msrevents.local:8888/msrawards',
+			'local' => 'http://msrevents.local/msrawards',
 			'prod'  => 'https://www.msreeves.co.uk/events/msrawards',
 		),
 		array(
-			'local' => 'http://msrevents.local:8888',
+			'local' => 'http://msrevents.local',
 			'prod'  => 'https://www.msreeves.co.uk/events',
 		),
 	);
@@ -58,7 +58,7 @@ function msr_publishing_get_programme_url_pairs() {
 }
 
 /**
- * Whether the current request looks like local MAMP / .local.
+ * Whether the current request looks like local / .local.
  *
  * @return bool
  */
@@ -79,11 +79,11 @@ function msr_publishing_is_local_request() {
 		strpos( $host, '127.0.0.1' ) !== false
 		|| strpos( $host, 'localhost' ) !== false
 		|| strpos( $host, '.local' ) !== false
-		|| strpos( $host, ':8888' ) !== false
+		|| strpos( $host, ':8888' ) !== false // legacy-ok: retired local port
 	);
 
 	/**
-	 * Filter whether programme URLs should use the local MAMP map.
+	 * Filter whether programme URLs should use the local map.
 	 *
 	 * @param bool $local Detected local host.
 	 */
@@ -142,15 +142,15 @@ function msr_publishing_use_programme_ip_fallback() {
 }
 
 /**
- * Map msrevents.local programme URLs to MAMP docroot paths.
+ * Map msrevents.local programme URLs to legacy docroot paths.
  *
  * @return array<string, string>
  */
 function msr_publishing_get_programme_ip_fallback_map() {
 	return array(
-		'http://msrevents.local:8888/'             => 'http://127.0.0.1:8888/sites/wp/events/',
-		'http://msrevents.local:8888/msrawards/'   => 'http://127.0.0.1:8888/sites/wp/events/msrawards/',
-		'http://msrevents.local:8888/msrseminars/' => 'http://127.0.0.1:8888/sites/wp/events/msrseminars/',
+		'http://msrevents.local/'             => 'http://msrevents.local/',
+		'http://msrevents.local/msrawards/'   => 'http://msrevents.local/msrawards/',
+		'http://msrevents.local/msrseminars/' => 'http://msrevents.local/msrseminars/',
 	);
 }
 
@@ -182,8 +182,8 @@ function msr_publishing_replace_url_prefix( $url, $from, $to ) {
 /**
  * Resolve programme URL for the current environment.
  *
- * - Local: prod defaults → MAMP; msrevents.local → 127 path when needed.
- * - Live: any MAMP host → prod (never emit 127.0.0.1 / .local / :8888).
+ * - Local: prod defaults → local; msrevents.local → 127 path when needed.
+ * - Live: any Herd host → prod (never emit 127.0.0.1 / .local / :8888). legacy-ok
  *
  * @param string $url Programme URL.
  * @return string
