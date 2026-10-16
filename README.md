@@ -1,4 +1,6 @@
 Theme Name: msrpublishing
+
+**All agents, all areas:** this folder follows the workspace one-team law — [`docs/law/agent-collaboration.md`](../../../../../../docs/law/agent-collaboration.md) · handover [`docs/reference/agent-handover.md`](../../../../../../docs/reference/agent-handover.md) · commits are automatic ([`repos.md`](../../../../../../docs/law/repos.md#automatic-commit--push-official-process)).
 Theme URI: https://www.msreeves.co.uk/msrpublishing
 Description: MSRSandbox Theme
 Author: Michael Reeves
